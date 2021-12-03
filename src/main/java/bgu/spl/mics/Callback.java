@@ -5,7 +5,7 @@ package bgu.spl.mics;
  */
 public interface Callback<T> {
 //omershafrirus
-    //omer shafrir
+    //omer shafrir main
     public void call(T c);
 
 }
