@@ -4,6 +4,7 @@ omer:
 1. finish msgbusimpl test                   V
 2. finish setUp & tearDown functions        V
 3. finish maven
+4. finish setUp tearDown in future test
 
 erez:
 1. finish future tests
