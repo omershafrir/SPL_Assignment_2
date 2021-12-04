@@ -65,6 +65,10 @@ public class Future<T> {
 		return null;
 	}
 
+	/** ADDED FUNCTION
+	 * simple query - getter
+	 * @return TRUE if the Future as been resolved, else false
+	 */
 	public boolean isResolved(){
 		return this.isResolved;
 	}

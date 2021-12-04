@@ -24,7 +24,6 @@ public class MessageBusImplTest {
     public static void setUp() throws Exception {
         msb = MessageBusImpl.getInstance();
         stservice = new StudentService("Marina");
-        ;
         stservice2 = new StudentService("Adler");
         gpuservice = new GPUService("GPU");
         ex_event = new ExampleEvent("Drake Concert");
