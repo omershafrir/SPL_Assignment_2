@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="kkk">
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/Callback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/Callback.java" afterDir="false" />
-    </list>
+    <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="kkk" />
     <list id="1ddb9f75-118f-4908-a0c1-6f7c67032e74" name="Changes by Erez" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +103,6 @@
       <workItem from="1638384019420" duration="2492000" />
       <workItem from="1638516093278" duration="14700000" />
       <workItem from="1638552354859" duration="459000" />
-      <workItem from="1638617878919" duration="210000" />
     </task>
     <task id="LOCAL‎00001" summary="kkk">
       <created>1638428440822</created>

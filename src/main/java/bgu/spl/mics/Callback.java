@@ -7,6 +7,8 @@ package bgu.spl.mics;
 
 
 // omer wa written here
+
+//omer
 public interface Callback<T> {
 /**
  *
