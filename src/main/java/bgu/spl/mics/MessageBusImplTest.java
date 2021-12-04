@@ -31,7 +31,7 @@ public class MessageBusImplTest {
         StudentService stservice = new StudentService("Marina");
         msb.register(stservice);
         ExampleEvent ex = new ExampleEvent("Adler");
-        msb.subscribeEvent(ex.getClass() , stservice);
+        msb.subscribeEvent(ex.getClass(), stservice);
         Future<String> output = msb.sendEvent(ex);
         //before await output gets a null future
         assertNull(output.get());
@@ -40,7 +40,7 @@ public class MessageBusImplTest {
         assertNotNull(output.get());
         msb = null;
         stservice = null;
-
+    }
 
 
 
@@ -57,7 +57,7 @@ public class MessageBusImplTest {
 //                return name;
 //            }
 //        };
-    }
+
 
     @Test
     public void TestsubscribeBroadcast() {

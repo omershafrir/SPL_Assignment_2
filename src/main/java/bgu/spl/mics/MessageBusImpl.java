@@ -27,6 +27,14 @@ public class MessageBusImpl implements MessageBus {
 		return found;
 	}
 
+
+	/**@param <T>  The type of the result expected by the completed event.
+	 * @param type The type to subscribe to,
+	 * @param m    The subscribing micro-service.
+	 * @pre
+	 * @inv
+	 * @post m is subscribed to events of
+	 */
 	@Override
 	public <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m) {
 		// TODO Auto-generated method stub
