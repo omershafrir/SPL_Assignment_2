@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/Future.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/Future.java" afterDir="false" />
+    <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="kkk">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.txt" afterDir="false" />
     </list>
-    <list id="1ddb9f75-118f-4908-a0c1-6f7c67032e74" name="Changes by Erez" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,7 +22,7 @@
     </option>
   </component>
   <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="erez" />
+    <option name="BRANCH" value="omer" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -43,12 +43,15 @@
     </option>
   </component>
   <component name="ProjectId" id="21gy8J5j47foblvOAOifzHAOfWH" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -134,6 +137,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="kkk" />
     <option name="LAST_COMMIT_MESSAGE" value="kkk" />
   </component>

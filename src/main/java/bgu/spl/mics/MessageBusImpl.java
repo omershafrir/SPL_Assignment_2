@@ -9,30 +9,44 @@ import java.util.Queue;
  * Only private fields and methods can be added to this class.
  */
 public class MessageBusImpl implements MessageBus {
-	//the queque supposed to be a queque of events and brodcast - messeges
+	//fields:
 	private LinkedList<Queue<Message>> queueLinkedList;
+	private static MessageBusImpl single_instance;
+
+
+	private MessageBusImpl(){
+		LinkedList<Queue<Message>> queueLinkedList= new LinkedList<Queue<Message>>();
+	}
+
+	public static MessageBusImpl getInstance(){
+		if(single_instance == null)
+			single_instance = new MessageBusImpl();
+
+		return single_instance;
+	}
+
 
 	public LinkedList<Queue<Message>> getQueueLinkedList(){
 		return queueLinkedList;
 	}
 
+	@Override
 	public boolean isSubscribed(Class<? extends Message<T>> type, MicroService m){
 		// TODO
 		return false;
 	}
 
-//	//was implemented for subscribebrodcast test
-//	public boolean all_contains_x(Broadcast b) {
-//		boolean found = true;
-//		for(Queue<Message> x : queueLinkedList){
-//			if (!x.contains(b)){
-//				found = false;
-//			}
-//		}
-//
-//		return found;
-//	}
+	@Override
+	public boolean isRegistered(MicroService m){
+		// TODO
+		return false;
+	}
 
+	@Override
+	public boolean isQueueEmpty(MicroService m){
+		// TODO
+		return false;
+	}
 
 	/**@param <T>  The type of the result expected by the completed event.
 	 * @param type The type to subscribe to,
