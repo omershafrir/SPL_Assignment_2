@@ -12,20 +12,26 @@ public class MessageBusImpl implements MessageBus {
 	//the queque supposed to be a queque of events and brodcast - messeges
 	private LinkedList<Queue<Message>> queueLinkedList;
 
-//	public LinkedList<Queue<MicroService>> getQueueLinkedList(){
-//		return queueLinkedList;
-//	}
-	//was implemented for subscribebrodcast test
-	public boolean all_contains_x(Broadcast b) {
-		boolean found = true;
-		for(Queue<Message> x : queueLinkedList){
-			if (!x.contains(b)){
-				found = false;
-			}
-		}
-
-		return found;
+	public LinkedList<Queue<Message>> getQueueLinkedList(){
+		return queueLinkedList;
 	}
+
+	public boolean isSubscribed(Class<? extends Message<T>> type, MicroService m){
+		// TODO
+		return false;
+	}
+
+//	//was implemented for subscribebrodcast test
+//	public boolean all_contains_x(Broadcast b) {
+//		boolean found = true;
+//		for(Queue<Message> x : queueLinkedList){
+//			if (!x.contains(b)){
+//				found = false;
+//			}
+//		}
+//
+//		return found;
+//	}
 
 
 	/**@param <T>  The type of the result expected by the completed event.
