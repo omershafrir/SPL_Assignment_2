@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * No public constructor is allowed except for the empty constructor.
  */
 public class Future<T> {
-	//field that indicates if this is resolveds
+	//field that indicates if this is resolves
 	private boolean isResolved = false;
 	/**
 	 * This should be the only public constructor in this class.
