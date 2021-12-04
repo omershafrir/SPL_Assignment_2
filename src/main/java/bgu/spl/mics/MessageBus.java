@@ -93,5 +93,33 @@ public interface MessageBus {
      *                              to became available.
      */
     Message awaitMessage(MicroService m) throws InterruptedException;
-    
+
+    /** ADDED FUNCTION
+     *
+     * this method checks if MicroService m is subscribed to a Class which extends
+     * Message<T>.
+     * @param type The type of Class we want to check
+     * @param m The microservice we want to check if subscribed
+     * @return TRUE if it is subscribed, else otherwise
+     */
+    boolean isSubscribed(Class<? extends Message<T>> type, MicroService m);
+
+    /** ADDED FUNCTION
+     *
+     * this method checks if MicroService m is registered to the message bus
+     * @param m The microservice we want to check if registered
+     * @return TRUE if it is subscribed, else otherwise
+     */
+    boolean isRegistered(MicroService m);
+
+    /** ADDED FUNCTION
+     *
+     * this method checks if MicroService m's queue is the message bus is empty
+     * assumes m is registered to the message bus
+     * @param m The microservice which queue we want to check
+     * @return TRUE if it is empty, else otherwise
+     */
+    boolean isQueueEmpty(MicroService m);
+
+
 }

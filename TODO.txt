@@ -1,8 +1,8 @@
 TODO LIST:
 
 omer:
-1. finish msgbusimpl test
-2. finish setUp & tearDown functions
+1. finish msgbusimpl test                   V
+2. finish setUp & tearDown functions        V
 3. finish maven
 
 erez:
