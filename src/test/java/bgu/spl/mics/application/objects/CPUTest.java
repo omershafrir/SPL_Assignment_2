@@ -4,9 +4,6 @@ import bgu.spl.mics.application.objects.*;
 import org.junit.Test;
 import org.junit.After;
 import org.junit.Before;
-
-
-
 import static org.junit.Assert.*;
 
 public class CPUTest {
@@ -45,8 +42,4 @@ public class CPUTest {
         assertEquals(sizeBefore -1 , cpuExample.getDataSize() );
     }
 
-    @Test
-    public void testSendProcessedData() {
-
-    }
 }

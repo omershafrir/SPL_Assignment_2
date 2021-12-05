@@ -20,12 +20,13 @@ public class CPU {
 
     /**
      * constructor of CPU
-     * @param cores Number of cores of the CPU
-     * @param data The data which the CPU needs to process
+     *
+     * @param cores   Number of cores of the CPU
+     * @param data    The data which the CPU needs to process
      * @param cluster The single cluster instance which is connected to this CPU
      * @returns the CPU instance
      */
-    public CPU(int cores, Cluster cluster){
+    public CPU(int cores, Cluster cluster) {
         this.cores = cores;
         this.data = new LinkedList<DataBatch>();
         this.cluster = cluster;
@@ -34,7 +35,6 @@ public class CPU {
     }
 
     /**
-     *
      * @return num of cores
      */
     public int getCores() {
@@ -42,7 +42,6 @@ public class CPU {
     }
 
     /**
-     *
      * @return collection of data batches
      */
     public Collection<DataBatch> getData() {
@@ -50,15 +49,13 @@ public class CPU {
     }
 
     /**
-     *
      * @return size of data batches collection
      */
-    public int getDataSize(){
+    public int getDataSize() {
         return data.size();
     }
 
     /**
-     *
      * @return cluster
      */
     public Cluster getCluster() {
@@ -67,31 +64,28 @@ public class CPU {
 
     /**
      * this method adds new DataBatch to the CPU unprocessed data collection
+     *
      * @param newData new data that is being inserted to the collection
      * @pre @param newData != null
      * @post this.data.size() = @pre(this.data.size()) + 1
      * @post this.data.getLast() = @param newData
      */
-    public void addData(DataBatch newData){
+    public void addData(DataBatch newData) {
         //TODO
     }
 
     /**
-     * this method processes 1 data batch and removes it from the data collection
+     * this method processes 1 data batch ,removes it from the data collection
+     * and sends it back to the cluster
+     *
+     * @return processed data batch
      * @pre this.data.size() > 0
      * @post this.data.size() + 1 = @pre(this.data.size())
+     * @post @return value DataBatch != null
      */
-    public void processData(){
+    public DataBatch processData() {
 //         TODO - after the CPU got the raw data from the GPU
-    }
-
-    /**
-     *this method sends back to the cluster the processed data
-     * @return processed data batch
-     * @pre @return value DataBatch != null
-     */
-    public DataBatch sendProcessedData(){
-         // TODO - after the CPU got the raw data from the GPU
         return null;
     }
 }
+
