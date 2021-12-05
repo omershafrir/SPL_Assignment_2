@@ -6,8 +6,8 @@ omer:
 3. finish maven
 
 erez:
-1. finish future tests
-2. finish DBC for future
+1. finish future tests                      V
+2. finish DBC for future                    not needed
 
 
 *: finish dbc for GPU , CPU
