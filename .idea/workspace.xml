@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="kkk">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Cluster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Cluster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/FutureTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/FutureTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/GPUTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/application/objects/GPUTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/application/objects/CPUTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/application/objects/CPUTest.java" afterDir="false" />
-    </list>
-    <list id="e32429f1-c066-413c-902e-1e2e9337cfe7" name="Changes by Erez" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/FutureTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/FutureTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="kkk" />
+    <list id="253d0b2f-25fa-45a7-b2ae-7e5550db3c00" name="Changes by Erez" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,15 +29,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/test/java/bgu/spl/mics/FutureTest.java">
-      <ranges>
-        <range start1="0" end1="1" start2="0" end2="1" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
-        <range start1="28" end1="29" start2="28" end2="29" changelist="e32429f1-c066-413c-902e-1e2e9337cfe7" />
-        <range start1="36" end1="37" start2="36" end2="37" changelist="e32429f1-c066-413c-902e-1e2e9337cfe7" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
