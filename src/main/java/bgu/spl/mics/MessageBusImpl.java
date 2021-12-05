@@ -30,7 +30,7 @@ public class MessageBusImpl implements MessageBus {
 
 
 	@Override
-	public boolean isSubscribed(Class<? extends Message<T>> type, MicroService m){
+	public <T> boolean isSubscribed(Class<? extends Message> type, MicroService m){
 		// TODO
 		return false;
 	}

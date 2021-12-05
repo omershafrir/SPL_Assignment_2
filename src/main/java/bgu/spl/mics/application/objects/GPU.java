@@ -20,7 +20,8 @@ public class GPU {
         this.cluster = cluster;
     }
 
-    public DataBatch sendUnProcessedData(){
+
+    public DataBatch sendUnprocessedData(){
         //TODO - send chunks of unprocessed data in batches of 100 sample
         return null;
     }
