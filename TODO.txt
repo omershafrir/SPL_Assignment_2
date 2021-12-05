@@ -4,12 +4,11 @@ omer:
 1. finish msgbusimpl test                   V
 2. finish setUp & tearDown functions        V
 3. finish maven
+4. finish DBC msgbusimpl
+5. finish test & dbc CPU
 
 erez:
 1. finish future tests                      V
-2. finish DBC for future                    not needed
+2. finish DBC for future
+3. finish test & dbc GPU
 
-
-*: finish dbc for GPU , CPU
-*: add more tests for GPU CPU
-*: finish dbc for msgbusimpl
