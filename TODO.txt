@@ -9,6 +9,7 @@ omer:
 
 erez:
 1. finish future tests                      V
-2. finish DBC for future
-3. finish test & dbc GPU
+2. finish DBC for future                    V
+3. dbc GPU                                  V
+4. finish test
 

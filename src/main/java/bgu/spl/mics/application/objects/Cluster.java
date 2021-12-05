@@ -10,21 +10,26 @@ package bgu.spl.mics.application.objects;
  */
 public class Cluster {
 
-	public Cluster() {
-	}
-
+	private static Cluster single_instance;
 	/**
      * Retrieves the single instance of this class.
      */
 	public static Cluster getInstance() {
-		//TODO: Implement this
-		return null;
+		if(single_instance == null){
+			single_instance = new Cluster();
+		}
+		return single_instance;
 	}
 
 
-	//TODO - fun that send the data from the GPU through the Cluster to the CPU
-	public void sendData(){
+	//TODO - function that indicates if the data was sent from the GPU through the Cluster to the CPU
+	public boolean WasSentUnProcessedDataToCPU(){
+		return true;
+	}
 
+	//TODO - after the data was processed will indicate that the data was sent back to the GPU for training the model
+	public boolean WasSentProcessedDataToGPU(){
+		return true;
 	}
 
 }
