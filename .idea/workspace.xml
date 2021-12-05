@@ -6,21 +6,28 @@
   <component name="ChangeListManager">
     <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="kkk">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GPUTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GPUTest.java" afterDir="false" />
+    </list>
+    <list id="253d0b2f-25fa-45a7-b2ae-7e5550db3c00" name="Changes by Erez" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Cluster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Cluster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GPUTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GPUTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="CompilerWorkspaceConfiguration">
-    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
         <option value="JUnit4 Test Class" />
-        <option value="Class" />
       </list>
     </option>
   </component>
@@ -35,6 +42,26 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/test/java/GPUTest.java">
+      <ranges>
+        <range start1="0" end1="1" start2="0" end2="1" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="2" end1="3" start2="2" end2="3" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="10" end1="10" start2="10" end2="14" changelist="253d0b2f-25fa-45a7-b2ae-7e5550db3c00" />
+        <range start1="13" end1="13" start2="17" end2="21" changelist="253d0b2f-25fa-45a7-b2ae-7e5550db3c00" />
+        <range start1="20" end1="21" start2="28" end2="35" changelist="253d0b2f-25fa-45a7-b2ae-7e5550db3c00" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java">
+      <ranges>
+        <range start1="15" end1="15" start2="15" end2="16" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="20" end1="20" start2="21" end2="28" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="22" end1="22" start2="30" end2="37" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="23" end1="23" start2="38" end2="48" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="31" end1="31" start2="56" end2="60" changelist="253d0b2f-25fa-45a7-b2ae-7e5550db3c00" />
+      </ranges>
+    </file>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -44,6 +71,9 @@
         <option name="useMavenConfig" value="true" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="21gy8J5j47foblvOAOifzHAOfWH" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -68,23 +98,24 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="bgu.spl.mics.application.objects" />
       <recent name="bgu.spl.mics" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="bgu.spl.mics" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.spl221ass2 [compile]">
+  <component name="RunManager">
     <configuration name="CRMSRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.application.CRMSRunner" />
-      <module name="SPL_Assignment_2" />
+      <module name="spl221ass2" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="bgu.spl.mics.application.*" />
@@ -95,35 +126,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="spl221ass2 [compile]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="compile" />
-              </list>
-            </option>
-            <option name="pomFileName" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Application.CRMSRunner" />
-      <item itemvalue="Maven.spl221ass2 [compile]" />
-    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.CRMSRunner" />
@@ -144,7 +146,6 @@
       <workItem from="1638384019420" duration="2492000" />
       <workItem from="1638516093278" duration="14700000" />
       <workItem from="1638552354859" duration="459000" />
-      <workItem from="1638627322210" duration="8744000" />
     </task>
     <task id="LOCAL‎00001" summary="kkk">
       <created>1638428440822</created>

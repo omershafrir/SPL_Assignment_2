@@ -19,6 +19,13 @@ public class CPU {
         this.cluster = cluster;
     }
 
+    public void processData(){
+        /**
+         * TODO - after the CPU got the raw data from the GPU
+         * processing the data recieved from GPU
+         **/
+    }
+
     public DataBatch sendProcessedData(){
         /**
          * TODO - after the CPU got the raw data from the GPU

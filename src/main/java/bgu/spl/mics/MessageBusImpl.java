@@ -13,7 +13,10 @@ public class MessageBusImpl implements MessageBus {
 	private LinkedList<Queue<Message>> queueLinkedList;
 	private static MessageBusImpl single_instance;
 
-
+	/*** private constructor.
+	 *  to be called from getInstance() once.
+	 *
+	 */
 	private MessageBusImpl(){
 		LinkedList<Queue<Message>> queueLinkedList= new LinkedList<Queue<Message>>();
 	}
@@ -26,12 +29,8 @@ public class MessageBusImpl implements MessageBus {
 	}
 
 
-	public LinkedList<Queue<Message>> getQueueLinkedList(){
-		return queueLinkedList;
-	}
-
 	@Override
-	public boolean isSubscribed(Class<? extends Message<T>> type, MicroService m){
+	public <T> boolean isSubscribed(Class<? extends Message> type, MicroService m){
 		// TODO
 		return false;
 	}
