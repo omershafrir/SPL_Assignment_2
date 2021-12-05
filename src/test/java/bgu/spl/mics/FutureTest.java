@@ -1,23 +1,31 @@
-package bgu.spl.mics;
+package test.java.bgu.spl.mics;
 
+import bgu.spl.mics.Future;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import bgu.spl.mics.Future;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
 public class FutureTest {
-    Future<Integer> future;
+
+    public Future<Integer> future;
+
     @Before
     public void setUp(){
         future = new Future<Integer>();
     }
 
+    @After
+    public void tearDown(){
+        future = new Future<Integer>();
+    }
+
     @Test
     public void get() {
-        assertNull(future.get());
+        //was commented because future return the future value - this method NEVER returns null
+//        assertNull(future.get());
         Integer result = future.get() + 1;
         future.resolve(result);
         assertEquals("Expected: future.get() == result.",future.get(),result);
@@ -25,7 +33,7 @@ public class FutureTest {
 
     @Test
     public void resolve() {
-        assertNull("future is initialized with null",future.get());
+//        assertNull("future is initialized with null",future.get());
         Integer result = future.get() + 1;
         future.resolve(result);
         assertNotNull("future result member should not be null after",future.get());
@@ -42,9 +50,10 @@ public class FutureTest {
     public void testGet() {
         //not resolved yet
         assertNull("The future is not resolved yet-but it is not null!",future.get(0, TimeUnit.MILLISECONDS));
-        Integer result = future.get() + 1;
+        Integer result = 2;
         future.resolve(result);
         //assuming 100 ms is a decent amount of time
         assertNotNull("The future should have been resolved by now",future.get(100, TimeUnit.MILLISECONDS));
+        assertEquals(new Integer(2), future.get(100, TimeUnit.MILLISECONDS));
     }
 }

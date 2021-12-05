@@ -13,11 +13,15 @@ import java.util.concurrent.TimeUnit;
 public class Future<T> {
 	//field that indicates if this is resolves
 	private boolean isResolved = false;
+	private T value;
+
+
 	/**
 	 * This should be the only public constructor in this class.
 	 */
 	public Future() {
-		//TODO: implement this
+		this.isResolved = false;
+		value = null;
 	}
 	
 	/**
@@ -26,7 +30,11 @@ public class Future<T> {
      * not been completed.
      * <p>
      * @return return the result of type T if it is available, if not wait until it is available.
-     * 	       
+     * @inv:
+	 * return value != null
+	 * @PRE:
+	 * @POST:
+	 * value != null
      */
 	public T get() {
 		//TODO: implement this.
@@ -35,14 +43,26 @@ public class Future<T> {
 	
 	/**
      * Resolves the result of this Future object.
+	 * @param result != null
+	 * @PRE:
+	 * value == null
+	 * @POST:
+	 * value != null
+	 * value == result
      */
 	public void resolve (T result) {
 		//TODO: implement this.
 		isResolved = true;
+		value = result;
 	}
 	
 	/**
      * @return true if this object has been resolved, false otherwise
+	 * @INV:
+	 * !(isResolved & value == null)
+	 * @PRE:
+	 * @POST:
+	 *
      */
 	public boolean isDone() {
 		//TODO: implement this.
@@ -59,6 +79,12 @@ public class Future<T> {
      * @return return the result of type T if it is available, if not, 
      * 	       wait for {@code timeout} TimeUnits {@code unit}. If time has
      *         elapsed, return null.
+	 *
+	 * @INV:
+	 * !(isResolved & value == null)
+	 * @PRE:
+	 * timeout >= 0
+	 * @POST:
      */
 	public T get(long timeout, TimeUnit unit) {
 		//TODO: implement this.
@@ -66,8 +92,12 @@ public class Future<T> {
 	}
 
 	/** ADDED FUNCTION
-	 * simple query - getter
+	 * basic query - getter
 	 * @return TRUE if the Future as been resolved, else false
+	 * @INV:
+	 * !(isResolved & value == null)
+	 * @PRE:
+	 * @POST:
 	 */
 	public boolean isResolved(){
 		return this.isResolved;

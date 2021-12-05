@@ -1,12 +1,11 @@
-package bgu.spl.mics;
+package test.java.bgu.spl.mics;
 
 
-import bgu.spl.mics.application.services.*;
+import main.java.bgu.spl.mics.application.services.*;
 import bgu.spl.mics.example.ServiceCreator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-example.messages.*;
 import bgu.slp.mics.MessageBusImpl;
 
 import java.util.LinkedList;

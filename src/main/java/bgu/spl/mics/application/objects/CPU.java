@@ -12,11 +12,15 @@ public class CPU {
     private int cores;
     private Collection<DataBatch> data;
     private Cluster cluster;
+    private int numberOfCpu;
+    private static int counterOfCpu = 1;
 
     public CPU(int cores, Collection<DataBatch> data, Cluster cluster){
         this.cores = cores;
         this.data = data;
         this.cluster = cluster;
+        this.numberOfCpu = counterOfCpu;
+        counterOfCpu++;
     }
 
     public void processData(){

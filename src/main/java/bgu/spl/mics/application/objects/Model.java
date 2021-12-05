@@ -1,5 +1,7 @@
-package bgu.spl.mics.application.objects;
+package main.java.bgu.spl.mics.application.objects;
 
+import bgu.spl.mics.application.objects.Data;
+import bgu.spl.mics.application.objects.Student;
 /**
  * Passive object representing a Deep Learning model.
  * Add all the fields described in the assignment as private fields.
@@ -15,12 +17,12 @@ public class Model {
     private Result result;
 
 
-    public Model(String name, Data data, Student student, Status status, Result result) {
+    public Model(String name, Data data, Student student) {
         this.name = name;
         this.data = data;
         this.student = student;
-        this.status = status;
-        this.result = result;
+        this.status = Status.PreTrained;
+        this.result = Result.None;
     }
 
     public String getName() {

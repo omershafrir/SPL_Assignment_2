@@ -1,4 +1,4 @@
-package bgu.spl.mics.application.objects;
+package main.java.bgu.spl.mics.application.objects;
 
 import org.junit.Test;
 import org.junit.After;
