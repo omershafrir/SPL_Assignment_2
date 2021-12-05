@@ -19,4 +19,10 @@ public class Cluster {
 		return null;
 	}
 
+
+	//TODO - fun that send the data from the GPU through the Cluster to the CPU
+	public void sendData(){
+
+	}
+
 }

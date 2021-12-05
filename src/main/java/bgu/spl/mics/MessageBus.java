@@ -102,7 +102,7 @@ public interface MessageBus {
      * @param m The microservice we want to check if subscribed
      * @return TRUE if it is subscribed, else otherwise
      */
-    boolean isSubscribed(Class<? extends Message<T>> type, MicroService m);
+    <T> boolean isSubscribed(Class<? extends Message> type, MicroService m);
 
     /** ADDED FUNCTION
      *
@@ -116,6 +116,9 @@ public interface MessageBus {
      *
      * this method checks if MicroService m's queue is the message bus is empty
      * assumes m is registered to the message bus
+     * IMPORTANT NOTE: the word 'Queue' DOES NOT refer to the specific data structure Queue,
+     * it is meant to refer to whatever data structure the programmer use to implement the 'message collection'
+     * each micro service has, in the message bus. (message collection refers to the queue described in the pdf).
      * @param m The microservice which queue we want to check
      * @return TRUE if it is empty, else otherwise
      */
