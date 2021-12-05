@@ -6,9 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="kkk">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Cluster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Cluster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/DataBatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/DataBatch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/CPUTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/FutureTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GPUTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/MessageBusImplTest.java" beforeDir="false" />
     </list>
     <list id="253d0b2f-25fa-45a7-b2ae-7e5550db3c00" name="Changes by Erez" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,7 +53,7 @@
     </option>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="21gy8J5j47foblvOAOifzHAOfWH" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -68,9 +75,9 @@
     <property name="create.test.in.the.same.root" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
@@ -85,7 +92,7 @@
       <recent name="bgu.spl.mics" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="CRMSRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.application.CRMSRunner" />
       <module name="spl221ass2" />
@@ -99,8 +106,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.Main" />
+      <module name="SPL_Assignment_2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bgu.spl.mics.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.CRMSRunner" />
       </list>
     </recent_temporary>
@@ -119,7 +140,8 @@
       <workItem from="1638384019420" duration="2492000" />
       <workItem from="1638516093278" duration="14700000" />
       <workItem from="1638552354859" duration="459000" />
-      <workItem from="1638703691679" duration="4831000" />
+      <workItem from="1638703691679" duration="16407000" />
+      <workItem from="1638727087803" duration="5503000" />
     </task>
     <task id="LOCAL‎00001" summary="kkk">
       <created>1638428440822</created>

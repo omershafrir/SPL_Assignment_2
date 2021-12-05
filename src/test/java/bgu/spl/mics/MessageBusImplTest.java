@@ -1,26 +1,23 @@
-package bgu.spl.mics;
+package test.java.bgu.spl.mics;
 
 
+import bgu.spl.mics.*;
 import bgu.spl.mics.application.services.*;
-import bgu.spl.mics.example.ServiceCreator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-example.messages.*;
-import bgu.slp.mics.MessageBusImpl;
-
-import java.util.LinkedList;
-import java.util.Queue;
+import bgu.spl.mics.MessageBusImpl;
+import bgu.spl.mics.example.messages.*;
 
 import static org.junit.Assert.*;
 
 public class MessageBusImplTest {
-    MessageBusImpl msb;
-    StudentService stservice;
-    StudentService stservice2;
-    GPUService gpuservice;
-    ExampleEvent ex_event;
-    ExampleBroadcast ex_broad;
+    static MessageBusImpl msb;
+    static StudentService stservice;
+    static StudentService stservice2;
+    static  GPUService gpuservice;
+    static  ExampleEvent ex_event;
+    static ExampleBroadcast ex_broad;
 
     @Before
     public static void setUp() throws Exception {
@@ -36,7 +33,7 @@ public class MessageBusImplTest {
     @After
     public static void tearDown(MessageBusImpl msb) throws Exception {
         msb = null;
-        stservice = null;;
+        stservice = null;
         stservice2 = null;
         gpuservice = null;
         ex_event = null;
@@ -46,9 +43,9 @@ public class MessageBusImplTest {
     @Test
     public void testSubscribeEvent() throws Exception {
         msb.register(stservice);
-        assertFalse(msb.isSubscribed(ex_event.getClass(), stservice));
+        assertFalse(msb.isSubscribedToEvent(ex_event.getClass(), stservice));
         msb.subscribeEvent(ex_event.getClass(), stservice);
-        assertTrue(msb.isSubscribed(ex_event.getClass(), stservice));
+        assertTrue(msb.isSubscribedToEvent(ex_event.getClass(), stservice));
 
     }
 
@@ -58,17 +55,17 @@ public class MessageBusImplTest {
         msb.register(stservice2);
         msb.register(gpuservice);
 
-        assertFalse(msb.isSubscribed(ex_broad.getClass() , stservice));
-        assertFalse(msb.isSubscribed(ex_broad.getClass() , stservice2));
-        assertFalse(msb.isSubscribed(ex_broad.getClass() , gpuservice));
+        assertFalse(msb.isSubscribedToBroadcast(ex_broad.getClass() , stservice));
+        assertFalse(msb.isSubscribedToBroadcast(ex_broad.getClass() , stservice2));
+        assertFalse(msb.isSubscribedToBroadcast(ex_broad.getClass() , gpuservice));
 
         msb.subscribeBroadcast(ex_broad.getClass(), stservice);
         msb.subscribeBroadcast(ex_broad.getClass(), stservice2);
         msb.subscribeBroadcast(ex_broad.getClass(), gpuservice);
 
-        assertTrue(msb.isSubscribed(ex_broad.getClass() , stservice));
-        assertTrue(msb.isSubscribed(ex_broad.getClass() , stservice2));
-        assertTrue(msb.isSubscribed(ex_broad.getClass() , gpuservice));
+        assertTrue(msb.isSubscribedToBroadcast(ex_broad.getClass() , stservice));
+        assertTrue(msb.isSubscribedToBroadcast(ex_broad.getClass() , stservice2));
+        assertTrue(msb.isSubscribedToBroadcast(ex_broad.getClass() , gpuservice));
 
     }
 

@@ -15,14 +15,12 @@ public class MessageBusImpl implements MessageBus {
 
 	/*** private constructor.
 	 *  to be called from getInstance() once.
-	 *
 	 */
 	private MessageBusImpl(){
 		LinkedList<Queue<Message>> queueLinkedList= new LinkedList<Queue<Message>>();
 	}
 
 	/***
-	 *
 	 * @return instance : Only instance of Message Bus Implementation
 	 */
 	public static MessageBusImpl getInstance(){
@@ -34,11 +32,10 @@ public class MessageBusImpl implements MessageBus {
 
 
 	/***
-	 *
 	 * @param type The type of Class we want to check
 	 * @param m The microservice we want to check if subscribed
-	 * isSubscribedToEvent is basic query
-	 *
+	 * isSubscribedToEvent is basic query, therefore @pre , @post,
+	 * @inv are irrelevant.
 	 */
 	@Override
 	public <T> boolean isSubscribedToEvent(Class<? extends Event<T>> type, MicroService m){
@@ -47,10 +44,10 @@ public class MessageBusImpl implements MessageBus {
 	}
 
 	/***
-	 *
 	 * @param type The type of Class we want to check
 	 * @param m The microservice we want to check if subscribed
-	 *
+	 * isSubscribedToBroadcast is basic query, therefore @pre , @post,
+	 * @inv are irrelevant.
 	 */
 	@Override
 	public boolean isSubscribedToBroadcast(Class<? extends Broadcast> type, MicroService m){
@@ -59,9 +56,9 @@ public class MessageBusImpl implements MessageBus {
 	}
 
 	/***
-	 *
 	 * @param m The microservice we want to check if registered
-	 * @return
+	 * isRegistered is basic query, therefore @pre , @post,
+	 * @inv are irrelevant.
 	 */
 	@Override
 	public boolean isRegistered(MicroService m){
@@ -70,9 +67,9 @@ public class MessageBusImpl implements MessageBus {
 	}
 
 	/***
-	 *
 	 * @param m The microservice which queue we want to check
-	 * @return
+	 * isQueueEmpty is basic query, therefore @pre , @post,
+	 * @inv are irrelevant.
 	 */
 	@Override
 	public boolean isQueueEmpty(MicroService m){
@@ -84,6 +81,7 @@ public class MessageBusImpl implements MessageBus {
 	 * @param type The type to subscribe to,
 	 * @param m The subscribing micro-service
 	 * @pre m!=null
+	 * @pre this.isSubscribedToEvent(type , m) = false
 	 * @inv	this.isRegistered(m) = true
 	 * @post this.isSubscribedToEvent(type , m) = true
 	 */
@@ -93,10 +91,10 @@ public class MessageBusImpl implements MessageBus {
 
 	}
 
-
 	 /** @param type The type to subscribe to,
 	 * @param m The subscribing micro-service
 	 * @pre m!=null
+`	 * @pre this.isSubscribedToBroadcast(type , m) = false
 	 * @inv	this.isRegistered(m) = true
 	 * @post this.isSubscribedToBroadcast(type , m) = true
 	 */
@@ -107,13 +105,11 @@ public class MessageBusImpl implements MessageBus {
 	}
 
 	/**
-	 *
 	 * @param e The completed event.
 	 * @param result The resolved result of the completed event.
 	 * @param <T> the type of the result of the event
-	 * @pre
-	 * @inv
-	 * @inv
+	 * @pre processing of Event e has been completed.
+	 * @inv result != null
 	 * @post
 	 */
 	@Override
@@ -123,11 +119,11 @@ public class MessageBusImpl implements MessageBus {
 	}
 
 	/**
-	 *
 	 * @param b The broadcast to added to the queues.
-	 * @pre
-	 * @inv
-	 * @post
+	 * @pre b != null
+	 * @post for every micro-service which is subscribed to b:
+	 * 		 @pre (num of messages in queue) = (num of
+	 * 		 messages in queue) -1
 	 */
 	@Override
 	public void sendBroadcast(Broadcast b) {
@@ -136,10 +132,13 @@ public class MessageBusImpl implements MessageBus {
 	}
 
 	/**
-	 *
 	 * @param e The event to add to the queue.
 	 * @param <T> the type of event being processed
-	 *
+	 * @pre e != null
+	 * @post for every micro-service which is subscribed to b:
+	 * 		@pre (num of messages in queue)  = (num of
+	 * 		 messages in queue) -1
+	 * @post Future<T>.get() = null
 	 */
 	@Override
 	public <T> Future<T> sendEvent(Event<T> e) {
@@ -148,11 +147,9 @@ public class MessageBusImpl implements MessageBus {
 	}
 
 	/**
-	 *
 	 * @param m the micro-service to register create a queue for.
 	 * @pre this.isRegistered(m) = false
 	 * @pre m != null
-	 * @inv
 	 * @post this.isRegistered(m) = true
 	 */
 	@Override
@@ -162,11 +159,9 @@ public class MessageBusImpl implements MessageBus {
 	}
 
 	/**
-	 *
 	 * @param m the micro-service to unregister and destroy it queue.
 	 * @pre this.isRegistered(m) = true
 	 * @pre m != null
-	 * @inv
 	 * @post this.isRegistered(m) = false
 	 */
 	@Override
@@ -176,12 +171,12 @@ public class MessageBusImpl implements MessageBus {
 	}
 
 	/**
-	 *
 	 * @param m The micro-service requesting to take a message from its message
 	 *          queue.
 	 * @pre this.isQueueEmpty(m) = false
 	 * @inv this.isRegistered(m) = true
-	 * @post
+	 * @post @pre (num of messages in m queue) =
+	 * 		 (num of messages in m queue) + 1
 	 */
 	@Override
 	public Message awaitMessage(MicroService m) throws InterruptedException {

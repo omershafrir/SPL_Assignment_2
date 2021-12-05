@@ -1,6 +1,5 @@
-package test.java;
+package test.java.bgu.spl.mics.application.objects;
 
-import src.main.java.bgu.spl.mics.application.objects.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
