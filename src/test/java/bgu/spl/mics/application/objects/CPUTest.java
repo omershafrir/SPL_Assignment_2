@@ -21,7 +21,6 @@ public class CPUTest {
         data = new Data(Data.Type.Text , 3000);
         dataBatch = new DataBatch(data , 0);
     }
-
     @After
     public void tearDown() throws Exception {
         cpuExample = null;
