@@ -102,7 +102,17 @@ public interface MessageBus {
      * @param m The microservice we want to check if subscribed
      * @return TRUE if it is subscribed, else otherwise
      */
-    <T> boolean isSubscribed(Class<? extends Message> type, MicroService m);
+    <T> boolean isSubscribedToEvent(Class<? extends Event<T>> type, MicroService m);
+
+    /** ADDED FUNCTION
+     *
+     * this method checks if MicroService m is subscribed to a Class which extends
+     * Broadcast.
+     * @param type The type of Class we want to check
+     * @param m The microservice we want to check if subscribed
+     * @return TRUE if it is subscribed, else otherwise
+     */
+    boolean isSubscribedToBroadcast(Class<? extends Broadcast> type, MicroService m);
 
     /** ADDED FUNCTION
      *

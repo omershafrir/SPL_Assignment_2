@@ -6,18 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="kkk">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Data.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/GPUTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GPUTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java" afterDir="false" />
     </list>
-    <list id="253d0b2f-25fa-45a7-b2ae-7e5550db3c00" name="Changes by Erez" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Cluster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Cluster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Model.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/GPUTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GPUTest.java" afterDir="false" />
-    </list>
+    <list id="253d0b2f-25fa-45a7-b2ae-7e5550db3c00" name="Changes by Erez" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,7 +25,7 @@
     </option>
   </component>
   <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="omer" />
+    <option name="BRANCH" value="main" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -41,26 +34,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/test/java/GPUTest.java">
-      <ranges>
-        <range start1="0" end1="1" start2="0" end2="1" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
-        <range start1="2" end1="3" start2="2" end2="3" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
-        <range start1="10" end1="10" start2="10" end2="14" changelist="253d0b2f-25fa-45a7-b2ae-7e5550db3c00" />
-        <range start1="13" end1="13" start2="17" end2="21" changelist="253d0b2f-25fa-45a7-b2ae-7e5550db3c00" />
-        <range start1="20" end1="21" start2="28" end2="35" changelist="253d0b2f-25fa-45a7-b2ae-7e5550db3c00" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java">
-      <ranges>
-        <range start1="15" end1="15" start2="15" end2="16" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
-        <range start1="20" end1="20" start2="21" end2="28" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
-        <range start1="22" end1="22" start2="30" end2="37" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
-        <range start1="23" end1="23" start2="38" end2="48" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
-        <range start1="31" end1="31" start2="56" end2="60" changelist="253d0b2f-25fa-45a7-b2ae-7e5550db3c00" />
-      </ranges>
-    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -146,6 +119,7 @@
       <workItem from="1638384019420" duration="2492000" />
       <workItem from="1638516093278" duration="14700000" />
       <workItem from="1638552354859" duration="459000" />
+      <workItem from="1638703691679" duration="4831000" />
     </task>
     <task id="LOCAL‎00001" summary="kkk">
       <created>1638428440822</created>
