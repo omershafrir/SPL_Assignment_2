@@ -1,7 +1,7 @@
-package test.java.bgu.spl.mics;
+package bgu.spl.mics.application.objects;
 
-import main.java.bgu.spl.mics.application.objects.*;
-import main.java.bgu.spl.mics.application.objects.GPU;
+import bgu.spl.mics.application.objects.Model;
+import bgu.spl.mics.application.objects.GPU;
 import bgu.spl.mics.application.objects.Cluster;
 import bgu.spl.mics.application.objects.Data;
 import bgu.spl.mics.application.objects.Student;
@@ -20,16 +20,16 @@ public class GPUTest {
 
     @Before
     public void setUp() throws Exception {
-        data = new Data(Data.Type.Images.Type,10000);
+        data = new Data(Data.Type.Images,10000);
         student = new Student("OS","cs", Student.Degree.MSc,0,0);
         modelExample = new Model("omer's model",data, student);
 //        clusterExample = new Cluster();
-        gpu = new GPU(GPU.Type.GTX1080 , modelExample , clusterExample);
+        gpu = new GPU(GPU.Type.GTX1080 , clusterExample , modelExample );
     }
 
     @After
     public void tearDown() throws Exception {
-        this.gpu = new GPU(GPU.Type.GTX1080 , modelExample , clusterExample);
+        this.gpu = new GPU(GPU.Type.GTX1080 , clusterExample , modelExample);
         this.modelExample = new Model("omer's model",data, student);
     }
 
@@ -68,4 +68,3 @@ public class GPUTest {
 
 
     }
-}

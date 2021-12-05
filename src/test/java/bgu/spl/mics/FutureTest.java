@@ -1,4 +1,4 @@
-package test.java.bgu.spl.mics;
+package bgu.spl.mics;
 
 import bgu.spl.mics.Future;
 import org.junit.After;
@@ -26,7 +26,7 @@ public class FutureTest {
     public void get() {
         //was commented because future return the future value - this method NEVER returns null
 //        assertNull(future.get());
-        Integer result = future.get() + 1;
+        Integer result = 2;
         future.resolve(result);
         assertEquals("Expected: future.get() == result.",future.get(),result);
     }
@@ -34,7 +34,7 @@ public class FutureTest {
     @Test
     public void resolve() {
 //        assertNull("future is initialized with null",future.get());
-        Integer result = future.get() + 1;
+        Integer result = 2;
         future.resolve(result);
         assertNotNull("future result member should not be null after",future.get());
     }

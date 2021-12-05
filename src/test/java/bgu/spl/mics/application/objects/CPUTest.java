@@ -1,6 +1,10 @@
-package test.java.bgu.spl.mics.application.objects;
+package bgu.spl.mics.application.objects;
 
-import bgu.spl.mics.application.objects.*;
+import bgu.spl.mics.application.objects.CPU;
+import bgu.spl.mics.application.objects.Data;
+import bgu.spl.mics.application.objects.DataBatch;
+import bgu.spl.mics.application.objects.Cluster;
+
 import org.junit.Test;
 import org.junit.After;
 import org.junit.Before;
@@ -8,11 +12,10 @@ import static org.junit.Assert.*;
 
 public class CPUTest {
 
-
-    static CPU cpuExample;
-    Cluster cluster;
-    Data data;
-    DataBatch dataBatch;
+    public static CPU cpuExample;
+    public static Cluster cluster;
+    public static Data data;
+    public static DataBatch dataBatch;
 
     @Before
     public void setUp() throws Exception {

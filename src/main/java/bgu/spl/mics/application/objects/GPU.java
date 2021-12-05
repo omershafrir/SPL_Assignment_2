@@ -1,7 +1,7 @@
-package main.java.bgu.spl.mics.application.objects;
+package bgu.spl.mics.application.objects;
 
-import main.java.bgu.spl.mics.application.objects.*;
-import main.java.bgu.spl.mics.application.objects.GPU;
+import bgu.spl.mics.application.objects.Model;
+import bgu.spl.mics.application.objects.GPU;
 import bgu.spl.mics.application.objects.Cluster;
 import bgu.spl.mics.application.objects.Data;
 import bgu.spl.mics.application.objects.Student;
@@ -20,7 +20,7 @@ public class GPU {
     enum Type {RTX3090, RTX2080, GTX1080}
     private Model model;
     private Cluster cluster;
-    private Type type;
+    public Type type;
     private Data data;
     private DataBatch db;
     private int currentAvailableMemory;

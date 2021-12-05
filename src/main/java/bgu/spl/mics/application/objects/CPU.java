@@ -3,6 +3,9 @@ package bgu.spl.mics.application.objects;
 import java.awt.*;
 import java.util.Collection;
 import java.util.LinkedList;
+import bgu.spl.mics.application.objects.Data;
+import bgu.spl.mics.application.objects.DataBatch;
+import bgu.spl.mics.application.objects.Data;
 
 /**
  * Passive object representing a single CPU.
@@ -22,7 +25,6 @@ public class CPU {
      * constructor of CPU
      *
      * @param cores   Number of cores of the CPU
-     * @param data    The data which the CPU needs to process
      * @param cluster The single cluster instance which is connected to this CPU
      * @returns the CPU instance
      */

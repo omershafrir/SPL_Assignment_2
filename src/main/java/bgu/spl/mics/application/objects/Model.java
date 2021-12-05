@@ -1,4 +1,4 @@
-package main.java.bgu.spl.mics.application.objects;
+package bgu.spl.mics.application.objects;
 
 import bgu.spl.mics.application.objects.Data;
 import bgu.spl.mics.application.objects.Student;

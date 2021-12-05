@@ -20,6 +20,9 @@ public class Cluster {
 		}
 		return single_instance;
 	}
+	private Cluster(){
+
+	}
 
 
 	//TODO - function that indicates if the data was sent from the GPU through the Cluster to the CPU
