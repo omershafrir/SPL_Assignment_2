@@ -23,7 +23,6 @@ public class GPUTest {
         data = new Data(Data.Type.Images,10000);
         student = new Student("OS","cs", Student.Degree.MSc,0,0);
         modelExample = new Model("omer's model",data, student);
-//        clusterExample = new Cluster();
         gpu = new GPU(GPU.Type.GTX1080 , clusterExample , modelExample );
     }
 
