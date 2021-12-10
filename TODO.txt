@@ -11,5 +11,6 @@ erez:
 1. finish future tests                      V
 2. finish DBC for future                    V
 3. dbc GPU                                  V
-4. finish test
+4. finish test                              V
+5. json file read                           V
 
