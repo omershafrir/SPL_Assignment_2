@@ -67,7 +67,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
@@ -131,6 +131,7 @@
       <workItem from="1638552354859" duration="459000" />
       <workItem from="1638703691679" duration="16407000" />
       <workItem from="1638727087803" duration="7475000" />
+      <workItem from="1639204886686" duration="65000" />
     </task>
     <task id="LOCAL‎00001" summary="kkk">
       <created>1638428440822</created>
