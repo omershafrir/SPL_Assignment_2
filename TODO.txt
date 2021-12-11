@@ -1,6 +1,6 @@
 TODO LIST:
 
-omer:
+MessageBusImpl:
 1. IsRegistered()----------------------------------------V
 2. isQueueEmpty(MicroService m)--------------------------V
 3. isSubscribedToBroadcast()-----------------------------V
@@ -17,7 +17,8 @@ to fix & verify :
 
 Things i Changed:
 1. the GetInstance() of msgbus . (to Ron's proposal in the tirgul).
-2. queueLinkedList --> list of Pair<MicroService , BlockingQueue<Message>>
+2. queueLinkedList --> HashMap <MicroService , LinkedBlockingQueue<Message>>
+
 
 
 
