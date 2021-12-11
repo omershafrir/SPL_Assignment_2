@@ -20,8 +20,9 @@ public class CPUTest {
     @Before
     public void setUp() throws Exception {
         cluster = Cluster.getInstance();
-        cpuExample = new CPU(3 , cluster);
-        data = new Data(Data.Type.Text , 3000);
+        cpuExample = new CPU(3);
+        cpuExample.setCluster(cluster);
+        data = new Data("Text" , 3000);
         dataBatch = new DataBatch(data , 0);
     }
     @After

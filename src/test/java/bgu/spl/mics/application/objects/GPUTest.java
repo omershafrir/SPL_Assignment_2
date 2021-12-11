@@ -20,15 +20,19 @@ public class GPUTest {
 
     @Before
     public void setUp() throws Exception {
-        data = new Data(Data.Type.Images,10000);
-        student = new Student("OS","cs", Student.Degree.MSc,0,0);
+        data = new Data("Images",10000);
+        student = new Student("OS","cs", "MSc");
         modelExample = new Model("omer's model",data, student);
-        gpu = new GPU(GPU.Type.GTX1080 , clusterExample , modelExample );
+        gpu = new GPU("GTX1080");
+        gpu.setModel(modelExample);
+        gpu.setCluster(clusterExample);
     }
 
     @After
     public void tearDown() throws Exception {
-        this.gpu = new GPU(GPU.Type.GTX1080 , clusterExample , modelExample);
+        this.gpu = new GPU("GTX1080");
+        gpu.setModel(modelExample);
+        gpu.setCluster(clusterExample);
         this.modelExample = new Model("omer's model",data, student);
     }
 
