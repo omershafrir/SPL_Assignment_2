@@ -1,7 +1,10 @@
 package bgu.spl.mics;
 
+import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * The {@link MessageBusImpl class is the implementation of the MessageBus interface.
@@ -10,24 +13,25 @@ import java.util.Queue;
  */
 public class MessageBusImpl implements MessageBus {
 	//fields:
-	private LinkedList<Queue<Message>> queueLinkedList;
-	private static MessageBusImpl single_instance;
+	private HashMap<MicroService , BlockingQueue <Message>> microServiceMap;
+	private HashMap<MicroService , Vector<Class<? extends Event <?>>>> eventSubscriptions;
+	private HashMap<MicroService , Vector<Class<? extends Broadcast >>> broadcastSubscriptions;
 
-	/*** private constructor.
-	 *  to be called from getInstance() once.
+	/** Holder class for the MsgBusImpl singleton instance
 	 */
-	private MessageBusImpl(){
-		LinkedList<Queue<Message>> queueLinkedList= new LinkedList<Queue<Message>>();
+	private static class MessageBusImplHolder{
+		private static MessageBusImpl instance = new MessageBusImpl();
 	}
 
-	/***
-	 * @return instance : Only instance of Message Bus Implementation
+	/*** private constructor.
 	 */
+	private MessageBusImpl(){
+		microServiceMap = new HashMap<MicroService , BlockingQueue<Message>>() ;
+		eventSubscriptions = new HashMap<MicroService , Vector<Class<? extends Event <?>>>>();
+	 	broadcastSubscriptions = new HashMap<MicroService , Vector<Class<? extends Broadcast>>>();
+	}
 	public static MessageBusImpl getInstance(){
-		if(single_instance == null)
-			single_instance = new MessageBusImpl();
-
-		return single_instance;
+		return MessageBusImplHolder.instance;
 	}
 
 
@@ -39,8 +43,8 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public <T> boolean isSubscribedToEvent(Class<? extends Event<T>> type, MicroService m){
-		// TODO
-		return false;
+		Vector<Class<? extends Event <T>>> v = (Vector<Class<? extends Event<T>>>) eventSubscriptions.get(m);
+		return v.contains(type);
 	}
 
 	/***
@@ -51,8 +55,8 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public boolean isSubscribedToBroadcast(Class<? extends Broadcast> type, MicroService m){
-	//TODO
-		return false;
+		Vector<Class<? extends Broadcast >> v = broadcastSubscriptions.get(m);
+		return v.contains(type);
 	}
 
 	/***
@@ -62,8 +66,7 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public boolean isRegistered(MicroService m){
-		// TODO
-		return false;
+		return microServiceMap.containsKey(m);
 	}
 
 	/***
@@ -73,8 +76,7 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public boolean isQueueEmpty(MicroService m){
-		// TODO
-		return false;
+		return microServiceMap.get(m).isEmpty();
 	}
 
 	/**@param <T>  The type of the result expected by the completed event.
@@ -86,9 +88,9 @@ public class MessageBusImpl implements MessageBus {
 	 * @post this.isSubscribedToEvent(type , m) = true
 	 */
 	@Override
-	public <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m) {
-		// TODO Auto-generated method stub
-
+	public <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m){
+		if(m!=null && !isSubscribedToEvent(type , m) && isRegistered(m))
+			eventSubscriptions.get(m).add(type);
 	}
 
 	 /** @param type The type to subscribe to,
@@ -100,8 +102,8 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public void subscribeBroadcast(Class<? extends Broadcast> type, MicroService m) {
-		// TODO Auto-generated method stub
-
+		if(m!=null && !isSubscribedToBroadcast(type , m) && isRegistered(m))
+			broadcastSubscriptions.get(m).add(type);
 	}
 
 	/**
@@ -154,8 +156,10 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public void register(MicroService m) {
-		// TODO Auto-generated method stub
-
+		if(m!=null && !isRegistered(m)){
+			BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
+			microServiceMap.put(m , queue);
+		}
 	}
 
 	/**
@@ -166,8 +170,9 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public void unregister(MicroService m) {
-		// TODO Auto-generated method stub
-
+		if(m!=null && isRegistered(m)){
+			microServiceMap.remove(m);
+		}
 	}
 
 	/**

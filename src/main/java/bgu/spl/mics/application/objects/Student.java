@@ -12,16 +12,11 @@ public class Student {
         MSc, PhD
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", department='" + department + '\'' +
-                ", status=" + status +
-                ", publications=" + publications +
-                ", papersRead=" + papersRead +
-                '}';
-    }
+    private String name;
+    private String department;
+    private Degree status;
+    private int publications;
+    private int papersRead;
 
     public Student(String name, String department, String status) {
         this.name = name;
@@ -34,10 +29,17 @@ public class Student {
         this.papersRead = 0;
     }
 
-    private String name;
-    private String department;
-    private Degree status;
-    private int publications;
-    private int papersRead;
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", department='" + department + '\'' +
+                ", status=" + status +
+                ", publications=" + publications +
+                ", papersRead=" + papersRead +
+                '}';
+    }
+
+
 
 }

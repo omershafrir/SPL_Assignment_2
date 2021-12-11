@@ -1,11 +1,26 @@
 TODO LIST:
 
 omer:
-1. finish msgbusimpl test                   V
-2. finish setUp & tearDown functions        V
-3. finish maven
-4. finish DBC msgbusimpl
-5. finish test & dbc CPU
+1. IsRegistered()----------------------------------------V
+2. isQueueEmpty(MicroService m)--------------------------V
+3. isSubscribedToBroadcast()-----------------------------V
+4. isSubscribedToEvent()---------------------------------V
+5. regsiter()--------------------------------------------V
+6. unregsiter()------------------------------------------V
+7. subscribeEvent()--------------------------------------V
+8. subscribeBroadcast()----------------------------------V
+
+
+to fix & verify :
+1. isSubscribedToEvent - problem with generics
+2.  eventSubscriptions field in msgbusimpl - problem with generics
+
+Things i Changed:
+1. the GetInstance() of msgbus . (to Ron's proposal in the tirgul).
+2. queueLinkedList --> list of Pair<MicroService , BlockingQueue<Message>>
+
+
+
 
 erez:
 1. finish future tests                      V
