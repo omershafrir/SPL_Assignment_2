@@ -25,16 +25,21 @@ public class GPU {
     private DataBatch db;
     private int currentAvailableMemory;
 
-    public GPU(Type type, Cluster cluster, Model model){
-        this.type = type;
-        this.cluster = cluster;
-        this.model = model;
-        if (type.equals(0))
+    public GPU(String type){
+        if (type.equals("RTX3090")){
             currentAvailableMemory = 32;
-        else if(type.equals(1))
+            this.type = Type.RTX3090;
+        }
+        else if(type.equals("RTX2080")){
             currentAvailableMemory = 16;
-        else
-             currentAvailableMemory = 8;
+            this.type = Type.RTX2080;
+        }
+
+        else{
+            currentAvailableMemory = 8;
+            this.type = Type.GTX1080;
+        }
+
     }
 
     public Model getModel() {
@@ -53,8 +58,18 @@ public class GPU {
 
     public int getCurrentAvailableMemory(){return currentAvailableMemory;}
 
+    public void setModel(Model model) {
+        this.model = model;
+    }
 
-    //divides the data into batches of 1000 samples - DataBatchs
+    public void setCluster(Cluster cluster) {
+        this.cluster = cluster;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+//divides the data into batches of 1000 samples - DataBatchs
     //and stores them on the disk
     /**
      * @INV:

@@ -28,12 +28,16 @@ public class CPU {
      * @param cluster The single cluster instance which is connected to this CPU
      * @returns the CPU instance
      */
-    public CPU(int cores, Cluster cluster) {
+    public CPU(int cores) {
         this.cores = cores;
         this.data = new LinkedList<DataBatch>();
-        this.cluster = cluster;
+//        this.cluster = cluster;
         this.numberOfCPU = counterOfCPU;
         counterOfCPU++;
+    }
+
+    public void setCluster(Cluster cluster) {
+        this.cluster = cluster;
     }
 
     /**

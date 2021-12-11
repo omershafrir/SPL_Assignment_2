@@ -12,12 +12,26 @@ public class Student {
         MSc, PhD
     }
 
-    public Student(String name, String department, Degree status, int publications, int papersRead) {
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", department='" + department + '\'' +
+                ", status=" + status +
+                ", publications=" + publications +
+                ", papersRead=" + papersRead +
+                '}';
+    }
+
+    public Student(String name, String department, String status) {
         this.name = name;
         this.department = department;
-        this.status = status;
-        this.publications = publications;
-        this.papersRead = papersRead;
+        if(status.equals("MSc"))
+            this.status = Degree.MSc;
+        else
+            this.status = Degree.PhD;
+        this.publications = 0;
+        this.papersRead = 0;
     }
 
     private String name;
