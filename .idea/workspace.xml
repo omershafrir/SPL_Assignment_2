@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="kkk">
+      <change afterPath="$PROJECT_DIR$/src/main/java/main_test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" afterDir="false" />
     </list>
     <list id="e32429f1-c066-413c-902e-1e2e9337cfe7" name="Changes by Erez" comment="" />
@@ -102,7 +104,7 @@
       <recent name="bgu.spl.mics" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.main_test">
     <configuration name="CRMSRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.application.CRMSRunner" />
       <module name="spl221ass2" />
@@ -129,8 +131,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="main_test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main_test" />
+      <module name="SPL_Assignment_2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.main_test" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.CRMSRunner" />
       </list>
@@ -158,7 +168,7 @@
       <workItem from="1639046212262" duration="9608000" />
       <workItem from="1639124292078" duration="4802000" />
       <workItem from="1639241016154" duration="106000" />
-      <workItem from="1639311321029" duration="5281000" />
+      <workItem from="1639311321029" duration="10500000" />
     </task>
     <task id="LOCAL‎00001" summary="kkk">
       <created>1638428440822</created>

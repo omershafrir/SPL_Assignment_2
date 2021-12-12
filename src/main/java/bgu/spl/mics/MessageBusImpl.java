@@ -15,9 +15,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class MessageBusImpl implements MessageBus {
 	//fields:
 	private HashMap<MicroService , BlockingQueue <Message>> microServiceMap;
-	private HashMap<MicroService ,Class<? extends Event <?>>> x;
 	private HashMap<Class<? extends Event <?>> , Queue<MicroService>> eventSubscriptions;
-	private HashMap<Class<? extends Broadcast> , Queue<MicroService>> broadcastSubscriptions;
+	private HashMap<Class<? extends Broadcast> , Vector<MicroService>> broadcastSubscriptions;
 
 
 	/** Holder class for the MsgBusImpl singleton instance
@@ -31,7 +30,7 @@ public class MessageBusImpl implements MessageBus {
 	private MessageBusImpl(){
 		microServiceMap = new HashMap<MicroService , BlockingQueue<Message>>() ;
 		eventSubscriptions = new HashMap<Class<? extends Event <?>> , Queue<MicroService>>();
-	 	broadcastSubscriptions = new HashMap<Class<? extends Broadcast> , Queue<MicroService>>();
+	 	broadcastSubscriptions = new HashMap<Class<? extends Broadcast> , Vector<MicroService>>();
 	}
 	public static MessageBusImpl getInstance(){
 		return MessageBusImplHolder.instance;
@@ -58,8 +57,8 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public boolean isSubscribedToBroadcast(Class<? extends Broadcast> type, MicroService m){
-		Queue<MicroService> queue = broadcastSubscriptions.get(m);
-		return queue.contains(type);
+		Vector<MicroService> vec = broadcastSubscriptions.get(m);
+		return vec.contains(type);
 	}
 
 	/***
@@ -131,10 +130,12 @@ public class MessageBusImpl implements MessageBus {
 	 * 		 messages in queue) -1
 	 */
 	@Override
-	public void sendBroadcast(Broadcast b) {
-		// TODO Auto-generated method stub
-
-
+	public synchronized void sendBroadcast(Broadcast b) {
+		if( b!= null) {
+			Vector<MicroService> relevent_vec = broadcastSubscriptions.get(b);
+			for (MicroService ms : relevent_vec)
+				microServiceMap.get(ms).add(b);
+		}
 	}
 
 	/**
@@ -147,8 +148,14 @@ public class MessageBusImpl implements MessageBus {
 	 * @post Future<T>.get() = null
 	 */
 	@Override
-	public <T> Future<T> sendEvent(Event<T> e) {
-		return null;
+	public synchronized <T> Future<T> sendEvent(Event<T> e) {
+		if (e != null){
+			Queue<MicroService> relevent_queue = eventSubscriptions.get(e);
+			MicroService runner =  relevent_queue.remove();
+			relevent_queue.add(runner);		//inserting runner immediately at the back of the queue
+			microServiceMap.get(runner).add(e);
+		}
+		return new Future<T>();
 	}
 
 	/**
