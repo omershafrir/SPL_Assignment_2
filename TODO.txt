@@ -14,6 +14,10 @@ MessageBusImpl:
 to fix & verify :
 1. isSubscribedToEvent - problem with generics
 2.  eventSubscriptions field in msgbusimpl - problem with generics
+4. verify: sendBroadcast , sendEvent.
+3. future return value in sendEvent() : just returning and not binding anything.
+5. synchronized in interfaces. not compiles.
+
 
 Things i Changed:
 1. the GetInstance() of msgbus . (to Ron's proposal in the tirgul).
