@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * The {@link MessageBusImpl class is the implementation of the MessageBus interface.
@@ -14,8 +15,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class MessageBusImpl implements MessageBus {
 	//fields:
 	private HashMap<MicroService , BlockingQueue <Message>> microServiceMap;
-	private HashMap<MicroService , Vector<Class<? extends Event <?>>>> eventSubscriptions;
-	private HashMap<MicroService , Vector<Class<? extends Broadcast >>> broadcastSubscriptions;
+	private HashMap<MicroService ,Class<? extends Event <?>>> x;
+	private HashMap<Class<? extends Event <?>> , Queue<MicroService>> eventSubscriptions;
+	private HashMap<Class<? extends Broadcast> , Queue<MicroService>> broadcastSubscriptions;
+
 
 	/** Holder class for the MsgBusImpl singleton instance
 	 */
@@ -27,8 +30,8 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	private MessageBusImpl(){
 		microServiceMap = new HashMap<MicroService , BlockingQueue<Message>>() ;
-		eventSubscriptions = new HashMap<MicroService , Vector<Class<? extends Event <?>>>>();
-	 	broadcastSubscriptions = new HashMap<MicroService , Vector<Class<? extends Broadcast>>>();
+		eventSubscriptions = new HashMap<Class<? extends Event <?>> , Queue<MicroService>>();
+	 	broadcastSubscriptions = new HashMap<Class<? extends Broadcast> , Queue<MicroService>>();
 	}
 	public static MessageBusImpl getInstance(){
 		return MessageBusImplHolder.instance;
@@ -43,8 +46,8 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public <T> boolean isSubscribedToEvent(Class<? extends Event<T>> type, MicroService m){
-		Vector<Class<? extends Event <T>>> v = (Vector<Class<? extends Event<T>>>) eventSubscriptions.get(m);
-		return v.contains(type);
+		Queue<MicroService> queue = eventSubscriptions.get(m);
+		return queue.contains(type);
 	}
 
 	/***
@@ -55,8 +58,8 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public boolean isSubscribedToBroadcast(Class<? extends Broadcast> type, MicroService m){
-		Vector<Class<? extends Broadcast >> v = broadcastSubscriptions.get(m);
-		return v.contains(type);
+		Queue<MicroService> queue = broadcastSubscriptions.get(m);
+		return queue.contains(type);
 	}
 
 	/***
@@ -90,7 +93,7 @@ public class MessageBusImpl implements MessageBus {
 	@Override
 	public <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m){
 		if(m!=null && !isSubscribedToEvent(type , m) && isRegistered(m))
-			eventSubscriptions.get(m).add(type);
+			eventSubscriptions.get(type).add(m);
 	}
 
 	 /** @param type The type to subscribe to,
@@ -103,7 +106,7 @@ public class MessageBusImpl implements MessageBus {
 	@Override
 	public void subscribeBroadcast(Class<? extends Broadcast> type, MicroService m) {
 		if(m!=null && !isSubscribedToBroadcast(type , m) && isRegistered(m))
-			broadcastSubscriptions.get(m).add(type);
+			broadcastSubscriptions.get(type).add(m);
 	}
 
 	/**
@@ -131,6 +134,7 @@ public class MessageBusImpl implements MessageBus {
 	public void sendBroadcast(Broadcast b) {
 		// TODO Auto-generated method stub
 
+
 	}
 
 	/**
@@ -144,7 +148,6 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public <T> Future<T> sendEvent(Event<T> e) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -188,7 +191,5 @@ public class MessageBusImpl implements MessageBus {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
 
 }
