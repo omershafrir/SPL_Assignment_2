@@ -53,7 +53,7 @@ public abstract class MicroService implements Runnable {
      *                 queue.
      */
     protected final <T, E extends Event<T>> void subscribeEvent(Class<E> type, Callback<E> callback) {
-        //TODO: implement this.
+
     }
 
     /**
@@ -112,7 +112,7 @@ public abstract class MicroService implements Runnable {
      * using the message-bus.
      * <p>
      * @param <T>    The type of the expected result of the processed event
-     *               {@code e}.
+     *               {@code e}
      * @param e      The event to complete.
      * @param result The result to resolve the relevant Future object.
      *               {@code e}.
