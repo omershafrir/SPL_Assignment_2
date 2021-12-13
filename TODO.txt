@@ -24,6 +24,7 @@ to fix & verify :
 ideas:
 1. in sendEvent(Event<T> e) , sendBroadcast() : sync on the runner object and not on the whole msgbus
     to improve funtionality.
+    solution : to sync on the event TYPE!
 #################################################################################
 Future:
 1. Constructor()-----------------------------------------v
@@ -44,10 +45,21 @@ MicroService :
 3. sendEvent(Event<T> e)---------------------------------v
 4. sendBroadcast()---------------------------------------v
 5. complete(Event <T> e, T result)-----------------------v
-5
-
+6. initialize : abstract , every micro service:
+    1. registers itself to the msgbus.
+    2. subscribes itself to the relevent events and broadcasts.
+7. terminate()--------------------------------------------v
+8.
 
 to fix & verify :
 1. added 'synchronized' in sendBroadcast() , sendEvent() signatures.
 2. syncing on msgbus AND on the microservice is unneccesery and dangerous. need to decide which sync.
+3. terminate - completed?
 
+#################################################################################
+
+EREZ ROCKER:
+1. fix the blessed main class
+2. figure out callback and how to use them in run() method of microservice : line 180
+3. initialize() studentService
+4. initialize() GPUService

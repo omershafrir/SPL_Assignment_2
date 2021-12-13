@@ -40,7 +40,7 @@ public class main_test {
         Thread t1 = new Thread(()->{
             System.out.println(Thread.currentThread().getName()+" is going to sleep...");
             try {
-                Thread.sleep(5000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -48,21 +48,15 @@ public class main_test {
         });
         Thread t3 = new Thread(()-> {
             System.out.println(Thread.currentThread().getName()+" is working...");
-            try {
                 System.out.println("before get: "+future.isDone());
-//                future.get(2,TimeUnit.SECONDS);
-                future.get();
+                future.get(3,TimeUnit.SECONDS);
+//                future.get();
                 System.out.println("after get: "+future.isDone());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
         });
         t1.start();
         t3.start();
-//        t2.start();
 
-//        t1.join();
-//        t2.join();
 //******************************************************************
 //        Callable<Integer> call = ()->
 //                                    {
