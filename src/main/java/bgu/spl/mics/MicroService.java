@@ -23,6 +23,10 @@ public abstract class MicroService implements Runnable {
     private boolean terminated = false;
     private final String name;
 
+    //was added by me -
+    //need a field of Future for each MS
+    private <T> Future<T>;
+
     /**
      * @param name the micro-service name (used mainly for debugging purposes -
      *             does not have to be unique)
