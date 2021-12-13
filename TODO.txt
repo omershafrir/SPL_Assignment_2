@@ -9,7 +9,9 @@ MessageBusImpl:
 6. unregsiter()------------------------------------------V
 7. subscribeEvent()--------------------------------------V
 8. subscribeBroadcast()----------------------------------V
-
+9. sendEvent()-------------------------------------------v
+10 .sendBroadcast()--------------------------------------v
+11 . awaitMessage()--------------------------------------v
 
 to fix & verify :
 1. isSubscribedToEvent - problem with generics
@@ -17,20 +19,35 @@ to fix & verify :
 4. verify: sendBroadcast , sendEvent.
 3. future return value in sendEvent() : just returning and not binding anything.
 5. synchronized in interfaces. not compiles.
+6. sendEvent, sendBroadcast , awaitMessage implemetation.
+
+ideas:
+1. in sendEvent(Event<T> e) , sendBroadcast() : sync on the runner object and not on the whole msgbus
+    to improve funtionality.
+#################################################################################
+Future:
+1. Constructor()-----------------------------------------v
+2. isDone()----------------------------------------------v
+3. resolve()---------------------------------------------v
+4. get(long timeout, TimeUnit unit)----------------------v
+5. get()-------------------------------------------------v
+
+to fix & verify :
+1. in Future.get() : pick of 1000 milliseconds is arbitrary.
+
+#################################################################################
+
+MicroService :
+
+1. Constructor() ----------------------------------------V
+2. getName()---------------------------------------------v
+3. sendEvent(Event<T> e)---------------------------------v
+4. sendBroadcast()---------------------------------------v
+5. complete(Event <T> e, T result)-----------------------v
+5
 
 
-Things i Changed:
-1. the GetInstance() of msgbus . (to Ron's proposal in the tirgul).
-2. queueLinkedList --> HashMap <MicroService , LinkedBlockingQueue<Message>>
-
-
-
-
-
-erez:
-1. finish future tests                      V
-2. finish DBC for future                    V
-3. dbc GPU                                  V
-4. finish test                              V
-5. json file read                           V
+to fix & verify :
+1. added 'synchronized' in sendBroadcast() , sendEvent() signatures.
+2. syncing on msgbus AND on the microservice is unneccesery and dangerous. need to decide which sync.
 
