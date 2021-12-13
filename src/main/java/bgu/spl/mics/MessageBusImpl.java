@@ -128,8 +128,8 @@ public class MessageBusImpl implements MessageBus {
 	@Override
 	public <T> void complete(Event<T> e, T result) {
 		if (result != null) {
-			MicroService toComplete = e.getSender();
-			toComplete.complete(e, result);
+			Future<T> future = (Future<T>) eventToFutureMap.get(e);
+			future.resolve(result);
 		}
 	}
 

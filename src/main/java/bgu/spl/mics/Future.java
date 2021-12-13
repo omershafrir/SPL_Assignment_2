@@ -34,13 +34,16 @@ public class Future<T> {
 	 * @POST:
 	 * value != null
      */
-	public T get() throws InterruptedException {
+	public T get() {
 		if(isResolved){
 			return value;
 		}
 
 		while(!isResolved) {
-			Thread.currentThread().sleep(1000);
+			try{
+				Thread.currentThread().sleep(1000);
+			}catch(Exception exception){}
+
 		}
 		return value;
 	}
@@ -90,9 +93,12 @@ public class Future<T> {
 	 * timeout >= 0
 	 * @POST:
      */
-	public T get(long timeout, TimeUnit unit) throws InterruptedException {
+	public T get(long timeout, TimeUnit unit)  {
 		if ( !isResolved){
-			unit.sleep(timeout);
+			try {
+				unit.sleep(timeout);
+			}catch (Exception exception){}
+
 		}
 		return value;
 	}
