@@ -1,7 +1,6 @@
 package bgu.spl.mics;
 
 import java.util.concurrent.TimeUnit;
-
 /**
  * A Future object represents a promised result - an object that will
  * eventually be resolved to hold a result of some operation. The class allows
@@ -11,10 +10,8 @@ import java.util.concurrent.TimeUnit;
  * No public constructor is allowed except for the empty constructor.
  */
 public class Future<T> {
-	//field that indicates if this is resolves
 	private boolean isResolved = false;
 	private T value;
-	// should we have a field for a thread that activated it?
 
 
 	/**
@@ -37,13 +34,13 @@ public class Future<T> {
 	 * @POST:
 	 * value != null
      */
-	public T get() {
-		if(this.value != null & isResolved){
+	public T get() throws InterruptedException {
+		if(isResolved){
 			return value;
 		}
-		while(this.value == null){
-			//need to check with the specific thread
-			//and ask him if he is done
+
+		while(!isResolved) {
+			Thread.currentThread().sleep(1000);
 		}
 		return value;
 	}
@@ -71,7 +68,7 @@ public class Future<T> {
 	 *
      */
 	public boolean isDone() {
-		if(isResolved & value != null)
+		if(isResolved)
 			return true;
 		return false;
 	}
@@ -93,9 +90,11 @@ public class Future<T> {
 	 * timeout >= 0
 	 * @POST:
      */
-	public T get(long timeout, TimeUnit unit) {
-		//TODO: implement this.
-		return null;
+	public T get(long timeout, TimeUnit unit) throws InterruptedException {
+		if ( !isResolved){
+			unit.sleep(timeout);
+		}
+		return value;
 	}
 
 	/** ADDED FUNCTION
@@ -106,7 +105,7 @@ public class Future<T> {
 	 * @PRE:
 	 * @POST:
 	 */
-	public boolean isResolved(){
+	public boolean getIsResolved(){
 		return this.isResolved;
 	}
 

@@ -23,7 +23,7 @@ public class FutureTest {
     }
 
     @Test
-    public void get() {
+    public void get() throws InterruptedException {
         //was commented because future return the future value - this method NEVER returns null
 //        assertNull(future.get());
         Integer result = 2;
@@ -32,7 +32,7 @@ public class FutureTest {
     }
 
     @Test
-    public void resolve() {
+    public void resolve() throws InterruptedException {
 //        assertNull("future is initialized with null",future.get());
         Integer result = 2;
         future.resolve(result);
@@ -40,14 +40,14 @@ public class FutureTest {
     }
 
     @Test
-    public void isDone() {
+    public void isDone() throws InterruptedException {
         future.resolve(2);
-        assertTrue("The isResolved field didn't change",future.isResolved());
+        assertTrue("The isResolved field didn't change",future.getIsResolved());
         assertNotNull("After using Resolve result field shouldn't be null",future.get());
     }
 
     @Test
-    public void testGet() {
+    public void testGet() throws InterruptedException {
         //not resolved yet
         assertNull("The future is not resolved yet-but it is not null!",future.get(0, TimeUnit.MILLISECONDS));
         Integer result = 2;

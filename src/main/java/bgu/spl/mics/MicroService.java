@@ -23,9 +23,6 @@ public abstract class MicroService implements Runnable {
     private boolean terminated = false;
     private final String name;
 
-    //was added by me -
-    //need a field of Future for each MS
-    private <T> Future<T>;
 
     /**
      * @param name the micro-service name (used mainly for debugging purposes -
@@ -97,8 +94,12 @@ public abstract class MicroService implements Runnable {
      * 	       			null in case no micro-service has subscribed to {@code e.getClass()}.
      */
     protected final <T> Future<T> sendEvent(Event<T> e) {
-        //TODO: implement this.
-        return null; //TODO: delete this line :)
+        Future<T> future = null;
+        if(e != null){
+            MessageBus msgbus = MessageBusImpl.getInstance();
+            future = msgbus.sendEvent(e);
+        }
+        return future;
     }
 
     /**
@@ -108,7 +109,10 @@ public abstract class MicroService implements Runnable {
      * @param b The broadcast message to send
      */
     protected final void sendBroadcast(Broadcast b) {
-        //TODO: implement this.
+        if(b != null){
+            MessageBus msgbus = MessageBusImpl.getInstance();
+            msgbus.sendBroadcast(b);
+        }
     }
 
     /**
@@ -122,7 +126,10 @@ public abstract class MicroService implements Runnable {
      *               {@code e}.
      */
     protected final <T> void complete(Event<T> e, T result) {
-        //TODO: implement this.
+        if (e!=null && result!=null){
+            MessageBus msgbus = MessageBusImpl.getInstance();
+            msgbus.complete(e , result);
+        }
     }
 
     /**

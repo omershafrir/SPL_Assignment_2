@@ -14,10 +14,10 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class MessageBusImpl implements MessageBus {
 	//fields:
-	private HashMap<MicroService , BlockingQueue <Message>> microServiceMap;
+	private HashMap<MicroService , BlockingQueue <Message>> msToQueueMap;
 	private HashMap<Class<? extends Event <?>> , Queue<MicroService>> eventSubscriptions;
 	private HashMap<Class<? extends Broadcast> , Vector<MicroService>> broadcastSubscriptions;
-
+	private HashMap<Event<?> , Future<?>> eventToFutureMap;
 
 	/** Holder class for the MsgBusImpl singleton instance
 	 */
@@ -28,13 +28,10 @@ public class MessageBusImpl implements MessageBus {
 	/*** private constructor.
 	 */
 	private MessageBusImpl(){
-		microServiceMap = new HashMap<MicroService , BlockingQueue<Message>>() ;
+		msToQueueMap = new HashMap<MicroService , BlockingQueue<Message>>() ;
 		eventSubscriptions = new HashMap<Class<? extends Event <?>> , Queue<MicroService>>();
 	 	broadcastSubscriptions = new HashMap<Class<? extends Broadcast> , Vector<MicroService>>();
-		//TODO - in general we need to initialize the DS's in the HashMap ????
-
-		 //private Queue<MicroService> x = new LinkedList<>(); - need to be added here
-		// in order for it to be iterable
+		eventToFutureMap = new HashMap<Event<?> , Future<?>>();
 	}
 	public static MessageBusImpl getInstance(){
 		return MessageBusImplHolder.instance;
@@ -72,7 +69,7 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public boolean isRegistered(MicroService m){
-		return microServiceMap.containsKey(m);
+		return msToQueueMap.containsKey(m);
 	}
 
 	/***
@@ -82,7 +79,7 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public boolean isQueueEmpty(MicroService m){
-		return microServiceMap.get(m).isEmpty();
+		return msToQueueMap.get(m).isEmpty();
 	}
 
 	/**@param <T>  The type of the result expected by the completed event.
@@ -95,10 +92,12 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m){
-		//do we need to initialize the queue here?
-		// add condition - if first - initialize a QUEUE
-		if(m!=null && !isSubscribedToEvent(type , m) && isRegistered(m))
-			eventSubscriptions.get(type).add(m);
+		if(m!=null && isRegistered(m) ) {
+			if (!eventSubscriptions.containsKey(type))	//check if this type has a queue
+				eventSubscriptions.put(type, new LinkedBlockingQueue<>());
+			else if (!isSubscribedToEvent(type, m) )
+				eventSubscriptions.get(type).add(m);
+		}
 	}
 
 	 /** @param type The type to subscribe to,
@@ -110,8 +109,12 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public void subscribeBroadcast(Class<? extends Broadcast> type, MicroService m) {
-		if(m!=null && !isSubscribedToBroadcast(type , m) && isRegistered(m))
-			broadcastSubscriptions.get(type).add(m);
+		if(m!=null && isRegistered(m) ) {
+			if (!broadcastSubscriptions.containsKey(type))	//check if this type has a queue
+				broadcastSubscriptions.put(type, new Vector<MicroService>());
+			else if (!isSubscribedToBroadcast(type, m))
+				broadcastSubscriptions.get(type).add(m);
+		}
 	}
 
 	/**
@@ -124,26 +127,10 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public <T> void complete(Event<T> e, T result) {
-		//getting the name of the MS in charge from the event
-		//(event has a function in the interface) - see example event too
-		String name_of_the_sender = e.getSenderName();
-		//getting the queue
-		Queue<MicroService> lookForTheComplete = eventSubscriptions.get(e.getClass());
-		//iterating to find the proper MS that was completed
-		//sending him the Future
-		//TODO - need to check if this queue is iterable
-		// as LinkedList will be iterable
-		for(MicroService completed : lookForTheComplete){
-			if(completed.getName().equals(name_of_the_sender)){
-				completed.complete(e,result);
-				break;
-			}
+		if (result != null) {
+			MicroService toComplete = e.getSender();
+			toComplete.complete(e, result);
 		}
-
-
-		//Event should have a field holding the
-		//current holder of this future
-		//and make the assignment to this specific future
 	}
 
 	/**
@@ -158,7 +145,7 @@ public class MessageBusImpl implements MessageBus {
 		if( b!= null) {
 			Vector<MicroService> relevent_vec = broadcastSubscriptions.get(b);
 			for (MicroService ms : relevent_vec)
-				microServiceMap.get(ms).add(b);
+				msToQueueMap.get(ms).add(b);
 		}
 	}
 
@@ -173,13 +160,16 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public synchronized <T> Future<T> sendEvent(Event<T> e) {
-		if (e != null){
+		Future<T> future = new Future<>();
+		//check if e!=null and if there's an ms subscribed to events of type e
+		if (e != null && eventSubscriptions.containsKey(e)){
 			Queue<MicroService> relevent_queue = eventSubscriptions.get(e);
 			MicroService runner =  relevent_queue.remove();
 			relevent_queue.add(runner);		//inserting runner immediately at the back of the queue
-			microServiceMap.get(runner).add(e);
+			msToQueueMap.get(runner).add(e);
+			eventToFutureMap.put(e , future);
 		}
-		return new Future<T>();
+		return future;
 	}
 
 	/**
@@ -192,7 +182,7 @@ public class MessageBusImpl implements MessageBus {
 	public void register(MicroService m) {
 		if(m!=null && !isRegistered(m)){
 			BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
-			microServiceMap.put(m , queue);
+			msToQueueMap.put(m , queue);
 		}
 	}
 
@@ -205,7 +195,7 @@ public class MessageBusImpl implements MessageBus {
 	@Override
 	public void unregister(MicroService m) {
 		if(m!=null && isRegistered(m)){
-			microServiceMap.remove(m);
+			msToQueueMap.remove(m);
 		}
 	}
 
@@ -218,13 +208,11 @@ public class MessageBusImpl implements MessageBus {
 	 * 		 (num of messages in m queue) + 1
 	 */
 	@Override
-	public Message awaitMessage(MicroService m) throws InterruptedException {
-		// TODO Auto-generated method stub
-		if(this.isRegistered(m) & !this.microServiceMap.get(m).isEmpty()){
-			//TODO
+	public synchronized Message awaitMessage(MicroService m) throws InterruptedException {
+		Message task = null;
+		if (isRegistered(m)){
+			task = msToQueueMap.get(m).take();
 		}
-
-		return null;
+		return task;
 	}
-
 }
