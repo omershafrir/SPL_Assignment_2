@@ -31,6 +31,10 @@ public class MessageBusImpl implements MessageBus {
 		microServiceMap = new HashMap<MicroService , BlockingQueue<Message>>() ;
 		eventSubscriptions = new HashMap<Class<? extends Event <?>> , Queue<MicroService>>();
 	 	broadcastSubscriptions = new HashMap<Class<? extends Broadcast> , Vector<MicroService>>();
+		//TODO - in general we need to initialize the DS's in the HashMap ????
+
+		 //private Queue<MicroService> x = new LinkedList<>(); - need to be added here
+		// in order for it to be iterable
 	}
 	public static MessageBusImpl getInstance(){
 		return MessageBusImplHolder.instance;
@@ -91,6 +95,8 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m){
+		//do we need to initialize the queue here?
+		// add condition - if first - initialize a QUEUE
 		if(m!=null && !isSubscribedToEvent(type , m) && isRegistered(m))
 			eventSubscriptions.get(type).add(m);
 	}
@@ -118,8 +124,26 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public <T> void complete(Event<T> e, T result) {
-		// TODO Auto-generated method stub
+		//getting the name of the MS in charge from the event
+		//(event has a function in the interface) - see example event too
+		String name_of_the_sender = e.getSenderName();
+		//getting the queue
+		Queue<MicroService> lookForTheComplete = eventSubscriptions.get(e.getClass());
+		//iterating to find the proper MS that was completed
+		//sending him the Future
+		//TODO - need to check if this queue is iterable
+		// as LinkedList will be iterable
+		for(MicroService completed : lookForTheComplete){
+			if(completed.getName().equals(name_of_the_sender)){
+				completed.complete(e,result);
+				break;
+			}
+		}
 
+
+		//Event should have a field holding the
+		//current holder of this future
+		//and make the assignment to this specific future
 	}
 
 	/**
@@ -196,6 +220,10 @@ public class MessageBusImpl implements MessageBus {
 	@Override
 	public Message awaitMessage(MicroService m) throws InterruptedException {
 		// TODO Auto-generated method stub
+		if(this.isRegistered(m) & !this.microServiceMap.get(m).isEmpty()){
+			//TODO
+		}
+
 		return null;
 	}
 

@@ -8,4 +8,12 @@ package bgu.spl.mics;
  * Round-Robin fashion.
  */
 public interface Event<T> extends Message {
+
+
+    public String getSenderName();
+    // we should consider adding
+    //public MicroService getSender();
+
+
+
 }

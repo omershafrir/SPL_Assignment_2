@@ -14,6 +14,7 @@ public class Future<T> {
 	//field that indicates if this is resolves
 	private boolean isResolved = false;
 	private T value;
+	// should we have a field for a thread that activated it?
 
 
 	/**
@@ -37,8 +38,14 @@ public class Future<T> {
 	 * value != null
      */
 	public T get() {
-		//TODO: implement this.
-		return null;
+		if(this.value != null & isResolved){
+			return value;
+		}
+		while(this.value == null){
+			//need to check with the specific thread
+			//and ask him if he is done
+		}
+		return value;
 	}
 	
 	/**
@@ -51,7 +58,6 @@ public class Future<T> {
 	 * value == result
      */
 	public void resolve (T result) {
-		//TODO: implement this.
 		isResolved = true;
 		value = result;
 	}
@@ -65,7 +71,8 @@ public class Future<T> {
 	 *
      */
 	public boolean isDone() {
-		//TODO: implement this.
+		if(isResolved & value != null)
+			return true;
 		return false;
 	}
 	
@@ -74,7 +81,7 @@ public class Future<T> {
      * This method is non-blocking, it has a limited amount of time determined
      * by {@code timeout}
      * <p>
-     * @param timout 	the maximal amount of time units to wait for the result.
+     * @param timeout 	the maximal amount of time units to wait for the result.
      * @param unit		the {@link TimeUnit} time units to wait.
      * @return return the result of type T if it is available, if not, 
      * 	       wait for {@code timeout} TimeUnits {@code unit}. If time has
