@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.channels.Selector;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,7 +20,6 @@ public class Main {
 
     public static void main(String[] args) {
         // this is a test main to check the read of the json file
-
         File input = new File("example_input.json");
         try {
             JsonElement fileElement = JsonParser.parseReader(new FileReader(input));
