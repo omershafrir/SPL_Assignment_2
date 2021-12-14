@@ -59,7 +59,7 @@ to fix & verify :
 #################################################################################
 
 EREZ ROCKER:
-1. fix the blessed main class
+1. fix the blessed main class ------------------------------------------------ V
 2. figure out callback and how to use them in run() method of microservice : line 180
 3. initialize() studentService
 4. initialize() GPUService

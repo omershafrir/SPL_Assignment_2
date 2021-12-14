@@ -25,6 +25,8 @@ public class GPU {
     private DataBatch db;
     private int currentAvailableMemory;
 
+
+
     public GPU(String type){
         if (type.equals("RTX3090")){
             currentAvailableMemory = 32;
@@ -148,6 +150,19 @@ public class GPU {
     public Model testModel(Model model) {
         //TODO
         return null;
+    }
+
+
+    @Override
+    public String toString() {
+        return "GPU{" +
+                "model=" + model +
+                ", cluster=" + cluster +
+                ", type=" + type +
+                ", data=" + data +
+                ", db=" + db +
+                ", currentAvailableMemory=" + currentAvailableMemory +
+                '}';
     }
 
 }
