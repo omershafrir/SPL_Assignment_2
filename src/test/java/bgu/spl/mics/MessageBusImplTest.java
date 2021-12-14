@@ -2,6 +2,7 @@ package bgu.spl.mics;
 
 
 import bgu.spl.mics.*;
+import bgu.spl.mics.application.objects.Model;
 import bgu.spl.mics.application.services.*;
 import org.junit.After;
 import org.junit.Before;
@@ -22,8 +23,8 @@ public class MessageBusImplTest {
     @Before
     public static void setUp() throws Exception {
         msb = MessageBusImpl.getInstance();
-        stservice = new StudentService("Marina");
-        stservice2 = new StudentService("Adler");
+        stservice = new StudentService("Marina",new Model[1]);
+        stservice2 = new StudentService("Adler",new Model[1]);
         gpuservice = new GPUService("GPU");
         ex_event = new ExampleEvent("Drake Concert");
         ex_broad = new ExampleBroadcast("Hello CS");

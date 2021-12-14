@@ -1,6 +1,11 @@
 package bgu.spl.mics.application.services;
 
+import bgu.spl.mics.Broadcast;
 import bgu.spl.mics.MicroService;
+import bgu.spl.mics.PublishConferenceBroadcast;
+import bgu.spl.mics.application.objects.ConfrenceInformation;
+import bgu.spl.mics.application.objects.Model;
+import bgu.spl.mics.application.objects.Student;
 
 /**
  * Student is responsible for sending the {@link TrainModelEvent},
@@ -12,14 +17,29 @@ import bgu.spl.mics.MicroService;
  * You MAY change constructor signatures and even add new public constructors.
  */
 public class StudentService extends MicroService {
-    public StudentService(String name) {
-        super("Change_This_Name");
-        // TODO Implement this
+
+    private Model[] myModels;
+    public StudentService(String name, Model[] myModels) {
+        super(name);
+        this.myModels = myModels;
     }
 
     @Override
     protected void initialize() {
-        // TODO Implement this
+        // I think that student shouldn't subscribe to any event - only send event and get the future
+        // automatically
+
+        /*
+        it must sign up for the conference publication broadcasts.
+        PublishConferenceBroadcast: Sent by the conference at a set time,
+         will broadcast all the aggregated results to all the
+         */
+        PublishConferenceBroadcast b = new PublishConferenceBroadcast();
+
+//        this.subscribeBroadcast(b.getType(),()->{
+            //TODO - need to implement the callback for this broadcast
+//        } );
+
 
     }
 }

@@ -215,14 +215,8 @@ public class MessageBusImpl implements MessageBus {
 
 	public synchronized Message awaitMessage(MicroService m) throws InterruptedException {
 		Message task = null;
-		boolean done = false;
 		if (isRegistered(m)){
-			while(!done & !Thread.currentThread().isInterrupted()){
-				if(!msToQueueMap.get(m).isEmpty()){
-					task = msToQueueMap.get(m).take();
-					done = true;
-				}
-			}
+			task = msToQueueMap.get(m).take();
 		}
 		else{
 			//was determined in the interface

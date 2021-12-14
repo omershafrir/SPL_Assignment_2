@@ -7,4 +7,6 @@ package bgu.spl.mics;
  */
 public interface Broadcast extends Message {
 
+    public Class<? extends PublishConferenceBroadcast> getType();
+
 }

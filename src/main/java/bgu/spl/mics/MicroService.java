@@ -175,12 +175,12 @@ public abstract class   MicroService implements Runnable {
         while (!terminated) {
             try {
                 Message task = msgbus.awaitMessage(this);
-                if (task instanceof Event<?>){
-                    Callback<?> instructions = typeEventToCallback.get(task.getClass());
-//                    instructions.call(?);
+                if (task instanceof Event){
+                    Callback instructions = typeEventToCallback.get(task.getClass());
+                    instructions.call(task);
                 }
                 else{
-                    Callback<?> instructions = typeBroadcastToCallback.get(task.getClass());
+                    Callback instructions = typeBroadcastToCallback.get(task.getClass());
                 }
 
             } catch (InterruptedException e) {
