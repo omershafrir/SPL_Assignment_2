@@ -57,7 +57,26 @@ to fix & verify :
 3. terminate - completed?
 
 #################################################################################
+Student service
 
+1. callback for the broadcast sign up.
+2. SENDING EVENTS FROM STUDENT!!!!!!??????
+
+#################################################################################
+GPU service
+1. TrainModelEvent - to make sure that someone wakes up the GPU after sending
+   the un processed data
+2. TestModelEvent -
+                   a. update status for the model in each step of the way
+                   b. update result
+                   c. update future (?) and send complete
+
+#################################################################################
+Cluster
+
+1. send unprocessed data function
+
+#################################################################################
 EREZ ROCKER:
 1. fix the blessed main class ------------------------------------------------ V
 2. figure out callback and how to use them in run() method of microservice : line 180 ----V

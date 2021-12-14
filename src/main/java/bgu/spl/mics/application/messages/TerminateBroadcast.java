@@ -7,4 +7,7 @@ public class TerminateBroadcast implements Broadcast {
     public TerminateBroadcast(){
         i=0;
     }
+    public Class<? extends Broadcast> getType(){
+        return this.getClass();
+    }
 }

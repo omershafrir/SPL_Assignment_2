@@ -31,6 +31,13 @@ public class Student {
         myModels = modelsArray;
     }
 
+    public String getStatus() {
+        if(status.equals("MSc"))
+            return ("MSc");
+        else
+            return ("PhD");
+    }
+
     @Override
     public String toString() {
         return "Student{" +

@@ -1,6 +1,8 @@
 package bgu.spl.mics.application.objects;
 
 
+import java.util.Vector;
+
 /**
  * Passive object representing the cluster.
  * <p>
@@ -24,6 +26,11 @@ public class Cluster {
 
 	}
 
+	//gets the unProcessed data from GPU
+	//and sends it to an available CPU
+	public void AddToCPUunProcessedData(Vector<DataBatch> to_send){
+		//TODO - send unProcessed to a CPU
+	}
 
 	//TODO - function that indicates if the data was sent from the GPU through the Cluster to the CPU
 	public boolean WasSentUnProcessedDataToCPU(){
