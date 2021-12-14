@@ -49,7 +49,7 @@ MicroService :
     1. registers itself to the msgbus.
     2. subscribes itself to the relevent events and broadcasts.
 7. terminate()--------------------------------------------v
-8.
+8.Run()---------------------------------------------------v
 
 to fix & verify :
 1. added 'synchronized' in sendBroadcast() , sendEvent() signatures.

@@ -26,7 +26,7 @@ public abstract class   MicroService implements Runnable {
 
     private boolean terminated = false;
     private final String name;
-    private MessageBusImpl msgbus;
+    private MessageBus msgbus;
     private HashMap<Class<? extends Event <?>> , Callback<?>> typeEventToCallback;
     private HashMap<Class<? extends Broadcast> , Callback<?>> typeBroadcastToCallback;
 
@@ -175,13 +175,14 @@ public abstract class   MicroService implements Runnable {
         while (!terminated) {
             try {
                 Message task = msgbus.awaitMessage(this);
-                if (task instanceof Event){
-                    Callback instructions = typeEventToCallback.get(task.getClass());
-                    instructions.call(task);
+                Callback instructions;
+                if (task instanceof Event<?>){
+                    instructions = typeEventToCallback.get(task.getClass());
                 }
                 else{
-                    Callback instructions = typeBroadcastToCallback.get(task.getClass());
+                    instructions = typeBroadcastToCallback.get(task.getClass());
                 }
+                instructions.call(task);
 
             } catch (InterruptedException e) {
                 this.terminated=true;
