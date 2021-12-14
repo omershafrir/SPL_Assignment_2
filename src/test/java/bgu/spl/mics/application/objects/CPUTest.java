@@ -21,7 +21,6 @@ public class CPUTest {
     public void setUp() throws Exception {
         cluster = Cluster.getInstance();
         cpuExample = new CPU(3);
-        cpuExample.setCluster(cluster);
         data = new Data("Text" , 3000);
         dataBatch = new DataBatch(data , 0);
     }

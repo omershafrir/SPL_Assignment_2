@@ -37,9 +37,6 @@ public class TimeService extends MicroService{
 				currentTime++;
 				sendBroadcast(new TickBroadcast());
 				System.out.println("Current Time: "+currentTime);
-//				if (currentTime == duration)
-//					globalTimer.cancel();
-
 			}
 		};
 	}
@@ -48,7 +45,7 @@ public class TimeService extends MicroService{
 	protected void initialize() {
 		globalTimer.scheduleAtFixedRate(task , 0 , speed);
 		try{
-		Thread.currentThread().sleep(duration);}
+		Thread.currentThread().sleep(duration-50);}
 		catch(Exception e){}
 
 		globalTimer.cancel();

@@ -57,7 +57,25 @@ to fix & verify :
 3. terminate - completed?
 
 #################################################################################
+CPU & CPUService:
+                                FINISHED.
+to fix & verify :
+1. no synchronization needed?
+#################################################################################
+Broadcasts:
+to fix & verify :
 
+#################################################################################
+Cluster:
+
+#################################################################################
+Statistics:
+to fix & verify :
+1. remember to update cluster.dataBatchesProcessed number after each CPU process
+2. implement NumberOfGPUTimeUnitsUsed()
+3. sync?
+
+#################################################################################
 EREZ ROCKER:
 1. fix the blessed main class ------------------------------------------------ V
 2. figure out callback and how to use them in run() method of microservice : line 180
