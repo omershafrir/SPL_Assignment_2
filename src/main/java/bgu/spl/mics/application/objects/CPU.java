@@ -40,6 +40,8 @@ public class CPU {
         this.cluster = cluster;
     }
 
+
+
     /**
      * @return num of cores
      */
@@ -92,6 +94,17 @@ public class CPU {
     public DataBatch processData() {
 //         TODO - after the CPU got the raw data from the GPU
         return null;
+    }
+
+
+    @Override
+    public String toString() {
+        return "CPU{" +
+                "cores=" + cores +
+                ", data=" + data +
+                ", cluster=" + cluster +
+                ", numberOfCPU=" + numberOfCPU +
+                '}';
     }
 }
 
