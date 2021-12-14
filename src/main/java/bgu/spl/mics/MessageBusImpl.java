@@ -142,7 +142,7 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public synchronized void sendBroadcast(Broadcast b) {
-		if( b!= null) {
+		if( b!= null && broadcastSubscriptions.containsKey(b)) {
 			Vector<MicroService> relevent_vec = broadcastSubscriptions.get(b);
 			for (MicroService ms : relevent_vec)
 				msToQueueMap.get(ms).add(b);

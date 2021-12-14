@@ -1,6 +1,8 @@
 //import java.util.concurrent.*;
 import bgu.spl.mics.Callback;
 import bgu.spl.mics.Future;
+import bgu.spl.mics.MicroService;
+import bgu.spl.mics.application.services.TimeService;
 import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.sun.corba.se.impl.orbutil.threadpool.ThreadPoolImpl;
 import sun.nio.ch.ThreadPool;
@@ -10,32 +12,13 @@ import java.util.concurrent.*;
 
 public class main_test {
     public static void main(String []args) throws InterruptedException {
-        /**
-        ExecutorService ex = Executors.newFixedThreadPool(4);
-        Callable<Integer> [] vec = new Callable[7];
-        Future<Integer>[] futures = new Future[7];
 
-        for (int i=1 ; i <= 6 ; i++) {
-            int finalI = i;
-            vec[i] = () ->{
-                        System.out.println
-                        ("this is job number "+ finalI +", "+Thread.currentThread().getName()+" runs me");
-                        return finalI;
-                 };
-        }
+        MicroService timer = new TimeService(1000 , 3000);
+        timer.run();
 
-        for (int i=1 ; i <= 6 ; i++) {
-            try{
-                futures[i]= (Future<Integer>) ex.submit(vec[i]);
-            }catch (Exception e){
-                System.out.println(e);
-            }
 
-        }
 
-        ex.shutdown();
-    **/
-
+/**
         Future<Integer> future = new Future<>();
         Thread t1 = new Thread(()->{
             System.out.println(Thread.currentThread().getName()+" is going to sleep...");
@@ -56,7 +39,7 @@ public class main_test {
         });
         t1.start();
         t3.start();
-
+**/
 //******************************************************************
 //        Callable<Integer> call = ()->
 //                                    {
