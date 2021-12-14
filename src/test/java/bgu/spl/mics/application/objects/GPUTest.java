@@ -21,7 +21,7 @@ public class GPUTest {
     @Before
     public void setUp() throws Exception {
         data = new Data("Images",10000);
-        student = new Student("OS","cs", "MSc");
+        student = new Student("OS","cs", "MSc" ,new Model[1]);
         modelExample = new Model("omer's model",data, student);
         gpu = new GPU("GTX1080");
         gpu.setModel(modelExample);

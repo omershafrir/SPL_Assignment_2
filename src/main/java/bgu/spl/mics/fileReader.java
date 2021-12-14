@@ -72,13 +72,14 @@ public class fileReader {
                     counterOfModel++;
                 }
                 counterOfModel = 0;
-//              assigning the values after we read them
-                students[counterOfStudents]= (new Student(name,department, status));
+
 
 
                 //appending the model array into the list
                 //each model array will be in the same index as the student who came with it
                 ListOfArraysOfModels.add(models);
+                //assigning the values after we read them
+                students[counterOfStudents]= (new Student(name,department, status,ListOfArraysOfModels.get(counterOfStudents)));
                 counterOfStudents++;
                 //////////////////////////////////////////done getting students//////////////////////////
             }

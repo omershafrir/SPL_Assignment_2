@@ -1,6 +1,12 @@
 package bgu.spl.mics.application.services;
 
+import bgu.spl.mics.Callback;
+import bgu.spl.mics.Event;
+import bgu.spl.mics.Future;
 import bgu.spl.mics.MicroService;
+import bgu.spl.mics.application.messages.PublishConferenceBroadcast;
+import bgu.spl.mics.application.messages.TrainModelEvent;
+import bgu.spl.mics.application.objects.Model;
 
 /**
  * Student is responsible for sending the {@link TrainModelEvent},
@@ -12,14 +18,53 @@ import bgu.spl.mics.MicroService;
  * You MAY change constructor signatures and even add new public constructors.
  */
 public class StudentService extends MicroService {
-    public StudentService(String name) {
-        super("Change_This_Name");
-        // TODO Implement this
+
+    private Model[] myModels;
+    private int numberOfModels;
+    private String status;
+    public StudentService(String name, Model[] myModels, String status) {
+        super(name);
+        this.myModels = myModels;
+        numberOfModels = myModels.length;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     @Override
     protected void initialize() {
-        // TODO Implement this
+        // I think that student shouldn't subscribe to any event - only send event and get the future
+        // automatically
 
+        /*
+        it must sign up for the conference publication broadcasts.
+        PublishConferenceBroadcast: Sent by the conference at a set time,
+         will broadcast all the aggregated results to all the
+         */
+        PublishConferenceBroadcast b = new PublishConferenceBroadcast();
+
+//        this.subscribeBroadcast(b.getClass(),){
+            //TODO - need to implement the callback for this broadcast
+//        } );
+
+
+//        this.subscribeBroadcast(t.getClass(),callbackFunction);
+
+
+
+
+    // sending all the models at once while initializing
+//        for(int i = 0; i < numberOfModels; i++){
+//            Event<Model> e = TrainModelEvent(myModels[i], );
+//            this.sendEvent(e);
+//        }
+
+
+    }
+
+    public TrainModelEvent TrainModelEvent(Model model , Future<Model> future){
+            return new TrainModelEvent(model, this, future);
     }
 }

@@ -1,6 +1,7 @@
 package bgu.spl.mics.example.messages;
 
 import bgu.spl.mics.Broadcast;
+import bgu.spl.mics.application.messages.PublishConferenceBroadcast;
 
 public class ExampleBroadcast implements Broadcast {
 
@@ -12,6 +13,10 @@ public class ExampleBroadcast implements Broadcast {
 
     public String getSenderId() {
         return senderId;
+    }
+
+    public Class<? extends PublishConferenceBroadcast> getType(){
+        return this.getClass();
     }
 
 }

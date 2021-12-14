@@ -1,6 +1,8 @@
 package bgu.spl.mics.application.objects;
 
 
+import java.util.Vector;
+
 import bgu.spl.mics.MessageBusImpl;
 
 import java.util.Vector;
@@ -44,6 +46,11 @@ public class Cluster {
 	}
 	public CPU[] getCPUArray() {
 		return CPUArray;
+	}
+	//gets the unProcessed data from GPU
+	//and sends it to an available CPU
+	public void AddToCPUunProcessedData(Vector<DataBatch> to_send){
+		//TODO - send unProcessed to a CPU
 	}
 
 	public Vector<Model> getTrainedModels(){

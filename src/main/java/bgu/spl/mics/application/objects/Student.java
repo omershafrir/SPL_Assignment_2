@@ -17,8 +17,9 @@ public class Student {
     private Degree status;
     private int publications;
     private int papersRead;
+    Model[] myModels;
 
-    public Student(String name, String department, String status) {
+    public Student(String name, String department, String status, Model[] modelsArray) {
         this.name = name;
         this.department = department;
         if(status.equals("MSc"))
@@ -27,6 +28,14 @@ public class Student {
             this.status = Degree.PhD;
         this.publications = 0;
         this.papersRead = 0;
+        myModels = modelsArray;
+    }
+
+    public String getStatus() {
+        if(status.equals("MSc"))
+            return ("MSc");
+        else
+            return ("PhD");
     }
 
     @Override

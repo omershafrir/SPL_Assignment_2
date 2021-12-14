@@ -6,6 +6,9 @@ import bgu.spl.mics.application.objects.Cluster;
 import bgu.spl.mics.application.objects.Data;
 import bgu.spl.mics.application.objects.Student;
 import bgu.spl.mics.application.objects.DataBatch;
+
+import java.util.Vector;
+
 /**
  * Passive object representing a single GPU.
  * Add all the fields described in the assignment as private fields.
@@ -22,6 +25,7 @@ public class GPU {
     private Cluster cluster;
     public Type type;
     private Data data;
+    private Vector<DataBatch> divided_data;
     private DataBatch db;
     private int currentAvailableMemory;
 
@@ -84,11 +88,12 @@ public class GPU {
      * The data has been divided into DataBatches containing 1000 samples each
      */
     public void divideDataIntoBatches(){
-        //TODO
+        Vector<DataBatch> dataBatchVector = new Vector<DataBatch>();
+        for(int i = 0;i < data.getSize(); i = i + 1000){
+            dataBatchVector.add(new DataBatch(data,i));
+        }
+        divided_data = dataBatchVector;
     }
-
-
-
 
     /**
     *@inv:
@@ -96,9 +101,10 @@ public class GPU {
     *@pre:
      * currentAvailableMemory > this.model.getData().getSize()
     **/
-    public DataBatch sendUnprocessedData(){
-        //TODO - send chunks of unprocessed data in batches of 100 sample
-        return null;
+    //going to send through cluster to CPU
+    public synchronized void sendUnprocessedData(){
+        //TODO - send chunks of unprocessed data in batches of 1000 sample
+        cluster.AddToCPUunProcessedData(this.divided_data);
     }
 
     /**

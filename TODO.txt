@@ -67,13 +67,32 @@ to fix & verify :
 
 #################################################################################
 Cluster:
+Student service
 
+1. callback for the broadcast sign up.
+2. SENDING EVENTS FROM STUDENT!!!!!!??????
+
+#################################################################################
+GPU service
+1. TrainModelEvent - to make sure that someone wakes up the GPU after sending
+   the un processed data
+2. TestModelEvent -
+                   a. update status for the model in each step of the way
+                   b. update result
+                   c. update future (?) and send complete
+
+#################################################################################
+Cluster
+1. send unprocessed data function
 #################################################################################
 Statistics:
 to fix & verify :
 1. remember to update cluster.dataBatchesProcessed number after each CPU process
 2. implement NumberOfGPUTimeUnitsUsed()
 3. sync?
+
+#################################################################################
+
 
 #################################################################################
 EREZ ROCKER:
