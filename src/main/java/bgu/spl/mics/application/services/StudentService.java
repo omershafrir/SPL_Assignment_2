@@ -22,6 +22,8 @@ public class StudentService extends MicroService {
     private Model[] myModels;
     private int numberOfModels;
     private String status;
+    private Future<Model> future;
+
     public StudentService(String name, Model[] myModels, String status) {
         super(name);
         this.myModels = myModels;
@@ -35,7 +37,8 @@ public class StudentService extends MicroService {
 
     @Override
     protected void initialize() {
-        // I think that student shouldn't subscribe to any event - only send event and get the future
+        // I think that student shouldn't subscribe to any event -
+        // only send event and get the future
         // automatically
 
         /*
@@ -53,18 +56,6 @@ public class StudentService extends MicroService {
 //        this.subscribeBroadcast(t.getClass(),callbackFunction);
 
 
-
-
-    // sending all the models at once while initializing
-//        for(int i = 0; i < numberOfModels; i++){
-//            Event<Model> e = TrainModelEvent(myModels[i], );
-//            this.sendEvent(e);
-//        }
-
-
     }
 
-    public TrainModelEvent TrainModelEvent(Model model , Future<Model> future){
-            return new TrainModelEvent(model, this, future);
-    }
 }

@@ -17,7 +17,7 @@ public class Student {
     private Degree status;
     private int publications;
     private int papersRead;
-    Model[] myModels;
+    public Model[] myModels;
 
     public Student(String name, String department, String status, Model[] modelsArray) {
         this.name = name;

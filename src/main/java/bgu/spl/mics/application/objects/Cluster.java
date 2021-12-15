@@ -67,6 +67,14 @@ public class Cluster {
 	}
 
 
+	public HashMap<GPU, Vector<DataBatch>> getGPUToProcessed() {
+		return GPUToProcessed;
+	}
+
+	public HashMap<GPU, Vector<DataBatch>> getGPUToUnProcessed() {
+		return GPUToUnProcessed;
+	}
+
 	public void initializeCluster(){
 		GPUToUnProcessed = new HashMap<>();
 		GPUToProcessed = new HashMap<>();
