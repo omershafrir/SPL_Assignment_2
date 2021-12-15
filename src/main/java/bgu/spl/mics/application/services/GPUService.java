@@ -72,7 +72,7 @@ public class GPUService extends MicroService {
                 }
 
                 Future<Model> testFuture = testModelEvent.getFuture();
-                Model toUpdate = testModelEvent.getModel();\
+                Model toUpdate = testModelEvent.getModel();
                 //updating the status of the model
                 toUpdate.setResult(valueOfTest);
                 toUpdate.setStatus("Tested");

@@ -23,14 +23,6 @@ public class CPUService extends MicroService {
     protected void initialize() {
         Callback<TickBroadcast> instructions = new Callback<TickBroadcast>() {
             @Override
-            Runnable run = new Runnable() {
-                @Override
-                public void run() {
-                    myCPU2.process();
-                }
-            }    ;
-            Thread executor = new Thread();
-            executor.start();
             public void call(TickBroadcast c) {
                 myCPU.incrementTimer();
             }
