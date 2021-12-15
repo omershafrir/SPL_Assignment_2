@@ -1,5 +1,6 @@
 package bgu.spl.mics.application.objects;
 
+import bgu.spl.mics.Future;
 import bgu.spl.mics.application.objects.Model;
 import bgu.spl.mics.application.objects.GPU;
 import bgu.spl.mics.application.objects.Cluster;
@@ -28,6 +29,7 @@ public class GPU {
     private Vector<DataBatch> dividedUnprocessedData;
     private Vector<DataBatch> dividedProcessedData;
     private int currentAvailableMemory;
+    private Future<Model> future;
 
 
 
@@ -120,8 +122,11 @@ public class GPU {
      * model.getStatus() == Trained
      * future object got assigned with a value
      */
-    public void trainModel(){
-        //TODO
+    public Future<Model> trainModel(){
+
+
+
+        return future;
     }
 
     /**

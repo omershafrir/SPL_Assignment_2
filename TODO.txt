@@ -66,7 +66,6 @@ Broadcasts:
 to fix & verify :
 
 #################################################################################
-Cluster:
 Student service
 
 1. callback for the broadcast sign up.
@@ -75,11 +74,11 @@ Student service
 #################################################################################
 GPU service
 1. TrainModelEvent - to make sure that someone wakes up the GPU after sending
-   the un processed data
+   the un processed data ------- might not be needed because of the blocking queue
 2. TestModelEvent -
-                   a. update status for the model in each step of the way
-                   b. update result
-                   c. update future (?) and send complete
+                   a. update status for the model in each step of the way: status Training,Traind are not finished
+                   b. update result -----------------------------------------------V
+                   c. update future (?) and send complete -------------------------V
 
 #################################################################################
 Cluster

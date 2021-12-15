@@ -5,10 +5,15 @@ import bgu.spl.mics.Future;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.TestModelEvent;
 import bgu.spl.mics.application.messages.TrainModelEvent;
+import bgu.spl.mics.application.objects.Cluster;
+import bgu.spl.mics.application.objects.DataBatch;
 import bgu.spl.mics.application.objects.GPU;
 import bgu.spl.mics.application.objects.Model;
 
+import java.util.HashMap;
 import java.util.Random;
+import java.util.Vector;
+import java.util.concurrent.BlockingDeque;
 
 /**
  * GPU service is responsible for handling the
@@ -22,10 +27,12 @@ import java.util.Random;
 public class GPUService extends MicroService {
 
     private GPU myGPU;
+    private Cluster cluster;
 
     public GPUService(String name, GPU myGPU) {
         super(name);
         this.myGPU = myGPU;
+        cluster = Cluster.getInstance();
     }
 
     @Override
@@ -37,11 +44,7 @@ public class GPUService extends MicroService {
                 myGPU.setModel(toTrain);
                 myGPU.divideDataIntoBatches();
                 myGPU.sendUnprocessedData();
-                try {
-                    Thread.currentThread().wait();
-                }catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                Vector<DataBatch> x = cluster.getGPUToProcessed().get(myGPU);
 
             }
         };

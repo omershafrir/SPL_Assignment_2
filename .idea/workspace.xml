@@ -5,12 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="?">
-      <change afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU2.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/CPUService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/CPUService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/CRMSRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/CRMSRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Student.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/GPUService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/GPUService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/StudentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +28,7 @@
     </option>
   </component>
   <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="main" />
+    <option name="BRANCH" value="origin/omer" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">

@@ -25,6 +25,10 @@ public class CRMSRunner {
         cluster.setCPUArray(cpuArray);
         cluster.initializeCluster();
 
+        Student firstStudent = studentArray[0];
+//        firstStudent.myModels[0]
+
+
 //        GPU[] g = reader.getGPUArray();
 //        CPU[] c = reader.getCPUArray();
 //
