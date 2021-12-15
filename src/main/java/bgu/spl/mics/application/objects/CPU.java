@@ -24,6 +24,7 @@ public class CPU {
     private int numberOfCPU;
     private int internalTimer;
     private DataBatch beingProcessed;
+    private GPU currentGPU;
     private boolean isProcessing;
     private int processStartTick;
     private static int counterOfCPU = 1;
@@ -68,9 +69,14 @@ public class CPU {
             finishProcess();
             ProcessedData.add(beingProcessed);
             totalTicksCounter++;
+            if (unProcessedData.isEmpty())
+                sendProcessedData();
+                processNewData();
         }
         else if(isProcessing)   //incrementing totalTicksCounter when processing
             totalTicksCounter++;
+        else if(!isProcessing)
+            process();
     }
 
     /**
@@ -124,12 +130,16 @@ public class CPU {
      * @post this.data.size() + 1 = @pre(this.data.size())
      * @post @return value DataBatch != null
      */
-    public void processData() {
+    public void processDataBatch() {
         isProcessing = true;
         beingProcessed = getNextDataBatch();
         processStartTick = internalTimer;
         }
-
+    public void processDataBlock() {
+        isProcessing = true;
+        beingProcessed = getNextDataBatch();
+        processStartTick = internalTimer;
+    }
     /**
      * signals the current processing is finished
       */
@@ -137,6 +147,13 @@ public class CPU {
         isProcessing = false;
     }
 
+    public void processNewData(){
+        Vector<DataBatch> block = cluster.getDataBlock();
+
+    }
+    public void sendProcessedData(){
+        cluster.addProcessedData(currentGPU , ProcessedData);
+    }
     /**
      * @return true if cpu is processing data batch , else otherwise
      */

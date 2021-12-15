@@ -1,9 +1,11 @@
 package bgu.spl.mics.application.objects;
 
 
+import java.util.HashMap;
 import java.util.Vector;
 
 import bgu.spl.mics.MessageBusImpl;
+import org.omg.CORBA.CharSeqHelper;
 
 import java.util.Vector;
 
@@ -22,23 +24,50 @@ public class Cluster {
 	private Statistics statistics;
 	private Vector<Model> trainedModels;
 	private int dataBatchesProcessed;
+	private HashMap<GPU , Vector<DataBatch>> GPUToUnProcessed;
+	private HashMap<GPU , Vector<DataBatch>> GPUToProcessed;
+	private HashMap<Boolean , Vector<GPU>> boolToGPU;
+	private GPU nextTreatedGPU;
+	private GPU gpuToSend;
+	private int numOfCPUS;
+
+	//should we need to hold the type of CPU and GPU by the size ?
 
 	private Cluster(){
 		statistics = null;
 		trainedModels = new Vector<Model>();
 		dataBatchesProcessed = 0;
+		nextTreatedGPU = null;
+		gpuToSend = null;
 	}
 
+	public static Cluster getInstance(){
+		return instance;
+	}
+
+	/**
+	 * cluster instance initializing:
+	 * @param GPUArray
+	 */
 	public void setGPUArray(GPU[] GPUArray) {
 		this.GPUArray = GPUArray;
 	}
 
 	public void setCPUArray(CPU[] CPUArray) {
 		this.CPUArray = CPUArray;
+		numOfCPUS = CPUArray.length;
 	}
 
-	public static Cluster getInstance(){
-		return instance;
+	public void initializeCluster(){
+		GPUToUnProcessed = new HashMap<>();
+		GPUToProcessed = new HashMap<>();
+		boolToGPU = new HashMap<>();
+		boolToGPU.put(Boolean.FALSE , new Vector<GPU>());
+		for (GPU gpu: GPUArray){	//TODO : check if necessary
+			GPUToUnProcessed.put(gpu ,new Vector<DataBatch>());
+			GPUToProcessed.put(gpu ,new Vector<DataBatch>());
+			boolToGPU.get(Boolean.FALSE).add(gpu);
+		}
 	}
 
 	public GPU[] getGPUArray() {
@@ -47,27 +76,78 @@ public class Cluster {
 	public CPU[] getCPUArray() {
 		return CPUArray;
 	}
-	//gets the unProcessed data from GPU
-	//and sends it to an available CPU
-	public void AddToCPUunProcessedData(Vector<DataBatch> to_send){
-		//TODO - send unProcessed to a CPU
+
+	/**
+	 * sends the unprocessed data to the relevent CPU.
+	 * @return vector of dataBatches that a CPU is going to process.
+	 * @nextTreatedGPU is the GPU of which the data was taken from.
+	 * before function ends , @nextTreatedGPU is updated.
+	 */
+	public synchronized Vector<DataBatch> getUnprocessedData(){
+			Vector<DataBatch> unprocessedData = new Vector<>();
+			Vector<DataBatch> releventCPUVec = GPUToUnProcessed.get(nextTreatedGPU);
+			int initialSize = releventCPUVec.size();
+			for (int i=0 ; i < initialSize/numOfCPUS &&  !releventCPUVec.isEmpty(); i++){
+				unprocessedData.add(releventCPUVec.remove(0));
+			}
+		gpuToSend = nextTreatedGPU;
+		updateNextTreatedGPU();
+		return unprocessedData;
+	}
+	public synchronized GPU getUnprocessedDataGPU(){
+		return gpuToSend;
 	}
 
+	/**
+	 * @return TRUE if there is unprocessed data in the cluster
+	 * 		   FALSE otherwise
+	 */
+	public synchronized boolean isThereDataToProcess(){
+		for (Vector<DataBatch> vec : GPUToUnProcessed.values()){
+			if (!vec.isEmpty())
+				return true;
+		}
+		return false;
+	}
+
+	/**
+	 * updates the next GPU that it's data is going to be processed
+	 * 		if there is one such that no CPU is processing, then he will be chosen
+	 * 		else , the first GPU of the treated ones will be chosen
+	 */
+	public void updateNextTreatedGPU(){
+		if (!boolToGPU.get(Boolean.FALSE).isEmpty()){
+			nextTreatedGPU = boolToGPU.get(Boolean.FALSE).remove(0);
+			boolToGPU.get(Boolean.TRUE).add(nextTreatedGPU);
+		}
+		else{
+			nextTreatedGPU = boolToGPU.get(Boolean.TRUE).firstElement();
+		}
+	}
+
+	/**
+	 * adding the unprocessed data to the relevent GPU unprocessed data vector
+	 * @param gpu the GPU of which data will be processed
+	 * @param unprocessedData the unprocessed data
+	 */
+	public synchronized void addUnProcessedData(GPU gpu,Vector<DataBatch> unprocessedData){
+		GPUToUnProcessed.put(gpu , unprocessedData);
+	}
+
+	/**
+	 * adding the processed data to the relevent GPU processed data vector
+	 * @param gpu the GPU of which data has been processed
+	 * @param processedData the completed processed data
+	 */
+	public synchronized void addProcessedData(GPU gpu,Vector<DataBatch> processedData){
+		GPUToProcessed.get(gpu).addAll(processedData);
+	}
 	public Vector<Model> getTrainedModels(){
 		return trainedModels;
 	}
 
 	public int dataBatchesProcessed(){
 		return dataBatchesProcessed;
-	}
-	//TODO - function that indicates if the data was sent from the GPU through the Cluster to the CPU
-	public boolean WasSentUnProcessedDataToCPU(){
-		return true;
-	}
-
-	//TODO - after the data was processed will indicate that the data was sent back to the GPU for training the model
-	public boolean WasSentProcessedDataToGPU(){
-		return true;
 	}
 
 }

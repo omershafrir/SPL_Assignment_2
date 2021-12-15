@@ -9,6 +9,5 @@ import bgu.spl.mics.application.messages.PublishConferenceBroadcast;
  */
 public interface Broadcast extends Message {
 
-    public Class<? extends Broadcast> getType();
 
 }

@@ -15,8 +15,5 @@ public class ExampleBroadcast implements Broadcast {
         return senderId;
     }
 
-    public Class<? extends PublishConferenceBroadcast> getType(){
-        return this.getClass();
-    }
 
 }

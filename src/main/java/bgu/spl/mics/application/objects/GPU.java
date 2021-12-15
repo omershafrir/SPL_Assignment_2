@@ -25,8 +25,8 @@ public class GPU {
     private Cluster cluster;
     public Type type;
     private Data data;
-    private Vector<DataBatch> divided_data;
-    private DataBatch db;
+    private Vector<DataBatch> dividedUnprocessedData;
+    private Vector<DataBatch> dividedProcessedData;
     private int currentAvailableMemory;
 
 
@@ -45,18 +45,12 @@ public class GPU {
             currentAvailableMemory = 8;
             this.type = Type.GTX1080;
         }
-
+        cluster = Cluster.getInstance();
     }
 
     public Model getModel() {
         return model;
     }
-
-    public Cluster getCluster() {
-        return cluster;
-    }
-
-    public DataBatch getDb() {return db;}
 
     public Type getType() {
         return type;
@@ -68,16 +62,17 @@ public class GPU {
         this.model = model;
     }
 
-    public void setCluster(Cluster cluster) {
-        this.cluster = cluster;
+    public Cluster getCluster() {
+        return cluster;
     }
 
     public void setData(Data data) {
         this.data = data;
     }
-//divides the data into batches of 1000 samples - DataBatchs
-    //and stores them on the disk
+
     /**
+     * divides the data into batches of 1000 samples - DataBatchs
+     * and stores them on the disk
      * @INV:
      * student sent a "TrainingModel" Event
      * this GPU activated the CallBack function
@@ -86,13 +81,13 @@ public class GPU {
      * data was loaded to the model
      * @POST:
      * The data has been divided into DataBatches containing 1000 samples each
-     */
+     **/
     public void divideDataIntoBatches(){
         Vector<DataBatch> dataBatchVector = new Vector<DataBatch>();
         for(int i = 0;i < data.getSize(); i = i + 1000){
             dataBatchVector.add(new DataBatch(data,i));
         }
-        divided_data = dataBatchVector;
+        dividedUnprocessedData = dataBatchVector;
     }
 
     /**
@@ -102,11 +97,9 @@ public class GPU {
      * currentAvailableMemory > this.model.getData().getSize()
     **/
     //going to send through cluster to CPU
-    public synchronized void sendUnprocessedData(){
-        //TODO - send chunks of unprocessed data in batches of 1000 sample
-        cluster.AddToCPUunProcessedData(this.divided_data);
+    public void sendUnprocessedData(){
+        cluster.addUnProcessedData(this , this.dividedUnprocessedData);
     }
-
     /**
      * @PRE:
      * CPU got data from GPU
@@ -166,7 +159,6 @@ public class GPU {
                 ", cluster=" + cluster +
                 ", type=" + type +
                 ", data=" + data +
-                ", db=" + db +
                 ", currentAvailableMemory=" + currentAvailableMemory +
                 '}';
     }
