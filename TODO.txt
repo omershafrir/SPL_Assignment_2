@@ -58,9 +58,10 @@ to fix & verify :
 
 #################################################################################
 CPU & CPUService:
-                                FINISHED.
+
 to fix & verify :
 1. no synchronization needed?
+2. turn internalTimer to ATOMIC!
 #################################################################################
 Broadcasts:
 to fix & verify :

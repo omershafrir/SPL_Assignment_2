@@ -1,9 +1,11 @@
 package bgu.spl.mics.application;
 
+import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.objects.CPU;
 import bgu.spl.mics.application.objects.Cluster;
 import bgu.spl.mics.application.objects.GPU;
 import bgu.spl.mics.application.objects.Student;
+import bgu.spl.mics.application.services.GPUService;
 import bgu.spl.mics.fileReader;
 
 /** This is the Main class of Compute Resources Management System application. You should parse the input file,
@@ -24,6 +26,11 @@ public class CRMSRunner {
         cluster.setGPUArray(gpuArray);
         cluster.setCPUArray(cpuArray);
         cluster.initializeCluster();
+
+        MicroService gpu = new GPUService("ROCKER" , gpuArray[0]);
+        Thread gpuService = new Thread(gpu);
+        gpuService.start();
+
 
 //        GPU[] g = reader.getGPUArray();
 //        CPU[] c = reader.getCPUArray();

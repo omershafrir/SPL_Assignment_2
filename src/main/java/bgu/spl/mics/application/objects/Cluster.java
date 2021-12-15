@@ -8,6 +8,10 @@ import bgu.spl.mics.MessageBusImpl;
 import org.omg.CORBA.CharSeqHelper;
 
 import java.util.Vector;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Passive object representing the cluster.
@@ -25,13 +29,12 @@ public class Cluster {
 	private Vector<Model> trainedModels;
 	private int dataBatchesProcessed;
 	private HashMap<GPU , Vector<DataBatch>> GPUToUnProcessed;
-	private HashMap<GPU , Vector<DataBatch>> GPUToProcessed;
+	private HashMap<GPU , BlockingDeque<Vector<DataBatch>>> GPUToProcessed;
 	private HashMap<Boolean , Vector<GPU>> boolToGPU;
 	private GPU nextTreatedGPU;
 	private GPU gpuToSend;
 	private int numOfCPUS;
-
-	//should we need to hold the type of CPU and GPU by the size ?
+//should we need to hold the type of CPU and GPU by the size ?
 
 	private Cluster(){
 		statistics = null;
@@ -52,11 +55,17 @@ public class Cluster {
 	public void setGPUArray(GPU[] GPUArray) {
 		this.GPUArray = GPUArray;
 	}
-
 	public void setCPUArray(CPU[] CPUArray) {
 		this.CPUArray = CPUArray;
 		numOfCPUS = CPUArray.length;
 	}
+	public HashMap<GPU, Vector<DataBatch>> getGPUToUnProcessed() {
+		return GPUToUnProcessed;
+	}
+	public HashMap<GPU, BlockingDeque<Vector<DataBatch>>> getGPUToProcessed() {
+		return GPUToProcessed;
+	}
+
 
 	public void initializeCluster(){
 		GPUToUnProcessed = new HashMap<>();
@@ -65,7 +74,9 @@ public class Cluster {
 		boolToGPU.put(Boolean.FALSE , new Vector<GPU>());
 		for (GPU gpu: GPUArray){	//TODO : check if necessary
 			GPUToUnProcessed.put(gpu ,new Vector<DataBatch>());
-			GPUToProcessed.put(gpu ,new Vector<DataBatch>());
+			GPUToProcessed.put(gpu ,new LinkedBlockingDeque<>());
+			GPUToProcessed.get(gpu).add(new Vector<>());
+			GPUToProcessed.get(gpu).add(new Vector<>());
 			boolToGPU.get(Boolean.FALSE).add(gpu);
 		}
 	}
@@ -140,7 +151,19 @@ public class Cluster {
 	 * @param processedData the completed processed data
 	 */
 	public synchronized void addProcessedData(GPU gpu,Vector<DataBatch> processedData){
-		GPUToProcessed.get(gpu).addAll(processedData);
+		Vector<DataBatch> vector = GPUToProcessed.get(gpu).getLast();
+			while (vector.size() < gpu.getCurrentAvailableMemory()
+						&& !processedData.isEmpty()){
+			vector.add(processedData.remove(0));
+		}
+			while (!processedData.isEmpty()){
+				Vector<DataBatch> x = new Vector<>();
+				for(int i = 0;!processedData.isEmpty()
+						&& i < gpu.getCurrentAvailableMemory(); i++){
+					x.add(processedData.remove(0));
+				}
+				GPUToProcessed.get(gpu).add(x);
+			}
 	}
 	public Vector<Model> getTrainedModels(){
 		return trainedModels;
