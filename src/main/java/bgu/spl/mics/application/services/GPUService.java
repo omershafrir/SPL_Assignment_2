@@ -33,7 +33,8 @@ public class GPUService extends MicroService {
         Callback<TrainModelEvent> instructions_train = new Callback<TrainModelEvent>() {
             @Override
             public void call(TrainModelEvent event) {
-                myGPU.setModel(event.getModel());
+                Model toTrain = event.getModel();
+                myGPU.setModel(toTrain);
                 myGPU.divideDataIntoBatches();
                 myGPU.sendUnprocessedData();
                 try {
@@ -71,6 +72,12 @@ public class GPUService extends MicroService {
                 }
 
                 Future<Model> testFuture = testModelEvent.getFuture();
+                Model toUpdate = testModelEvent.getModel();\
+                //updating the status of the model
+                toUpdate.setResult(valueOfTest);
+                toUpdate.setStatus("Tested");
+                //updating the future of the model after the test
+                testFuture.resolve(toUpdate);
 
                 /*
                 this type of

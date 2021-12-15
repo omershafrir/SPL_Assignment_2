@@ -25,6 +25,10 @@ public class TestModelEvent implements Event<Model> {
         return senderStatus;
     }
 
+    public Model getModel() {
+        return model;
+    }
+
     @Override
     public MicroService getSender() {
         return sender;

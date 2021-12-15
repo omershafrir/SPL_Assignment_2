@@ -8,7 +8,7 @@ public class PublishConferenceBroadcast implements Broadcast {
     public PublishConferenceBroadcast(){
     }
 
-    public Class<? extends Broadcast> getType(){
+    public Class<? extends PublishConferenceBroadcast> getType(){
         return this.getClass();
     }
 }

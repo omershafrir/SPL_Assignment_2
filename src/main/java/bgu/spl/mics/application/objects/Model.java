@@ -46,7 +46,25 @@ public class Model {
         return result;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setResult(String result) {
+        if(result.equals("Good"))
+            this.result = Result.Good;
+        else
+            this.result = Result.Bad;
+    }
+
+    public void setStatus(String status) {
+        //PreTrained, Training, Trained , Tested
+        if(status.equals("PreTrained"))
+            this.status = Status.PreTrained;
+        else if(status.equals("Training"))
+            this.status = Status.Training;
+        else if(status.equals("Trained"))
+                this.status = Status.Trained;
+        else
+            this.status = Status.Tested;
+
+
+
     }
 }
