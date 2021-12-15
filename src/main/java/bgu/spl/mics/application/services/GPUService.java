@@ -44,7 +44,9 @@ public class GPUService extends MicroService {
                 myGPU.setModel(toTrain);
                 myGPU.divideDataIntoBatches();
                 myGPU.sendUnprocessedData();
-                Vector<DataBatch> x = cluster.getGPUToProcessed().get(myGPU);
+                try {
+                    Vector<DataBatch> x = cluster.getGPUToProcessed().get(myGPU).take();
+                } catch(Exception ex){}
 
             }
         };

@@ -34,7 +34,7 @@ public class Cluster {
 	private GPU nextTreatedGPU;
 	private GPU gpuToSend;
 	private int numOfCPUS;
-//should we need to hold the type of CPU and GPU by the size ?
+
 
 	private Cluster(){
 		statistics = null;
@@ -59,21 +59,14 @@ public class Cluster {
 		this.CPUArray = CPUArray;
 		numOfCPUS = CPUArray.length;
 	}
-	public HashMap<GPU, Vector<DataBatch>> getGPUToUnProcessed() {
+	public synchronized HashMap<GPU, Vector<DataBatch>> getGPUToUnProcessed() {
 		return GPUToUnProcessed;
 	}
-	public HashMap<GPU, BlockingDeque<Vector<DataBatch>>> getGPUToProcessed() {
+
+	public synchronized HashMap<GPU, BlockingDeque<Vector<DataBatch>>> getGPUToProcessed() {
 		return GPUToProcessed;
 	}
 
-
-	public HashMap<GPU, Vector<DataBatch>> getGPUToProcessed() {
-		return GPUToProcessed;
-	}
-
-	public HashMap<GPU, Vector<DataBatch>> getGPUToUnProcessed() {
-		return GPUToUnProcessed;
-	}
 
 	public void initializeCluster(){
 		GPUToUnProcessed = new HashMap<>();
@@ -134,7 +127,7 @@ public class Cluster {
 	 * 		if there is one such that no CPU is processing, then he will be chosen
 	 * 		else , the first GPU of the treated ones will be chosen
 	 */
-	public void updateNextTreatedGPU(){
+	public synchronized void updateNextTreatedGPU(){
 		if (!boolToGPU.get(Boolean.FALSE).isEmpty()){
 			nextTreatedGPU = boolToGPU.get(Boolean.FALSE).remove(0);
 			boolToGPU.get(Boolean.TRUE).add(nextTreatedGPU);
