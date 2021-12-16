@@ -1,18 +1,16 @@
 package bgu.spl.mics.application.services;
 
 import bgu.spl.mics.Callback;
+import bgu.spl.mics.Event;
 import bgu.spl.mics.Future;
 import bgu.spl.mics.MicroService;
-import bgu.spl.mics.application.messages.TestModelEvent;
-import bgu.spl.mics.application.messages.TrainModelEvent;
+import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.objects.Cluster;
 import bgu.spl.mics.application.objects.DataBatch;
 import bgu.spl.mics.application.objects.GPU;
 import bgu.spl.mics.application.objects.Model;
 
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.BlockingDeque;
 
 /**
@@ -26,74 +24,141 @@ import java.util.concurrent.BlockingDeque;
  */
 public class GPUService extends MicroService {
 
+    enum State{NotOccupied , Training , Testing}
+
     private GPU myGPU;
     private Cluster cluster;
+    private Deque<Event> awaitingEvents;
+    private State state;
+    private int remainingTicksToTrain;
+    private Event<Model> currentEvent;
+
 
     public GPUService(String name, GPU myGPU) {
         super(name);
         this.myGPU = myGPU;
         cluster = Cluster.getInstance();
+        state = State.NotOccupied;
+        remainingTicksToTrain = 0;
+        awaitingEvents = new LinkedList<>();
+        currentEvent = null;
     }
-
+    private void finishTask(){
+        state = State.NotOccupied;
+    }
+    private void startTrain(){
+        state = State.Training;
+    }
+    private void startTest(){
+        state = State.Testing;
+    }
     @Override
     protected void initialize() {
-        Callback<TrainModelEvent> instructions_train = new Callback<TrainModelEvent>() {
+        GPUService self = this;
+        //callback instructions for TrainModelEvent
+        Callback<TrainModelEvent> instructionsTrain = new Callback<TrainModelEvent>() {
             @Override
-            public void call(TrainModelEvent event) {
-                Model toTrain = event.getModel();
-                myGPU.setModel(toTrain);
-                myGPU.divideDataIntoBatches();
-                myGPU.sendUnprocessedData();
-                try {
-                    Vector<DataBatch> x = cluster.getGPUToProcessed().get(myGPU).take();
-                } catch(Exception ex){}
+            public void call(TrainModelEvent trainModelEvent) {
+                self.currentEvent = trainModelEvent;
+                if(state == State.Training)
+                    awaitingEvents.addLast(trainModelEvent);
+                if(state == State.Testing)
+                    awaitingEvents.addLast(trainModelEvent);
+                else{   //start processing TrainModelEvent
 
+                    Model toTrain = trainModelEvent.getModel();
+                    myGPU.setModel(toTrain);
+                    myGPU.divideDataIntoBatches();
+                    myGPU.sendUnprocessedData();
+                    //start getting processed data
+                    startTrain();
+                    myGPU.continueTrainData();
+
+                }
             }
         };
 
-        this.subscribeEvent(TrainModelEvent.class , instructions_train);
-        Callback<TestModelEvent> instruction_test = new Callback<TestModelEvent>() {
+        //callback instructions for TestModelEvent
+        Callback<TestModelEvent> instructionTest = new Callback<TestModelEvent>() {
             @Override
             public void call(TestModelEvent testModelEvent) {
-                String valueOfTest;
-                Random gen = new Random();
-                int prob = gen.nextInt(100);
-                //function with prob of 0.6
-                if(testModelEvent.getSenderStatus().equals("MSc")){
-                    if(prob <= 60){
-                        valueOfTest = "Good";
+                self.currentEvent = testModelEvent;
+                if(state == State.Training)
+                    awaitingEvents.addFirst(testModelEvent);
+                if(state == State.Testing)
+                    awaitingEvents.addFirst(testModelEvent);
+                else {   //start training TrainModelEvent
+                    startTest();
+                    String valueOfTest;
+                    Random gen = new Random();
+                    int prob = gen.nextInt(100);
+                    //function with prob of 0.6
+                    if(testModelEvent.getSenderStatus().equals("MSc")){
+                        if(prob <= 60){
+                            valueOfTest = "Good";
+                        }
+                        else
+                            valueOfTest = "Bad";
                     }
-                    else
-                        valueOfTest = "Bad";
-                }
-                //PhD case
-                else{
-                    //function with prob of 0.8
-                    if(prob <= 80){
-                        valueOfTest = "Good";
+                    //PhD case
+                    else{
+                        //function with prob of 0.8
+                        if(prob <= 80){
+                            valueOfTest = "Good";
+                        }
+                        else
+                            valueOfTest = "Bad";
                     }
-                    else
-                        valueOfTest = "Bad";
+                    Model tested = testModelEvent.getModel();
+                    tested.setResult(valueOfTest);
+                    tested.setStatus("Tested");
+
+                    complete(testModelEvent , tested);
+
                 }
-
-                Future<Model> testFuture = testModelEvent.getFuture();
-                Model toUpdate = testModelEvent.getModel();
-                //updating the status of the model
-                toUpdate.setResult(valueOfTest);
-                toUpdate.setStatus("Tested");
-                //updating the future of the model after the test
-                testFuture.resolve(toUpdate);
-
-                /*
-                this type of
-                    event is processed instantly, and will return results on the model, will return ‘Good’
-                    results with a probability of 0.6 for MSc student, and 0.8 for PhD student. (yes this is
-                    random), when the GPU finish handling the event it will update the object, and set
-                    the future via the MessageBus, so the Student can see the change.
-                */
             }
         };
-        this.subscribeEvent(TestModelEvent.class , instruction_test);
 
+        //callback instructions for TickBroadcast
+        Callback<TickBroadcast> instructionTimeTick = new Callback<TickBroadcast>() {
+            @Override
+            public void call(TickBroadcast c) {
+                myGPU.incrementTimer();
+                afterTimeTickAction(instructionsTrain , instructionTest);
+            }
+        };
+
+
+        this.subscribeEvent(TrainModelEvent.class , instructionsTrain);
+        this.subscribeEvent(TestModelEvent.class , instructionTest);
+        this.subscribeBroadcast(TickBroadcast.class , instructionTimeTick);
+
+    }
+    public void afterTimeTickAction(Callback instructionsTrain ,Callback instructionTest){
+        if(state == State.Training){
+            myGPU.
+            boolean finished = myGPU.continueTrainData();
+            if(finished){
+                complete(currentEvent,myGPU.getModel());
+                finishTask();
+            }
+        }
+
+        // WE WILL NEVER GET A TICK WHILE TESTING BECAUSE TESTING IS INSTANT
+
+        else{
+            if (!awaitingEvents.isEmpty()){
+                Event<Model> toExecute = awaitingEvents.pop();
+                if(toExecute instanceof TrainModelEvent){
+                    startTrain();
+                    instructionsTrain.call(toExecute);
+                }
+                else {
+                    startTest();
+                    instructionTest.call(toExecute);
+                }
+            }
+
+        }
     }
 }
