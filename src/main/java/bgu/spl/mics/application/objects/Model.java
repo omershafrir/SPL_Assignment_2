@@ -16,7 +16,7 @@ public class Model {
     private Student student;
     private Status status;
     private Result result;
-
+    private boolean isPublished;
 
     public Model(String name, Data data, Student student) {
         this.name = name;
@@ -24,6 +24,7 @@ public class Model {
         this.student = student;
         this.status = Status.PreTrained;
         this.result = Result.None;
+        this.isPublished = false;
     }
 
     public String getName() {
@@ -34,16 +35,31 @@ public class Model {
         return data;
     }
 
+    public void publishModel(){
+        isPublished = true;
+    }
     public Student getStudent() {
         return student;
     }
 
-    public Status getStatus() {
-        return status;
+    public String getStatus() {
+        if(status.equals(Status.PreTrained))
+            return "PreTrained";
+        else if(status.equals(Status.Training))
+            return "Training";
+        else if(status.equals(Status.Trained))
+            return "Trained";
+        else
+            return "Tested";
     }
 
-    public Result getResult() {
-        return result;
+    public String getResult() {
+        if(result.equals(Result.None))
+            return "Non";
+        else if(result.equals(Result.Bad))
+            return "Bad";
+        else //if(result.equals(Result.Good))
+            return "Good";
     }
 
     public void setResult(String result) {

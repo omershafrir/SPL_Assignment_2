@@ -12,5 +12,7 @@ public class PublishConferenceBroadcast implements Broadcast {
         models = _models;
     }
 
-
+    public Vector<Model> getModels() {
+        return models;
+    }
 }

@@ -35,6 +35,7 @@ public class ConferenceService extends MicroService {
             public void call(PublishResultsEvent c) {
                 Model model = c.getModel();
                 myConfrence.addModel(model);
+                myConfrence.addEvent(c);
             }
         };
 
@@ -46,8 +47,14 @@ public class ConferenceService extends MicroService {
                 if(myConfrence.getInternalTimer() == myConfrence.getDate()){
                     sendBroadcast(new PublishConferenceBroadcast(myConfrence.getModels()));
                     MessageBus msgbus = MessageBusImpl.getInstance();
-                    for (PublishResultsEvent resultPublish : myConfrence.getEvents())
-                        complete(resultPublish , resultPublish.getModel());
+                    for (PublishResultsEvent resultPublish : myConfrence.getEvents()) {
+                        complete(resultPublish, resultPublish.getModel());
+                        resultPublish.getModel().publishModel();
+                        // to decide : number of publications of a student will increase when:
+                        //    1. the conference goes out. 2. the student reads the conference broadcast
+                        // basically same thing
+//                        resultPublish.getModel().getStudent().incrementPublished();
+                    }
                     msgbus.unregister(self);
                 }
             }
