@@ -4,9 +4,11 @@ import bgu.spl.mics.Callback;
 import bgu.spl.mics.Event;
 import bgu.spl.mics.Future;
 import bgu.spl.mics.MicroService;
-import bgu.spl.mics.application.messages.PublishConferenceBroadcast;
-import bgu.spl.mics.application.messages.TrainModelEvent;
+import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.objects.Model;
+import bgu.spl.mics.application.objects.Student;
+
+import java.util.Vector;
 
 /**
  * Student is responsible for sending the {@link TrainModelEvent},
@@ -19,43 +21,75 @@ import bgu.spl.mics.application.objects.Model;
  */
 public class StudentService extends MicroService {
 
+
     private Model[] myModels;
-    private int numberOfModels;
-    private String status;
+    private Student myStudent;
     private Future<Model> future;
 
-    public StudentService(String name, Model[] myModels, String status) {
+    public StudentService(String name, Student _myStudent) {
         super(name);
-        this.myModels = myModels;
-        numberOfModels = myModels.length;
-        this.status = status;
+        myStudent = _myStudent;
+        myModels = myStudent.getModels();
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatus(){
+        return myStudent.getStatus();
     }
-
     @Override
     protected void initialize() {
-        // I think that student shouldn't subscribe to any event -
-        // only send event and get the future
-        // automatically
 
-        /*
-        it must sign up for the conference publication broadcasts.
-        PublishConferenceBroadcast: Sent by the conference at a set time,
-         will broadcast all the aggregated results to all the
-         */
-//        PublishConferenceBroadcast b = new PublishConferenceBroadcast();
+        //callback instructions for TickBroadcast
+        Callback<TickBroadcast> instructionsForTick = new Callback<TickBroadcast>() {
+            @Override
+            public void call(TickBroadcast c) {
+                myStudent.incrementTimer();
+                afterTimeTickAction();
+            }
+        };
 
-//        this.subscribeBroadcast(b.getClass(),){
-            //TODO - need to implement the callback for this broadcast
-//        } );
+        //callback instructions for PublishConferenceBroadcast
+        Callback<PublishConferenceBroadcast> instructionsForConference =
+                                     new Callback<PublishConferenceBroadcast>() {
+            @Override
+            public void call(PublishConferenceBroadcast c) {
+                    Vector<Model> vecOfModels = c.getModels();
+                    for (Model model : vecOfModels){
+                        if (model.getStudent().equals(myStudent))
+                            myStudent.incrementPublished();
+                        else
+                            myStudent.readPaper();
+                    }
+            }
+        };
 
-
-//        this.subscribeBroadcast(t.getClass(),callbackFunction);
-
-
+       subscribeBroadcast(TickBroadcast.class , instructionsForTick);
+       subscribeBroadcast(PublishConferenceBroadcast.class, instructionsForConference);
     }
-
+    public void afterTimeTickAction(){
+            future = this.myStudent.getFuture();
+            //if there is a model to train
+        if(future == null) {
+            if (myStudent.getCounterTestedModels() < myModels.length) {
+                TrainModelEvent e = new TrainModelEvent(myModels[myStudent.getCounterTestedModels()], this);
+                myStudent.setFuture(sendEvent(e));
+            }
+        }
+        else { //future != null
+                if (future.isDone()){
+                    Model currentModel = future.get();
+                    //if there is a model to test
+                    if(future.get().getStatus() == "Trained") {
+                        TestModelEvent testEvent = new TestModelEvent(currentModel, this);
+                        myStudent.setFuture(sendEvent(testEvent));
+                    }
+                    else if(future.get().getStatus() == "Tested"){
+                            if(future.get().getResult() == "Good"){
+                            PublishResultsEvent publishEvent = new PublishResultsEvent(currentModel);
+                            myStudent.setFuture(sendEvent(publishEvent));
+                            }
+                        myStudent.setFuture(null);
+                        }
+                }
+            }
+    }
 }

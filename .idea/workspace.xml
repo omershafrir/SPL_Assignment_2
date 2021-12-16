@@ -4,7 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="?" />
+=======
+    <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="?">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MicroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MicroService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/messages/PublishConferenceBroadcast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/messages/PublishConferenceBroadcast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Cluster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Cluster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/ConferenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/ConferenceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/GPUService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/GPUService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/StudentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/MessageBusImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/MessageBusImplTest.java" afterDir="false" />
+    </list>
+    <list id="ff1e39aa-d681-4cc6-ba3f-7188e13224a3" name="Changes by Erez" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/messages/TestModelEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/messages/TestModelEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/messages/TrainModelEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/messages/TrainModelEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/DataBatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/DataBatch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/StudentService.java" afterDir="false" />
+    </list>
+>>>>>>> 33dc30d1a2c641ad8f032278d3819240bb15bb5e
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,7 +46,7 @@
     </option>
   </component>
   <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/main" />
+    <option name="BRANCH" value="omer" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -41,6 +67,60 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar!/com/google/gson/JsonElement.class" root0="SKIP_INSPECTION" />
   </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/StudentService.java">
+      <ranges>
+        <range start1="6" end1="8" start2="6" end2="7" changelist="ff1e39aa-d681-4cc6-ba3f-7188e13224a3" />
+        <range start1="9" end1="9" start2="8" end2="11" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="20" end1="20" start2="22" end2="23" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="22" end1="24" start2="25" end2="26" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="26" end1="27" start2="28" end2="29" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="28" end1="31" start2="30" end2="32" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="33" end1="35" start2="34" end2="36" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="36" end1="37" start2="37" end2="37" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="39" end1="49" start2="39" end2="39" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="50" end1="53" start2="40" end2="48" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="54" end1="54" start2="49" end2="63" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="55" end1="58" start2="64" end2="66" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="59" end1="60" start2="67" end2="94" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="61" end1="62" start2="95" end2="95" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Student.java">
+      <ranges>
+        <range start1="2" end1="2" start2="2" end2="4" changelist="ff1e39aa-d681-4cc6-ba3f-7188e13224a3" />
+        <range start1="19" end1="20" start2="21" end2="25" changelist="ff1e39aa-d681-4cc6-ba3f-7188e13224a3" />
+        <range start1="21" end1="21" start2="26" end2="30" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="31" end1="31" start2="40" end2="41" changelist="ff1e39aa-d681-4cc6-ba3f-7188e13224a3" />
+        <range start1="32" end1="32" start2="42" end2="49" changelist="ff1e39aa-d681-4cc6-ba3f-7188e13224a3" />
+        <range start1="40" end1="40" start2="57" end2="75" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java">
+      <ranges>
+        <range start1="28" end1="28" start2="28" end2="33" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="29" end1="30" start2="34" end2="35" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="36" end1="36" start2="41" end2="43" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="39" end1="39" start2="46" end2="47" changelist="ff1e39aa-d681-4cc6-ba3f-7188e13224a3" />
+        <range start1="43" end1="43" start2="51" end2="52" changelist="ff1e39aa-d681-4cc6-ba3f-7188e13224a3" />
+        <range start1="48" end1="48" start2="57" end2="58" changelist="ff1e39aa-d681-4cc6-ba3f-7188e13224a3" />
+        <range start1="60" end1="60" start2="70" end2="73" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="89" end1="90" start2="102" end2="107" changelist="ff1e39aa-d681-4cc6-ba3f-7188e13224a3" />
+        <range start1="112" end1="113" start2="129" end2="130" changelist="ff1e39aa-d681-4cc6-ba3f-7188e13224a3" />
+        <range start1="124" end1="126" start2="141" end2="141" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="127" end1="129" start2="142" end2="163" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Model.java">
+      <ranges>
+        <range start1="18" end1="19" start2="18" end2="19" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="26" end1="26" start2="26" end2="27" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="36" end1="36" start2="37" end2="40" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
+        <range start1="40" end1="42" start2="44" end2="53" changelist="ff1e39aa-d681-4cc6-ba3f-7188e13224a3" />
+        <range start1="44" end1="46" start2="55" end2="62" changelist="ff1e39aa-d681-4cc6-ba3f-7188e13224a3" />
+      </ranges>
+    </file>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -52,7 +132,7 @@
     </option>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="21gy8J5j47foblvOAOifzHAOfWH" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -180,6 +260,7 @@
       <workItem from="1639470449735" duration="2000" />
       <workItem from="1639476366882" duration="2463000" />
       <workItem from="1639570858465" duration="17360000" />
+      <workItem from="1639639629439" duration="16759000" />
     </task>
     <task id="LOCAL‎00001" summary="kkk">
       <created>1638428440822</created>
