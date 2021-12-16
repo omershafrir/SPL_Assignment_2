@@ -16,7 +16,6 @@ import java.util.concurrent.BlockingDeque;
 /**
  * GPU service is responsible for handling the
  * {@link TrainModelEvent} and {@link TestModelEvent},
- * in addition to sending the {@link DataPreProcessEvent}.
  * This class may not hold references for objects which it is not responsible for.
  *
  * You can add private fields and public methods to this class.

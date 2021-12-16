@@ -27,7 +27,6 @@ public class CPU3 {
      * constructor of CPU
      *
      * @param cores   Number of cores of the CPU
-     * @param cluster The single cluster instance which is connected to this CPU
      * @returns the CPU instance
      */
     public CPU3(int cores) {
