@@ -16,7 +16,7 @@ import java.util.concurrent.BlockingDeque;
 /**
  * GPU service is responsible for handling the
  * {@link TrainModelEvent} and {@link TestModelEvent},
- * in addition to sending the {@link DataPreProcessEvent}.
+ * in addition to sending the { DataPreProcessEvent}.
  * This class may not hold references for objects which it is not responsible for.
  *
  * You can add private fields and public methods to this class.
@@ -68,11 +68,13 @@ public class GPUService extends MicroService {
 
                     Model toTrain = trainModelEvent.getModel();
                     myGPU.setModel(toTrain);
+                    myGPU.getModel().setStatus("Training"); // change the model status!
                     myGPU.divideDataIntoBatches();
                     myGPU.sendUnprocessedData();
+                    myGPU.incrementGPUTimeUsage();        //for statistics
                     //start getting processed data
                     startTrain();
-                    myGPU.continueTrainDatagh();
+                    myGPU.continueTrainData();
 
                 }
             }
@@ -83,10 +85,12 @@ public class GPUService extends MicroService {
             @Override
             public void call(TestModelEvent testModelEvent) {
                 self.currentEvent = testModelEvent;
-                if(state == State.Training)
+                if(state == State.Training){
                     awaitingEvents.addFirst(testModelEvent);
-                if(state == State.Testing)
+                }
+                if(state == State.Testing) {
                     awaitingEvents.addFirst(testModelEvent);
+                }
                 else {   //start training TrainModelEvent
                     startTest();
                     String valueOfTest;
@@ -109,9 +113,10 @@ public class GPUService extends MicroService {
                         else
                             valueOfTest = "Bad";
                     }
+                    myGPU.incrementGPUTimeUsage();          // for statistics
                     Model tested = testModelEvent.getModel();
                     tested.setResult(valueOfTest);
-                    tested.setStatus("Tested");
+                    tested.setStatus("Tested");             // change the model status!
 
                     complete(testModelEvent , tested);
 
@@ -136,9 +141,9 @@ public class GPUService extends MicroService {
     }
     public void afterTimeTickAction(Callback instructionsTrain ,Callback instructionTest){
         if(state == State.Training){
-            myGPU.
             boolean finished = myGPU.continueTrainData();
             if(finished){
+                myGPU.getModel().setStatus("Trained");         // change the model status!
                 complete(currentEvent,myGPU.getModel());
                 finishTask();
             }

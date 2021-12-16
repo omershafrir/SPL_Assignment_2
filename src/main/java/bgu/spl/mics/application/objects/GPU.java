@@ -35,9 +35,8 @@ public class GPU {
     private Vector<DataBatch> dividedUnprocessedData;
     private Vector<DataBatch> processedData;
     private int currentAvailableMemory;
-    private AtomicInteger totalTicksCounter;
-    //is needed?
-    private Future<Model> future;
+    private AtomicInteger totalTicksCounter = new AtomicInteger(0);
+
 
 
 
@@ -164,6 +163,14 @@ public class GPU {
             }
         }
     return false;
+    }
+
+    public void incrementGPUTimeUsage(){
+        totalTicksCounter.incrementAndGet();
+    }
+    public int NumberOfGPUTimeUnitsUsed(){
+        int totalTicksCounterINT = totalTicksCounter.intValue();
+        return totalTicksCounterINT;
     }
 
     /**

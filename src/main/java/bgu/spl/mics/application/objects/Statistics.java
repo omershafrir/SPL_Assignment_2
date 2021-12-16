@@ -30,8 +30,12 @@ public class Statistics {
     }
 
     public int NumberOfGPUTimeUnitsUsed(){
-        //TODO
-        return 0;
+        int output = 0;
+        GPU[] gpuArray = cluster.getGPUArray();
+        for(GPU gpu : gpuArray){
+            output += gpu.NumberOfGPUTimeUnitsUsed();
+        }
+        return output;
     }
 
 
