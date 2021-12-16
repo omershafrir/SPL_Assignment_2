@@ -48,15 +48,15 @@ public class CRMSRunner {
         for (int i=0 ;i< studentServices.length ; i++){
             studentServices[i].run();
         }
-//        for (int i=0 ; i < CPUServices.length; i++){
-//            CPUServices[i].run();
-//        }
-//        for (int i=0 ; i < GPUServices.length ; i++){
-//            GPUServices[i].run();
-//        }
-//        for(int i=0 ; i < confrencesServices.length ; i++){
-//            confrencesServices[i].run();
-//        }
+        for (int i=0 ; i < CPUServices.length; i++){
+            CPUServices[i].run();
+        }
+        for (int i=0 ; i < GPUServices.length ; i++){
+            GPUServices[i].run();
+        }
+        for(int i=0 ; i < confrencesServices.length ; i++){
+            confrencesServices[i].run();
+        }
 
 //        GPU[] g = reader.getGPUArray();
 //        CPU[] c = reader.getCPUArray();
