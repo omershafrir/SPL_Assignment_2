@@ -25,9 +25,18 @@ public class CRMSRunner {
         cluster.setCPUArray(cpuArray);
         cluster.initializeCluster();
 
-        MicroService gpu = new GPUService("ROCKER" , gpuArray[0]);
-        Thread gpuService = new Thread(gpu);
-        gpuService.start();
+
+        for(GPU gpu : gpuArray ){
+            Thread gpuService = new Thread((Runnable) gpu);
+            gpuService.start();
+        }
+        for(CPU cpu : cpuArray ){
+            Thread gpuService = new Thread((Runnable) cpu);
+            gpuService.start();
+        }
+        for(Student s : studentArray){
+            s
+        }
 
 
 //        GPU[] g = reader.getGPUArray();
