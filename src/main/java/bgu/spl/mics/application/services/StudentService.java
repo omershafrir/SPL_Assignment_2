@@ -1,9 +1,10 @@
 package bgu.spl.mics.application.services;
 
-import bgu.spl.mics.Callback;
-import bgu.spl.mics.Event;
-import bgu.spl.mics.Future;
+//import bgu.spl.mics.*;
 import bgu.spl.mics.MicroService;
+import bgu.spl.mics.Callback;
+import bgu.spl.mics.Future;
+import bgu.spl.mics.MessageBusImpl;
 import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.objects.Model;
 import bgu.spl.mics.application.objects.Student;
@@ -26,7 +27,7 @@ public class StudentService extends MicroService {
     private Student myStudent;
     private Future<Model> future;
 
-    public StudentService(String name, Student _myStudent) {
+    public StudentService(String name , Student _myStudent) {
         super(name);
         myStudent = _myStudent;
         myModels = myStudent.getModels();
@@ -37,12 +38,14 @@ public class StudentService extends MicroService {
     }
     @Override
     protected void initialize() {
-
+        MessageBusImpl.getInstance().register(this);
         //callback instructions for TickBroadcast
         Callback<TickBroadcast> instructionsForTick = new Callback<TickBroadcast>() {
             @Override
             public void call(TickBroadcast c) {
                 myStudent.incrementTimer();
+                System.out.println("Recieved Tick (in student service call)");
+
                 afterTimeTickAction();
             }
         };
@@ -66,6 +69,7 @@ public class StudentService extends MicroService {
        subscribeBroadcast(PublishConferenceBroadcast.class, instructionsForConference);
     }
     public void afterTimeTickAction(){
+
             future = this.myStudent.getFuture();
             //if there is a model to train
         if(future == null) {

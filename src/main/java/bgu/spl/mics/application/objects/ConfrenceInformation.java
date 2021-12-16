@@ -1,6 +1,6 @@
 package bgu.spl.mics.application.objects;
 
-import bgu.spl.mics.Event;
+import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.messages.PublishResultsEvent;
 
 import java.util.Vector;
@@ -23,6 +23,10 @@ public class ConfrenceInformation {
         models = new Vector<>();
         internalTimer = 0;
         events = new Vector<>();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void addModel(Model model){

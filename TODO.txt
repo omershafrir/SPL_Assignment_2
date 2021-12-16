@@ -97,3 +97,7 @@ to fix & verify :
 3. sync?
 
 
+
+
+
+**** SUBSCRIBE ALL OF THE SERVICES TO THE TERMINATE BROADCAST

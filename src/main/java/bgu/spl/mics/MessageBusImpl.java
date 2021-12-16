@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -14,10 +15,10 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class MessageBusImpl implements MessageBus {
 	//fields:
-	private HashMap<MicroService , BlockingQueue <Message>> msToQueueMap;
-	private HashMap<Class<? extends Event <?>> , Queue<MicroService>> eventSubscriptions;
-	private HashMap<Class<? extends Broadcast> , Vector<MicroService>> broadcastSubscriptions;
-	private HashMap<Event<?> , Future<?>> eventToFutureMap;
+	private ConcurrentHashMap<MicroService , BlockingQueue <Message>> msToQueueMap;
+	private ConcurrentHashMap<Class<? extends Event <?>> , Queue<MicroService>> eventSubscriptions;
+	private ConcurrentHashMap<Class<? extends Broadcast> , Vector<MicroService>> broadcastSubscriptions;
+	private ConcurrentHashMap<Event<?> , Future<?>> eventToFutureMap;
 
 	/** Holder class for the MsgBusImpl singleton instance
 	 */
@@ -28,10 +29,10 @@ public class MessageBusImpl implements MessageBus {
 	/*** private constructor.
 	 */
 	private MessageBusImpl(){
-		msToQueueMap = new HashMap<MicroService , BlockingQueue<Message>>() ;
-		eventSubscriptions = new HashMap<Class<? extends Event <?>> , Queue<MicroService>>();
-	 	broadcastSubscriptions = new HashMap<Class<? extends Broadcast> , Vector<MicroService>>();
-		eventToFutureMap = new HashMap<Event<?> , Future<?>>();
+		msToQueueMap = new ConcurrentHashMap<MicroService , BlockingQueue<Message>>() ;
+		eventSubscriptions = new ConcurrentHashMap<Class<? extends Event <?>> , Queue<MicroService>>();
+	 	broadcastSubscriptions = new ConcurrentHashMap<Class<? extends Broadcast> , Vector<MicroService>>();
+		eventToFutureMap = new ConcurrentHashMap<Event<?> , Future<?>>();
 	}
 	public static MessageBusImpl getInstance(){
 		return MessageBusImplHolder.instance;
@@ -93,8 +94,10 @@ public class MessageBusImpl implements MessageBus {
 	@Override
 	public <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m){
 		if(m!=null && isRegistered(m) ) {
-			if (!eventSubscriptions.containsKey(type))	//check if this type has a queue
+			if (!eventSubscriptions.containsKey(type)) {    //check if this type has a queue
 				eventSubscriptions.put(type, new LinkedBlockingQueue<>());
+				eventSubscriptions.get(type).add(m);
+			}
 			else if (!isSubscribedToEvent(type, m) )
 				eventSubscriptions.get(type).add(m);
 		}
@@ -109,9 +112,13 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public void subscribeBroadcast(Class<? extends Broadcast> type, MicroService m) {
+		System.out.println(Thread.currentThread().getName() + "is subscribing to : "+ type);
+		System.out.println(Thread.currentThread().getName()+ " is registered :" + isRegistered(m));
 		if(m!=null && isRegistered(m) ) {
-			if (!broadcastSubscriptions.containsKey(type))	//check if this type has a queue
+			if (!broadcastSubscriptions.containsKey(type)) {    //check if this type has a queue
 				broadcastSubscriptions.put(type, new Vector<MicroService>());
+				broadcastSubscriptions.get(type).add(m);
+			}
 			else if (!isSubscribedToBroadcast(type, m))
 				broadcastSubscriptions.get(type).add(m);
 		}
@@ -179,8 +186,9 @@ public class MessageBusImpl implements MessageBus {
 	 * @post this.isRegistered(m) = true
 	 */
 	@Override
-	public void register(MicroService m) {
+	public synchronized void register(MicroService m) {
 		if(m!=null && !isRegistered(m)){
+			System.out.println("Register: "+ Thread.currentThread().getName());
 			BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
 			msToQueueMap.put(m , queue);
 		}
@@ -209,6 +217,9 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public synchronized Message awaitMessage(MicroService m) throws InterruptedException {
+		System.out.println("awaiting message");
+		System.out.println(Thread.currentThread().getName() + "Blocking queue is:");
+		System.out.println(msToQueueMap.get(m).toString());
 		Message task = null;
 		if (isRegistered(m)){
 			task = msToQueueMap.get(m).take();

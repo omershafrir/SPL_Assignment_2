@@ -134,7 +134,7 @@ public class CPU {
         totalTicksCounter.incrementAndGet();
     }
 
-    public static void incrementBatchesCounter(){totalBatchesProcessed.incrementAndGet()};
+    public static void incrementBatchesCounter(){totalBatchesProcessed.incrementAndGet();};
     @Override
     public String toString() {
         return "CPU{" +
