@@ -43,7 +43,7 @@ public class GPU {
 
     public GPU(String type){
         internalTimer = 0;
-        data = model.getData();
+        data = null;
         if (type.equals("RTX3090")){
             currentAvailableMemory = 32;
             this.type = Type.RTX3090;

@@ -14,38 +14,49 @@ public class CRMSRunner {
         fileReader reader = new fileReader();
         //the input path is starting from the folder of the project!
         reader.readInputFile("example_input.json");
+        /**
+         * reading the input file
+         */
+        Student[] studentArray = reader.getStudents();
+        GPU[] gpuArray = reader.getGPUArray();
+        CPU[] cpuArray = reader.getCPUArray();
+        ConfrenceInformation[] conferenceArray = reader.getConfrenceInformations();
+        int TickTime = reader.getTickTime();
+        int Duration = reader.getDuration();
+
+        /**
+         * instantiating the cluster and initializing it
+         */
         Cluster cluster = Cluster.getInstance();
         cluster.setGPUArray(gpuArray);
         cluster.setCPUArray(cpuArray);
         cluster.initializeCluster();
 
-        Student[] studentArray = reader.getStudents();
-        GPU[] gpuArray = reader.getGPUArray();
-        CPU[] cpuArray = reader.getCPUArray();
 
-        ConfrenceInformation[] conferenceArray = reader.getConfrenceInformations();
-
-        int TickTime = reader.getTickTime();
-        int Duration = reader.getDuration();
-
+        /**
+         * instantiating the micro - services
+         */
         MicroService timer = new TimeService(TickTime , Duration);
         MicroService[] studentServices = new StudentService[studentArray.length];
         MicroService[] CPUServices = new CPUService[cpuArray.length];
         MicroService[] GPUServices = new GPUService[gpuArray.length];
         MicroService[] confrencesServices = new ConferenceService[conferenceArray.length];
 
+        /**
+         * running the micro-services one after another
+         */
         for (int i=0 ;i< studentServices.length ; i++){
             studentServices[i].run();
         }
-        for (int i=0 ; i < CPUServices.length; i++){
-            CPUServices[i].run();
-        }
-        for (int i=0 ; i < GPUServices.length ; i++){
-            GPUServices[i].run();
-        }
-        for(int i=0 ; i < confrencesServices.length ; i++){
-            confrencesServices[i].run();
-        }
+//        for (int i=0 ; i < CPUServices.length; i++){
+//            CPUServices[i].run();
+//        }
+//        for (int i=0 ; i < GPUServices.length ; i++){
+//            GPUServices[i].run();
+//        }
+//        for(int i=0 ; i < confrencesServices.length ; i++){
+//            confrencesServices[i].run();
+//        }
 
 //        GPU[] g = reader.getGPUArray();
 //        CPU[] c = reader.getCPUArray();

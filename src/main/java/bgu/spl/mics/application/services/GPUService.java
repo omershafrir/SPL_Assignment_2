@@ -71,7 +71,7 @@ public class GPUService extends MicroService {
                     myGPU.sendUnprocessedData();
                     //start getting processed data
                     startTrain();
-                    myGPU.continueTrainDatagh();
+                    myGPU.continueTrainData();
 
                 }
             }
@@ -135,7 +135,6 @@ public class GPUService extends MicroService {
     }
     public void afterTimeTickAction(Callback instructionsTrain ,Callback instructionTest){
         if(state == State.Training){
-            myGPU.
             boolean finished = myGPU.continueTrainData();
             if(finished){
                 complete(currentEvent,myGPU.getModel());
