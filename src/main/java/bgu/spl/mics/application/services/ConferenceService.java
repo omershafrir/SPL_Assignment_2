@@ -1,6 +1,11 @@
 package bgu.spl.mics.application.services;
 
-import bgu.spl.mics.MicroService;
+import bgu.spl.mics.*;
+import bgu.spl.mics.application.messages.PublishConferenceBroadcast;
+import bgu.spl.mics.application.messages.PublishResultsEvent;
+import bgu.spl.mics.application.messages.TickBroadcast;
+import bgu.spl.mics.application.objects.ConfrenceInformation;
+import bgu.spl.mics.application.objects.Model;
 
 /**
  * Conference service is in charge of
@@ -12,14 +17,43 @@ import bgu.spl.mics.MicroService;
  * You MAY change constructor signatures and even add new public constructors.
  */
 public class ConferenceService extends MicroService {
-    public ConferenceService(String name) {
-        super("Change_This_Name");
-        // TODO Implement this
+    private ConfrenceInformation myConfrence;
+
+    public ConferenceService(String name , ConfrenceInformation _myConfrence) {
+        super(name);
+        myConfrence = _myConfrence;
     }
 
     @Override
     protected void initialize() {
-        // TODO Implement this
+        MicroService self = this;
 
+        //callback instructions for PublishResultsEvent
+        Callback<PublishResultsEvent> instructionsForPublish
+                             = new Callback<PublishResultsEvent>() {
+            @Override
+            public void call(PublishResultsEvent c) {
+                Model model = c.getModel();
+                myConfrence.addModel(model);
+            }
+        };
+
+        //callback instructions for TickBroadcast
+        Callback<TickBroadcast> instructionsForTick = new Callback<TickBroadcast>() {
+            @Override
+            public void call(TickBroadcast c) {
+                myConfrence.incrementTimer();
+                if(myConfrence.getInternalTimer() == myConfrence.getDate()){
+                    sendBroadcast(new PublishConferenceBroadcast(myConfrence.getModels()));
+                    MessageBus msgbus = MessageBusImpl.getInstance();
+                    for (PublishResultsEvent resultPublish : myConfrence.getEvents())
+                        complete(resultPublish , resultPublish.getModel());
+                    msgbus.unregister(self);
+                }
+            }
+        };
+
+        subscribeEvent(PublishResultsEvent.class , instructionsForPublish);
+        subscribeBroadcast(TickBroadcast.class , instructionsForTick);
     }
 }

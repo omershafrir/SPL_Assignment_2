@@ -46,7 +46,7 @@ public class StudentService extends MicroService {
         PublishConferenceBroadcast: Sent by the conference at a set time,
          will broadcast all the aggregated results to all the
          */
-        PublishConferenceBroadcast b = new PublishConferenceBroadcast();
+//        PublishConferenceBroadcast b = new PublishConferenceBroadcast();
 
 //        this.subscribeBroadcast(b.getClass(),){
             //TODO - need to implement the callback for this broadcast
