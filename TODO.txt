@@ -55,6 +55,7 @@ to fix & verify :
 1. added 'synchronized' in sendBroadcast() , sendEvent() signatures.
 2. syncing on msgbus AND on the microservice is unneccesery and dangerous. need to decide which sync.
 3. terminate - completed?
+4. Register() OF ALL MICROSERVICES MUST BE EXECUTED IN THE Run() METHOD!!!
 
 #################################################################################
 CPU & CPUService:
@@ -67,11 +68,15 @@ Broadcasts:
 to fix & verify :
 
 #################################################################################
+Events:
+1. why do we need getFuture() , getSender() in Event interface?
+
+#################################################################################
 Student service
 
 1. callback for the broadcast sign up.
 2. SENDING EVENTS FROM STUDENT!!!!!!??????
-
+3. needs to subsribe to PublishConferenceBroadcast.
 #################################################################################
 GPU service
 1. TrainModelEvent - to make sure that someone wakes up the GPU after sending
@@ -81,6 +86,9 @@ GPU service
                    b. update result -----------------------------------------------V
                    c. update future (?) and send complete -------------------------V
 
+3. GPUService is responsible for doing the complete(TrainModelEvent , Model Result)
+    & complete(TestModelEvent , Model Result) and he does it after the relevent increment
+    when he's done training/testing the model ( in theCallback of GPUService for TickBroadcast
 #################################################################################
 Cluster
 1. send unprocessed data function

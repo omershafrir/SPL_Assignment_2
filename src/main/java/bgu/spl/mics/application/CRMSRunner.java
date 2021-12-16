@@ -1,10 +1,7 @@
 package bgu.spl.mics.application;
 
 import bgu.spl.mics.MicroService;
-import bgu.spl.mics.application.objects.CPU;
-import bgu.spl.mics.application.objects.Cluster;
-import bgu.spl.mics.application.objects.GPU;
-import bgu.spl.mics.application.objects.Student;
+import bgu.spl.mics.application.objects.*;
 import bgu.spl.mics.application.services.GPUService;
 import bgu.spl.mics.fileReader;
 
@@ -21,6 +18,7 @@ public class CRMSRunner {
         Student[] studentArray = reader.getStudents();
         GPU[] gpuArray = reader.getGPUArray();
         CPU[] cpuArray = reader.getCPUArray();
+        ConfrenceInformation[] conferenceArray = reader.getConfrenceInformations();
         int TickTime = reader.getTickTime();
         int Duration = reader.getDuration();
         cluster.setGPUArray(gpuArray);
