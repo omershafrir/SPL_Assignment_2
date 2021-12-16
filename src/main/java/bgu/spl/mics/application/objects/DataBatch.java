@@ -8,12 +8,16 @@ package bgu.spl.mics.application.objects;
 public class DataBatch {
     private Data data;
     private int start_index;
+    private boolean isLast;
 
-    public DataBatch(Data data, int start_index) {
+    public DataBatch(Data data, int start_index,boolean isLast) {
         this.data = data;
         this.start_index = start_index;
+        this.isLast = isLast;
     }
-
+    public boolean isLast(){
+        return this.isLast;
+    }
     public Data getData() {
         return data;
     }

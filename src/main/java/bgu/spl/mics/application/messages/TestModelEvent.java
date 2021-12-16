@@ -14,7 +14,7 @@ public class TestModelEvent implements Event<Model> {
     private String senderStatus;
     private Future<Model> future;
 
-    public TestModelEvent(Model model , StudentService m , Future<Model> future){
+    public TestModelEvent(Model model , StudentService m){
         this.model = model;
         this.sender = m;
         this.senderStatus = m.getStatus();

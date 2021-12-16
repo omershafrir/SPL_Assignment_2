@@ -30,7 +30,7 @@ public class GPU {
     private int internalTimer;
     private int currentBatchRemainingTicks;
     private final int timeToProcesse;
-    //finished training the hole modle
+    //finished training the hole model
     private boolean isFinished;
     private Vector<DataBatch> dividedUnprocessedData;
     private Vector<DataBatch> processedData;

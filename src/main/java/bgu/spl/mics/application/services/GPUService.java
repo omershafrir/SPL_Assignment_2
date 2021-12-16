@@ -72,7 +72,7 @@ public class GPUService extends MicroService {
                     myGPU.sendUnprocessedData();
                     //start getting processed data
                     startTrain();
-                    myGPU.continueTrainData();
+                    myGPU.continueTrainDatagh();
 
                 }
             }

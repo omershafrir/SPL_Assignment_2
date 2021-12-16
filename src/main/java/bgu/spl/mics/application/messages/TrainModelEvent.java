@@ -12,10 +12,10 @@ public class TrainModelEvent implements Event<Model> {
     private Future<Model> future;
 
 
-    public TrainModelEvent(Model model , MicroService m, Future<Model> future){
+    public TrainModelEvent(Model model , MicroService m){
         this.model = model;
         this.sender = m;
-        this.future = future;
+        future = null;
     }
 
     @Override

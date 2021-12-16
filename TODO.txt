@@ -65,16 +65,13 @@ to fix & verify :
 2. turn internalTimer to ATOMIC!
 #################################################################################
 Broadcasts:
-to fix & verify :
+to fix & verify : interface has nothing in it, is it normal?
 
 #################################################################################
-Events:
-1. why do we need getFuture() , getSender() in Event interface?
 
-#################################################################################
 Student service
 
-1. callback for the broadcast sign up.
+1. callback for the broadcast sign up.  -------------------------------V
 2. SENDING EVENTS FROM STUDENT!!!!!!??????
 3. needs to subsribe to PublishConferenceBroadcast.
 #################################################################################
@@ -100,9 +97,3 @@ to fix & verify :
 3. sync?
 
 
-#################################################################################
-EREZ ROCKER:
-1. fix the blessed main class ------------------------------------------------ V
-2. figure out callback and how to use them in run() method of microservice : line 180
-3. initialize() studentService
-4. initialize() GPUService
