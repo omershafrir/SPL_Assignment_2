@@ -72,7 +72,7 @@ public class main_test {
          * running the micro-services one after another
          */
         Thread clock = new Thread(timer);
-        clock.setName("TIMER");
+        clock.setName("TIMER_THREAD");
         clock.start();
         studentServices[0].setName("STUDENT");
         studentServices[0].start();

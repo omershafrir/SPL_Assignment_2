@@ -6,100 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="?">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS7/.idea/description.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS7/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS7/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS7/.idea/project-template.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS7/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS7/PS7.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS7/src/spl/BlockingQueue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS7/src/spl/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS7/src/spl/SimpleQueue.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS8/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS8/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS8/.idea/description.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS8/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS8/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS8/.idea/project-template.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS8/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS8/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS8/PS8.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS8/src/spl/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PS8/src/spl/erez.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODO.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/Broadcast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/Broadcast.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MicroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MicroService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/CRMSRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/CRMSRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/messages/PublishConferenceBroadcast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/messages/PublishConferenceBroadcast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/ConfrenceInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/ConfrenceInformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/DataBatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/DataBatch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/GPU.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Student.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/ConferenceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/ConferenceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/StudentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/TimeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/TimeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/example/ExampleManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/example/ServiceCreator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/example/messages/ExampleBroadcast.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/example/messages/ExampleEvent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/example/services/ExampleBroadcastListenerService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/example/services/ExampleEventHandlerService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/example/services/ExampleMessageSenderService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main_test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main_test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/MessageBusImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/bgu/spl/mics/MessageBusImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/MessageBusImpl$MessageBusImplHolder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/MessageBusImpl$MessageBusImplHolder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/MessageBusImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/MessageBusImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/MicroService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/MicroService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/CRMSRunner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/CRMSRunner.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/messages/PublishConferenceBroadcast.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/messages/PublishConferenceBroadcast.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/messages/TestModelEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/messages/TestModelEvent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/messages/TrainModelEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/messages/TrainModelEvent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/CPU.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/CPU.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Cluster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Cluster.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/ConfrenceInformation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/ConfrenceInformation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/DataBatch.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/DataBatch.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/GPU$Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/GPU$Type.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/GPU.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/GPU.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Model.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Model.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Statistics.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Statistics.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Student$Degree.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Student$Degree.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Student.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/CPUService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/CPUService$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/CPUService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/CPUService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/ConferenceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/ConferenceService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/GPUService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/GPUService$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/GPUService$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/GPUService$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/GPUService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/GPUService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/StudentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/StudentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/TimeService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/TimeService$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/TimeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/TimeService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/example/ExampleManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/example/ServiceCreator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/example/messages/ExampleBroadcast.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/example/messages/ExampleEvent.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/example/services/ExampleBroadcastListenerService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/example/services/ExampleEventHandlerService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/example/services/ExampleMessageSenderService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/main_test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main_test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/bgu/spl/mics/MessageBusImplTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tigbur/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tigbur/src/main/java/bgu/spl/tigbur/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tigbur/src/main/java/bgu/spl/tigbur/Car.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tigbur/src/main/java/bgu/spl/tigbur/Road.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tigbur/src/main/java/bgu/spl/tigbur/Vehicle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tigbur/src/test/java/bgu/spl/tigbur/AppTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tigbur/src/test/java/bgu/spl/tigbur/CarTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tigbur/src/test/java/bgu/spl/tigbur/RoadTest.java" beforeDir="false" />
     </list>
-    <list id="29298c47-51f8-4f9b-8655-7ec60c1a4086" name="Changes by Erez" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/ConfrenceInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/ConfrenceInformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/CPUService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/CPUService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/StudentService.java" afterDir="false" />
-    </list>
+    <list id="29298c47-51f8-4f9b-8655-7ec60c1a4086" name="Changes by Erez" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -111,26 +23,11 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar!/com/google/gson/JsonElement.class" root0="SKIP_INSPECTION" />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/StudentService.java">
-      <ranges>
-        <range start1="2" end1="5" start2="2" end2="3" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
-        <range start1="6" end1="6" start2="4" end2="7" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
-        <range start1="28" end1="29" start2="29" end2="30" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
-        <range start1="39" end1="40" start2="40" end2="41" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
-        <range start1="45" end1="45" start2="46" end2="48" changelist="29298c47-51f8-4f9b-8655-7ec60c1a4086" />
-        <range start1="68" end1="68" start2="71" end2="72" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/ConfrenceInformation.java">
-      <ranges>
-        <range start1="2" end1="3" start2="2" end2="3" changelist="29298c47-51f8-4f9b-8655-7ec60c1a4086" />
-        <range start1="27" end1="27" start2="27" end2="31" changelist="524f37b0-4fdb-4ac4-85a6-472c20232649" />
-      </ranges>
-    </file>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="22Nc1gGZ5fsFgVq1BVW1IlAdsYG" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -144,6 +41,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager" selected="Application.main_test">
     <configuration name="CRMSRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -185,7 +83,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1639681280173</updated>
-      <workItem from="1639681287837" duration="39000" />
+      <workItem from="1639681287837" duration="96000" />
+      <workItem from="1639683256228" duration="6826000" />
     </task>
     <servers />
   </component>
@@ -202,16 +101,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/main_test.java</url>
-          <line>77</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
