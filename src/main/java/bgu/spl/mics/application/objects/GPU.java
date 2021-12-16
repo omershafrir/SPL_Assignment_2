@@ -35,14 +35,14 @@ public class GPU {
     private Vector<DataBatch> dividedUnprocessedData;
     private Vector<DataBatch> processedData;
     private int currentAvailableMemory;
-    private AtomicInteger totalTicksCounter = new AtomicInteger(0);
+    private static AtomicInteger totalTicksCounter = new AtomicInteger(0);
 
 
 
 
     public GPU(String type){
         internalTimer = 0;
-        data = model.getData();
+        data = null;
         if (type.equals("RTX3090")){
             currentAvailableMemory = 32;
             this.type = Type.RTX3090;
@@ -143,6 +143,7 @@ public class GPU {
      */
 
     public boolean continueTrainData(){
+        GPU.incrementGPUTimeUsage();        //for statistics
         if (!processedData.isEmpty()) {          //there are more batches to train
             if (currentBatchRemainingTicks > 0) {  //the current batch is not finished
                 currentBatchRemainingTicks--;
@@ -165,13 +166,14 @@ public class GPU {
     return false;
     }
 
-    public void incrementGPUTimeUsage(){
+    public static void incrementGPUTimeUsage(){
         totalTicksCounter.incrementAndGet();
     }
-    public int NumberOfGPUTimeUnitsUsed(){
-        int totalTicksCounterINT = totalTicksCounter.intValue();
-        return totalTicksCounterINT;
+
+    public static int getTotalTicksCounter(){
+        return totalTicksCounter.intValue();
     }
+
 
     /**
      * @INV:

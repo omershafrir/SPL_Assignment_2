@@ -71,7 +71,6 @@ public class GPUService extends MicroService {
                     myGPU.getModel().setStatus("Training"); // change the model status!
                     myGPU.divideDataIntoBatches();
                     myGPU.sendUnprocessedData();
-                    myGPU.incrementGPUTimeUsage();        //for statistics
                     //start getting processed data
                     startTrain();
                     myGPU.continueTrainData();
