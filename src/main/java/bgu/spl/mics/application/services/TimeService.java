@@ -1,5 +1,6 @@
 package bgu.spl.mics.application.services;
 
+import bgu.spl.mics.MessageBusImpl;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.*;
 
@@ -36,13 +37,14 @@ public class TimeService extends MicroService{
 			public void run() {
 				currentTime++;
 				sendBroadcast(new TickBroadcast());
-				System.out.println("Current Time: "+currentTime);
+//				System.out.println("Current Time: "+currentTime);
 			}
 		};
 	}
 
 	@Override
 	protected void initialize() {
+		MessageBusImpl.getInstance().register(this);
 		globalTimer.scheduleAtFixedRate(task , 0 , speed);
 		try{
 		Thread.currentThread().sleep(duration-50);}

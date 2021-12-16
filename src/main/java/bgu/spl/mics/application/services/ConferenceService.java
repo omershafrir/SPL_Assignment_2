@@ -1,9 +1,12 @@
 package bgu.spl.mics.application.services;
 
-import bgu.spl.mics.*;
-import bgu.spl.mics.application.messages.PublishConferenceBroadcast;
-import bgu.spl.mics.application.messages.PublishResultsEvent;
-import bgu.spl.mics.application.messages.TickBroadcast;
+//import bgu.spl.mics.*;
+import bgu.spl.mics.MicroService;
+import bgu.spl.mics.Callback;
+import bgu.spl.mics.Future;
+import bgu.spl.mics.MessageBus;
+import bgu.spl.mics.MessageBusImpl;
+import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.objects.ConfrenceInformation;
 import bgu.spl.mics.application.objects.Model;
 
@@ -26,6 +29,7 @@ public class ConferenceService extends MicroService {
 
     @Override
     protected void initialize() {
+        MessageBusImpl.getInstance().register(this);
         MicroService self = this;
 
         //callback instructions for PublishResultsEvent

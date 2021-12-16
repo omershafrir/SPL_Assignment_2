@@ -27,7 +27,6 @@ public class Cluster {
 	private CPU[] CPUArray;
 	private Statistics statistics;
 	private Vector<Model> trainedModels;
-	private int dataBatchesProcessed;
 	private HashMap<GPU , Vector<DataBatch>> GPUToUnProcessed;
 	private HashMap<GPU , Vector<DataBatch>> GPUToProcessed;
 	private HashMap<Boolean , Vector<GPU>> boolToGPU;
@@ -39,7 +38,6 @@ public class Cluster {
 	private Cluster(){
 		statistics = null;
 		trainedModels = new Vector<Model>();
-		dataBatchesProcessed = 0;
 		nextTreatedGPU = null;
 		gpuToSend = null;
 	}
@@ -183,8 +181,5 @@ public class Cluster {
 		return trainedModels;
 	}
 
-	public int dataBatchesProcessed(){
-		return dataBatchesProcessed;
-	}
 
 }

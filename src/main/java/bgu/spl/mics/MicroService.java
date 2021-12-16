@@ -123,6 +123,7 @@ public abstract class   MicroService implements Runnable {
      * @param b The broadcast message to send
      */
     protected final void sendBroadcast(Broadcast b) {
+        System.out.println("the broadcast is: "+b.getClass()+" sent by: "+Thread.currentThread().getName());
         if(b != null){
             msgbus.sendBroadcast(b);
         }

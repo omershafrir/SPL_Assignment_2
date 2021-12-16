@@ -1,6 +1,7 @@
 package bgu.spl.mics.application.objects;
 
 import java.util.Vector;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Passive object representing a single CPU.
@@ -20,7 +21,8 @@ public class CPU {
     private int processStartTick;
     private int currentProcessRequiredTime;
     private static int counterOfCPU = 1;
-    private static int totalTicksCounter = 0;
+    private static AtomicInteger totalTicksCounter = new AtomicInteger(0);
+    private static AtomicInteger totalBatchesProcessed = new AtomicInteger(0);
 
     /**
      * constructor of CPU
@@ -62,8 +64,10 @@ public class CPU {
 
     public void afterTickAction() {
         if (isProcessing) {     //in the middle of processing
+            incrementCounter();
             if (internalTimer ==    //current batch processing finished
                     currentProcessRequiredTime + processStartTick) {
+                incrementBatchesCounter();
                 if (unProcessedData.size() == 1) {   //finished current block
                     finishProcessCurrentBatch();
                     finishProcessCurrentBlock();
@@ -119,9 +123,18 @@ public class CPU {
     }
 
     public static int getTotalTicksCounter() {
-        return totalTicksCounter;
+        return totalTicksCounter.intValue();
     }
 
+    public static int getTotalBatchesProcessed() {
+        return totalBatchesProcessed.intValue();
+    }
+
+    public static void incrementCounter(){
+        totalTicksCounter.incrementAndGet();
+    }
+
+    public static void incrementBatchesCounter(){totalBatchesProcessed.incrementAndGet();};
     @Override
     public String toString() {
         return "CPU{" +
