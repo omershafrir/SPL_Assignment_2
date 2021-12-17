@@ -39,13 +39,13 @@ public class StudentService extends MicroService {
     @Override
     protected void initialize() {
         MessageBusImpl.getInstance().register(this);
-        MicroService self = this;
         //callback instructions for TickBroadcast
         Callback<TickBroadcast> instructionsForTick = new Callback<TickBroadcast>() {
             @Override
             public void call(TickBroadcast c) {
                 myStudent.incrementTimer();
-                System.out.println("Recieved Tick (in student service call)");
+//                System.out.println("Recieved Tick (in student service call)");  ///////////////////////////////////////////
+
                 afterTimeTickAction();
             }
         };
@@ -70,12 +70,15 @@ public class StudentService extends MicroService {
     }
     public void afterTimeTickAction(){
 
-        future = this.myStudent.getFuture();
-        if(future == null) {                   //if there is a model to train
+            future = this.myStudent.getFuture();
+            //if there is a model to train
+        if(future == null) {
             if (myStudent.getCounterTestedModels() < myModels.length) {
                 TrainModelEvent e = new TrainModelEvent(myModels[myStudent.getCounterTestedModels()], this);
-//                myStudent.setFuture(e.getFuture());
-                myStudent.setFuture(this.sendEvent(e));
+                System.out.println(Thread.currentThread().getName()+" is sending: "+ e.getClass());        ///////////////////////////////////////////////////////////////////////
+
+
+                myStudent.setFuture(sendEvent(e));
             }
         }
         else { //future != null
@@ -87,6 +90,7 @@ public class StudentService extends MicroService {
                         myStudent.setFuture(sendEvent(testEvent));
                     }
                     else if(future.get().getStatus() == "Tested"){
+                        myStudent.incrementModelCounter();
                             if(future.get().getResult() == "Good"){
                             PublishResultsEvent publishEvent = new PublishResultsEvent(currentModel);
                             myStudent.setFuture(sendEvent(publishEvent));

@@ -1,5 +1,7 @@
 package bgu.spl.mics;
 
+import bgu.spl.mics.application.messages.TrainModelEvent;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.*;
@@ -51,8 +53,8 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public <T> boolean isSubscribedToEvent(Class<? extends Event<T>> type, MicroService m){
-		Queue<MicroService> queue = eventSubscriptions.get(m);
-		return queue.contains(type);
+		Queue<MicroService> queue = eventSubscriptions.get(type);
+		return queue.contains(m);
 	}
 
 	/***
@@ -63,8 +65,8 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public boolean isSubscribedToBroadcast(Class<? extends Broadcast> type, MicroService m){
-		Vector<MicroService> vec = broadcastSubscriptions.get(m);
-		return vec.contains(type);
+		Vector<MicroService> vec = broadcastSubscriptions.get(type);
+		return vec.contains(m);
 	}
 
 	/***
@@ -124,8 +126,9 @@ public class MessageBusImpl implements MessageBus {
 				broadcastSubscriptions.get(type).add(m);
 //				System.out.println(type+" "+m+ " ARRIVED");											////////////////////////////////////
 			}
-			else if (!isSubscribedToBroadcast(type, m))
+			else if (!isSubscribedToBroadcast(type, m)) {
 				broadcastSubscriptions.get(type).add(m);
+			}
 		}
 //		System.out.println("IS CONTAINING: " +broadcastSubscriptions.containsKey(type) + this);	 	//////////////////////////////////////////////////////////////
 	}
@@ -163,7 +166,7 @@ public class MessageBusImpl implements MessageBus {
 			Vector<MicroService> relevent_vec = broadcastSubscriptions.get(b.getClass());
 //			System.out.println("relvec is : "+ relevent_vec.toString());								/////////////////////////////////////////
 			for (MicroService ms : relevent_vec) {
-				System.out.println("sending broadcast of type : " +b.getClass() +" to "+ms.getName());
+//				System.out.println("sending broadcast of type : " +b.getClass() +" to "+ms.getName());	/////////////
 				msToQueueMap.get(ms).add(b);
 			}
 		}
@@ -181,16 +184,19 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public synchronized <T> Future<T> sendEvent(Event<T> e) {
-//		Future<T> future = new Future<>();
+		if( e instanceof  TrainModelEvent)
+				System.out.println("SENDING A NEW TRAIN_MODEL EVENT, THE MODEL IS :"+ ((TrainModelEvent) e).getModel().getName());	///////////////////////////////////////
+		Future<T> future = new Future<>();
 		//check if e!=null and if there's an ms subscribed to events of type e
 		if (e != null && eventSubscriptions.containsKey(e.getClass())){
 			Queue<MicroService> relevent_queue = eventSubscriptions.get(e.getClass());
 			MicroService runner =  relevent_queue.remove();
 			relevent_queue.add(runner);		//inserting runner immediately at the back of the queue
 			msToQueueMap.get(runner).add(e);
-			eventToFutureMap.put(e , e.getFuture());
+//			System.out.println("sending event of type : " +e.getClass() +" to "+runner.getName());		///////////////////////////////////////////
+			eventToFutureMap.put(e , future);
 		}
- 		return e.getFuture();
+		return future;
 	}
 
 	/**
@@ -234,9 +240,11 @@ public class MessageBusImpl implements MessageBus {
 //		System.out.println(Thread.currentThread().getName() + " is awaiting message");			/////////////////////////////////////
 //		System.out.println(Thread.currentThread().getName() + "Blocking queue is:");			////////////////////////////////////
 //		System.out.println(msToQueueMap.get(m).toString());										///////////////////////////////////
+
 		Message task = null;
 		if (isRegistered(m)){
 			task = msToQueueMap.get(m).take();
+			System.out.println(Thread.currentThread().getName()+" IS EXECUTING: "+task.toString());				////////////////////////////////////////////////////////////
 		}
 		else{
 			//was determined in the interface

@@ -8,10 +8,7 @@ import bgu.spl.mics.MessageBusImpl;
 import org.omg.CORBA.CharSeqHelper;
 
 import java.util.Vector;
-import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.*;
 
 /**
  * Passive object representing the cluster.
@@ -27,9 +24,9 @@ public class Cluster {
 	private CPU[] CPUArray;
 	private Statistics statistics;
 	private Vector<Model> trainedModels;
-	private HashMap<GPU , Vector<DataBatch>> GPUToUnProcessed;
-	private HashMap<GPU , Vector<DataBatch>> GPUToProcessed;
-	private HashMap<Boolean , Vector<GPU>> boolToGPU;
+	private ConcurrentHashMap<GPU , Vector<DataBatch>> GPUToUnProcessed;
+	private ConcurrentHashMap<GPU , Vector<DataBatch>> GPUToProcessed;
+	private ConcurrentHashMap<Boolean , Vector<GPU>> boolToGPU;
 	private GPU nextTreatedGPU;
 	private GPU gpuToSend;
 	private int numOfCPUS;
@@ -57,25 +54,28 @@ public class Cluster {
 		this.CPUArray = CPUArray;
 		numOfCPUS = CPUArray.length;
 	}
-	public synchronized HashMap<GPU, Vector<DataBatch>> getGPUToUnProcessed() {
+	public synchronized ConcurrentHashMap<GPU, Vector<DataBatch>> getGPUToUnProcessed() {
 		return GPUToUnProcessed;
 	}
 
-	public synchronized HashMap<GPU, Vector<DataBatch>> getGPUToProcessed() {
+	public synchronized ConcurrentHashMap<GPU, Vector<DataBatch>> getGPUToProcessed() {
 		return GPUToProcessed;
 	}
 
 
 	public void initializeCluster(){
-		GPUToUnProcessed = new HashMap<>();
-		GPUToProcessed = new HashMap<>();
-		boolToGPU = new HashMap<>();
+		GPUToUnProcessed = new ConcurrentHashMap<>();
+		GPUToProcessed = new ConcurrentHashMap<>();
+		boolToGPU = new ConcurrentHashMap<>();
 		boolToGPU.put(Boolean.FALSE , new Vector<GPU>());
+		boolToGPU.put(Boolean.TRUE , new Vector<GPU>());
 		for (GPU gpu: GPUArray){	//TODO : check if necessary
 			GPUToUnProcessed.put(gpu ,new Vector<DataBatch>());
 			GPUToProcessed.put(gpu ,new Vector<>());
 			boolToGPU.get(Boolean.FALSE).add(gpu);
+
 		}
+		nextTreatedGPU = GPUArray[0];
 	}
 
 	public GPU[] getGPUArray() {
@@ -92,8 +92,10 @@ public class Cluster {
 	 * before function ends , @nextTreatedGPU is updated.
 	 */
 	public synchronized Vector<DataBatch> getUnprocessedData(){
+
 			Vector<DataBatch> unprocessedData = new Vector<>();
 			Vector<DataBatch> releventCPUVec = GPUToUnProcessed.get(nextTreatedGPU);
+//			System.out.println("THE VECTOR ASHKARA: "+releventCPUVec);			///////////////////////////////////////////////////////////////////////////
 			int initialSize = releventCPUVec.size();
 			for (int i=0 ; i < initialSize/numOfCPUS &&  !releventCPUVec.isEmpty(); i++){
 				unprocessedData.add(releventCPUVec.remove(0));
@@ -112,8 +114,11 @@ public class Cluster {
 	 */
 	public synchronized boolean isThereDataToProcess(){
 		for (Vector<DataBatch> vec : GPUToUnProcessed.values()){
-			if (!vec.isEmpty())
+			if (!vec.isEmpty()) {
+//				System.out.println("THERE ARE BATCHES WAITINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"); 	///////////////////////////
+//				System.out.println("THE VECTOR : "+vec);                /////////////////////////////////////////////////////////
 				return true;
+			}
 		}
 		return false;
 	}
@@ -135,11 +140,22 @@ public class Cluster {
 	 * 		else , the first GPU of the treated ones will be chosen
 	 */
 	public synchronized void updateNextTreatedGPU(){
+
 		if (!boolToGPU.get(Boolean.FALSE).isEmpty()){
+//			System.out.println("NEXT TRUE GPU , IN FALSE: " + nextTreatedGPU.hashCode());/////////////////////////////////////////////////////////////////////////
+//			Vector<GPU> x = boolToGPU.get(Boolean.FALSE);
+//			nextTreatedGPU = x.firstElement();
+//			System.out.println("VECTOR OF GPUS:  "+x);		/////////////////////////////////////////////////////////////////////////
+//			x.remove(0);
+//			System.out.println("--------------------------------------------------------");			///////////////////////////////////////////////////////
+//			System.out.println("WHO should we help?   ");						///////////////////////////////////////////////////////
+//			System.out.println("THIS GPU!!!!! :   "+nextTreatedGPU.hashCode());						///////////////////////////////////////////////////////
+//			boolToGPU.put(Boolean.FALSE, x);
 			nextTreatedGPU = boolToGPU.get(Boolean.FALSE).remove(0);
 			boolToGPU.get(Boolean.TRUE).add(nextTreatedGPU);
 		}
 		else{
+//			System.out.println("NEXT TRUE GPU , IN TRUE: " + nextTreatedGPU.hashCode());/////////////////////////////////////////////////////////////////////////////////////////
 			nextTreatedGPU = boolToGPU.get(Boolean.TRUE).firstElement();
 		}
 	}
@@ -150,6 +166,7 @@ public class Cluster {
 	 * @param unprocessedData the unprocessed data
 	 */
 	public synchronized void addUnProcessedData(GPU gpu,Vector<DataBatch> unprocessedData){
+//		boolToGPU.get(Boolean.TRUE).add(gpu);
 		GPUToUnProcessed.put(gpu , unprocessedData);
 	}
 

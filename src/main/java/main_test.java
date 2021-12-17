@@ -29,87 +29,49 @@ public class main_test {
         int Duration = reader.getDuration();
 
         /**
-         * instantiating the cluster and initializing it
-         */
-        Cluster cluster = Cluster.getInstance();
-        cluster.setGPUArray(gpuArray);
-        cluster.setCPUArray(cpuArray);
-        cluster.initializeCluster();
-
-
-
-        /**
-         * instantiating the threads empty arrays
-         */
-        Thread[] studentServices = new Thread[studentArray.length];
-        Thread[] CPUServices = new Thread[cpuArray.length];
-        Thread[] GPUServices = new Thread[gpuArray.length];
-        Thread[] confrencesServices = new Thread[conferenceArray.length];
-
-        /**
-         * instantiating the micro - services
-         */
-
-        MicroService timer = new TimeService(TickTime , Duration);
-        for (int i=0 ;i< studentServices.length ; i++){
-            MicroService tmpservice = new StudentService(studentArray[i].getName() , studentArray[i]);
-            studentServices[i] = new Thread(tmpservice);
-        }
-        for (int i=0 ; i < CPUServices.length; i++){
-            MicroService tmpservice =new CPUService("CPU", cpuArray[i]);
-            CPUServices[i] = new Thread(tmpservice);
-        }
-        for (int i=0 ; i < GPUServices.length; i++){
-            MicroService tmpservice = new GPUService("GPU", gpuArray[i]);
-            GPUServices[i] = new Thread(tmpservice);
-        }
-        for (int i=0 ; i < confrencesServices.length; i++){
-            MicroService tmpservice = new ConferenceService(conferenceArray[i].getName() , conferenceArray[i]);
-            confrencesServices[i] = new Thread(tmpservice);
-        }
-
-        /**
          * running the micro-services one after another
          */
+
+        GPU[] GPUArrayDemo = new GPU[1];
+        GPUArrayDemo[0] = gpuArray[0];
+
+        CPU[] CPUArrayDemo = new CPU[1];
+        CPUArrayDemo[0] = cpuArray[0];
+
+        Cluster cluster = Cluster.getInstance();
+        cluster.setGPUArray(GPUArrayDemo);
+        cluster.setCPUArray(CPUArrayDemo);
+        cluster.initializeCluster();
+
+        Thread[] studentServices = new Thread[1];
+        MicroService tmpservice1 = new StudentService(studentArray[0].getName() , studentArray[0]);
+        studentServices[0] = new Thread(tmpservice1);
+
+        Thread[] CPUServices = new Thread[1];
+        MicroService tmpservice2 = new CPUService("CPU1", CPUArrayDemo[0]);
+        CPUServices[0] = new Thread(tmpservice2);
+
+        Thread[] GPUServices = new Thread[1];
+        MicroService tmpservice3 = new GPUService("GPU1", GPUArrayDemo[0]);
+        GPUServices[0] = new Thread(tmpservice3);
+
+
+
+        TimeService timer = new TimeService(20 , 100000);
         Thread clock = new Thread(timer);
         clock.setName("TIMER_THREAD");
         clock.start();
-        studentServices[0].setName("STUDENT");
-        GPUServices[0].setName("ULTRA GPU");
+
+        studentServices[0].setName("SIMBA");
+        GPUServices[0].setName("GPU1");
+        CPUServices[0].setName("CPU1");
+
         studentServices[0].start();
         GPUServices[0].start();
+        CPUServices[0].start();
 
 
 
-/**
-        Future<Integer> future = new Future<>();
-        Thread t1 = new Thread(()->{
-            System.out.println(Thread.currentThread().getName()+" is going to sleep...");
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            future.resolve(1);
-        });
-        Thread t3 = new Thread(()-> {
-            System.out.println(Thread.currentThread().getName()+" is working...");
-                System.out.println("before get: "+future.isDone());
-                future.get(3,TimeUnit.SECONDS);
-//                future.get();
-                System.out.println("after get: "+future.isDone());
 
-        });
-        t1.start();
-        t3.start();
-**/
-//******************************************************************
-//        Callable<Integer> call = ()->
-//                                    {
-//                                        System.out.println(1);
-//                                        return 1;};
-//        Runnable run = ()->{};
-//        Thread thread = new Thread((Runnable) call);
-////        Future<Integer> future =
     }
 }
