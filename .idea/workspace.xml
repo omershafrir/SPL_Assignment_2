@@ -6,6 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="?">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MicroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MicroService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/TimeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/TimeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main_test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main_test.java" afterDir="false" />
+>>>>>>> 372cf13d0ba7c0b42112ca5fd93281532615f104
     </list>
     <list id="29298c47-51f8-4f9b-8655-7ec60c1a4086" name="Changes by Erez" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +32,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="22Nc1gGZ5fsFgVq1BVW1IlAdsYG" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -37,6 +47,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager" selected="Application.main_test">
     <configuration name="CRMSRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -78,8 +89,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1639681280173</updated>
+<<<<<<< HEAD
       <workItem from="1639681287837" duration="39000" />
       <workItem from="1639686791654" duration="2000" />
+=======
+      <workItem from="1639681287837" duration="96000" />
+      <workItem from="1639683256228" duration="6826000" />
+>>>>>>> 372cf13d0ba7c0b42112ca5fd93281532615f104
     </task>
     <servers />
   </component>

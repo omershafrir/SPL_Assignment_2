@@ -32,6 +32,12 @@ public class TimeService extends MicroService{
 		currentTime = 0;
 		globalTimer = new Timer();
 
+	}
+
+	@Override
+	protected void initialize() {
+		MessageBusImpl.getInstance().register(this);
+
 		task = new TimerTask() {
 			@Override
 			public void run() {
@@ -40,12 +46,9 @@ public class TimeService extends MicroService{
 //				System.out.println("Current Time: "+currentTime);
 			}
 		};
-	}
 
-	@Override
-	protected void initialize() {
-		MessageBusImpl.getInstance().register(this);
 		globalTimer.scheduleAtFixedRate(task , 0 , speed);
+
 		try{
 		Thread.currentThread().sleep(duration-50);}
 		catch(Exception e){}
