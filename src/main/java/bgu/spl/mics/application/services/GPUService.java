@@ -1,9 +1,6 @@
 package bgu.spl.mics.application.services;
 
-import bgu.spl.mics.Callback;
-import bgu.spl.mics.Event;
-import bgu.spl.mics.Future;
-import bgu.spl.mics.MicroService;
+import bgu.spl.mics.*;
 import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.objects.Cluster;
 import bgu.spl.mics.application.objects.DataBatch;
@@ -24,7 +21,7 @@ import java.util.concurrent.BlockingDeque;
  */
 public class GPUService extends MicroService {
 
-    enum State{NotOccupied , Training , Testing}
+    enum State{NotOccupied ,WaitingForProcessedData , Training , Testing}
 
     private GPU myGPU;
     private Cluster cluster;
@@ -52,8 +49,13 @@ public class GPUService extends MicroService {
     private void startTest(){
         state = State.Testing;
     }
+//    private void startWait(){
+//        state = State.WaitingForProcessedData;
+//    }
+
     @Override
     protected void initialize() {
+        MessageBusImpl.getInstance().register(this);
         GPUService self = this;
         //callback instructions for TrainModelEvent
         Callback<TrainModelEvent> instructionsTrain = new Callback<TrainModelEvent>() {
@@ -65,14 +67,16 @@ public class GPUService extends MicroService {
                 if(state == State.Testing)
                     awaitingEvents.addLast(trainModelEvent);
                 else{   //start processing TrainModelEvent
-
+                    if(state == State.NotOccupied)
+                        startTrain();
+                    System.out.println("STEP 1 : THE MODEL HAS BEGUN TRAINING:   "+trainModelEvent.getModel().getName());    /////////////////////////////////////
                     Model toTrain = trainModelEvent.getModel();
                     myGPU.setModel(toTrain);
                     myGPU.getModel().setStatus("Training"); // change the model status!
+                    myGPU.setData(toTrain.getData());
                     myGPU.divideDataIntoBatches();
                     myGPU.sendUnprocessedData();
                     //start getting processed data
-                    startTrain();
                     myGPU.continueTrainData();
 
                 }
@@ -91,6 +95,8 @@ public class GPUService extends MicroService {
                     awaitingEvents.addFirst(testModelEvent);
                 }
                 else {   //start training TrainModelEvent
+                    startTest();
+                    System.out.println("STEP 3: THE CURRENT MODEL IS BEING TESTED" + myGPU.getModel().getName());       ////////////////////
                     startTest();
                     String valueOfTest;
                     Random gen = new Random();
@@ -118,7 +124,8 @@ public class GPUService extends MicroService {
                     tested.setStatus("Tested");             // change the model status!
 
                     complete(testModelEvent , tested);
-
+                    System.out.println("STEP 4: THE CURRENT MODEL HAS FINISHED THE TEST" + myGPU.getModel().getName());//////////////////////////////////////////
+                    finishTask();
                 }
             }
         };
@@ -132,17 +139,20 @@ public class GPUService extends MicroService {
             }
         };
 
-
+        this.subscribeBroadcast(TickBroadcast.class , instructionTimeTick);
         this.subscribeEvent(TrainModelEvent.class , instructionsTrain);
         this.subscribeEvent(TestModelEvent.class , instructionTest);
-        this.subscribeBroadcast(TickBroadcast.class , instructionTimeTick);
+
 
     }
     public void afterTimeTickAction(Callback instructionsTrain ,Callback instructionTest){
+
         if(state == State.Training){
+            System.out.println("STEP 2: THE MODEL IS BEING TRAINED: "+ myGPU.getModel().getName());    ///////////////////////////////////////
             boolean finished = myGPU.continueTrainData();
             if(finished){
                 myGPU.getModel().setStatus("Trained");         // change the model status!
+//                System.out.println("STATUS IS: "+myGPU.getModel().getStatus());    /////////////////////////////////////
                 complete(currentEvent,myGPU.getModel());
                 finishTask();
             }
@@ -154,11 +164,9 @@ public class GPUService extends MicroService {
             if (!awaitingEvents.isEmpty()){
                 Event<Model> toExecute = awaitingEvents.pop();
                 if(toExecute instanceof TrainModelEvent){
-                    startTrain();
                     instructionsTrain.call(toExecute);
                 }
-                else {
-                    startTest();
+                if(toExecute instanceof TestModelEvent){
                     instructionTest.call(toExecute);
                 }
             }

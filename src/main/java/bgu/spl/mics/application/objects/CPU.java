@@ -98,6 +98,9 @@ public class CPU {
     }
 
     public void startProcessNextBlock() {
+        System.out.println(); ////////////////////////////////////////////////////////////////
+        System.out.println("STARTING NEXT BLOCK"); ///////////////////////////////////////////////////////////////////////
+        System.out.println();   ////////////////////////////////////////////////////////////////
         unProcessedData = cluster.getUnprocessedData();
         currentGPU = cluster.getUnprocessedDataGPU();
     }
@@ -107,6 +110,7 @@ public class CPU {
         cluster.addProcessedData(currentGPU, processedData);
         if (cluster.isThereDataToProcess()) {
             startProcessNextBlock();
+//            System.out.println(unProcessedData);                  ///////////////////////////////////////////////////////////////
             startProcessNextBatch();
         }
     }

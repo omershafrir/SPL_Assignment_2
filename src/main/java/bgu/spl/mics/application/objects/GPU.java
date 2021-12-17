@@ -42,6 +42,7 @@ public class GPU {
     public GPU(String type){
         internalTimer = 0;
         data = null;
+        processedData = new Vector<>();
         if (type.equals("RTX3090")){
             currentAvailableMemory = 32;
             this.type = Type.RTX3090;
@@ -157,7 +158,7 @@ public class GPU {
                 return true;
             }
         }
-        else{           //there aren't batches to train in this tick go bring some
+        else{           //there aren't batches to train in this tick , so go bring some
             if(cluster.dataBatchesAreWaiting(this)){
                     processedData = cluster.getProcessedData(this);
             }
