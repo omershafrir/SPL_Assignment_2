@@ -75,7 +75,9 @@ public class main_test {
         clock.setName("TIMER_THREAD");
         clock.start();
         studentServices[0].setName("STUDENT");
+        GPUServices[0].setName("ULTRA GPU");
         studentServices[0].start();
+        GPUServices[0].start();
 
 
 

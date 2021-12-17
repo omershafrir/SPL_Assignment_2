@@ -24,4 +24,7 @@ public class PublishResultsEvent implements Event<Model> {
     public Future getFuture() {
         return null;
     }
+
+    public void setFuture(Future<Model> future) {
+    }
 }

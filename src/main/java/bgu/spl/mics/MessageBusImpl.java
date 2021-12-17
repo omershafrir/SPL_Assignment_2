@@ -181,16 +181,16 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public synchronized <T> Future<T> sendEvent(Event<T> e) {
-		Future<T> future = new Future<>();
+//		Future<T> future = new Future<>();
 		//check if e!=null and if there's an ms subscribed to events of type e
 		if (e != null && eventSubscriptions.containsKey(e.getClass())){
 			Queue<MicroService> relevent_queue = eventSubscriptions.get(e.getClass());
 			MicroService runner =  relevent_queue.remove();
 			relevent_queue.add(runner);		//inserting runner immediately at the back of the queue
 			msToQueueMap.get(runner).add(e);
-			eventToFutureMap.put(e , future);
+			eventToFutureMap.put(e , e.getFuture());
 		}
-		return future;
+ 		return e.getFuture();
 	}
 
 	/**

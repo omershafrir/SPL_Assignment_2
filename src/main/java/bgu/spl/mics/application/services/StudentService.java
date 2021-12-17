@@ -39,13 +39,13 @@ public class StudentService extends MicroService {
     @Override
     protected void initialize() {
         MessageBusImpl.getInstance().register(this);
+        MicroService self = this;
         //callback instructions for TickBroadcast
         Callback<TickBroadcast> instructionsForTick = new Callback<TickBroadcast>() {
             @Override
             public void call(TickBroadcast c) {
                 myStudent.incrementTimer();
                 System.out.println("Recieved Tick (in student service call)");
-
                 afterTimeTickAction();
             }
         };
@@ -70,12 +70,12 @@ public class StudentService extends MicroService {
     }
     public void afterTimeTickAction(){
 
-            future = this.myStudent.getFuture();
-            //if there is a model to train
-        if(future == null) {
+        future = this.myStudent.getFuture();
+        if(future == null) {                   //if there is a model to train
             if (myStudent.getCounterTestedModels() < myModels.length) {
                 TrainModelEvent e = new TrainModelEvent(myModels[myStudent.getCounterTestedModels()], this);
-                myStudent.setFuture(sendEvent(e));
+//                myStudent.setFuture(e.getFuture());
+                myStudent.setFuture(this.sendEvent(e));
             }
         }
         else { //future != null
