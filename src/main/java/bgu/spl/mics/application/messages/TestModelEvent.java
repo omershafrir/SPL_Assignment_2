@@ -18,6 +18,11 @@ public class TestModelEvent implements Event<Model> {
         this.model = model;
         this.sender = m;
         this.senderStatus = m.getStatus();
+        this.future = new Future<Model>();
+    }
+
+    @Override
+    public void setFuture(Future<Model> future) {
         this.future = future;
     }
 

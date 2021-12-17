@@ -15,7 +15,7 @@ public class TrainModelEvent implements Event<Model> {
     public TrainModelEvent(Model model , MicroService m){
         this.model = model;
         this.sender = m;
-        future = null;
+        future = new Future<Model>();
     }
 
     @Override
@@ -26,6 +26,11 @@ public class TrainModelEvent implements Event<Model> {
     public Model getModel() {
         return model;
     }
+
+    public void setFuture(Future<Model> future) {
+        this.future = future;
+    }
+
     @Override
     public Future<Model> getFuture() {
         return future;
