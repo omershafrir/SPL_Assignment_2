@@ -142,7 +142,7 @@ public class Cluster {
 	public synchronized void updateNextTreatedGPU(){
 
 		if (!boolToGPU.get(Boolean.FALSE).isEmpty()){
-			System.out.println("NEXT TRUE GPU , IN FALSE: " + nextTreatedGPU.hashCode());/////////////////////////////////////////////////////////////////////////
+//			System.out.println("NEXT TRUE GPU , IN FALSE: " + nextTreatedGPU.hashCode());/////////////////////////////////////////////////////////////////////////
 //			Vector<GPU> x = boolToGPU.get(Boolean.FALSE);
 //			nextTreatedGPU = x.firstElement();
 //			System.out.println("VECTOR OF GPUS:  "+x);		/////////////////////////////////////////////////////////////////////////
@@ -155,7 +155,7 @@ public class Cluster {
 			boolToGPU.get(Boolean.TRUE).add(nextTreatedGPU);
 		}
 		else{
-			System.out.println("NEXT TRUE GPU , IN TRUE: " + nextTreatedGPU.hashCode());/////////////////////////////////////////////////////////////////////////////////////////
+//			System.out.println("NEXT TRUE GPU , IN TRUE: " + nextTreatedGPU.hashCode());/////////////////////////////////////////////////////////////////////////////////////////
 			nextTreatedGPU = boolToGPU.get(Boolean.TRUE).firstElement();
 		}
 	}

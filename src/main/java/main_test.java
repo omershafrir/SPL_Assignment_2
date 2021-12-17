@@ -57,7 +57,7 @@ public class main_test {
 
 
 
-        TimeService timer = new TimeService(TickTime , Duration);
+        TimeService timer = new TimeService(20 , 100000);
         Thread clock = new Thread(timer);
         clock.setName("TIMER_THREAD");
         clock.start();

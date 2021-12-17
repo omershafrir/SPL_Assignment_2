@@ -90,6 +90,7 @@ public class StudentService extends MicroService {
                         myStudent.setFuture(sendEvent(testEvent));
                     }
                     else if(future.get().getStatus() == "Tested"){
+                        myStudent.incrementModelCounter();
                             if(future.get().getResult() == "Good"){
                             PublishResultsEvent publishEvent = new PublishResultsEvent(currentModel);
                             myStudent.setFuture(sendEvent(publishEvent));

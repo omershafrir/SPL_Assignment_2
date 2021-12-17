@@ -1,5 +1,7 @@
 package bgu.spl.mics;
 
+import bgu.spl.mics.application.messages.TrainModelEvent;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.*;
@@ -182,6 +184,8 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public synchronized <T> Future<T> sendEvent(Event<T> e) {
+		if( e instanceof  TrainModelEvent)
+				System.out.println("SENDING A NEW TRAIN_MODEL EVENT, THE MODEL IS :"+ ((TrainModelEvent) e).getModel().getName());	///////////////////////////////////////
 		Future<T> future = new Future<>();
 		//check if e!=null and if there's an ms subscribed to events of type e
 		if (e != null && eventSubscriptions.containsKey(e.getClass())){
