@@ -189,6 +189,7 @@ public abstract class   MicroService implements Runnable {
                 this.terminated=true;
             }
         }
+
     }
 
 }

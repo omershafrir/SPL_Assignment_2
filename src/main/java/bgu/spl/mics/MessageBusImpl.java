@@ -244,7 +244,7 @@ public class MessageBusImpl implements MessageBus {
 		Message task = null;
 		if (isRegistered(m)){
 			task = msToQueueMap.get(m).take();
-			System.out.println(Thread.currentThread().getName()+" IS EXECUTING: "+task.toString());				////////////////////////////////////////////////////////////
+//			System.out.println(Thread.currentThread().getName()+" IS EXECUTING: "+task.toString());				////////////////////////////////////////////////////////////
 		}
 		else{
 			//was determined in the interface

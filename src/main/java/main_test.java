@@ -57,11 +57,6 @@ public class main_test {
 
 
 
-        TimeService timer = new TimeService(20 , 100000);
-        Thread clock = new Thread(timer);
-        clock.setName("TIMER_THREAD");
-        clock.start();
-
         studentServices[0].setName("SIMBA");
         GPUServices[0].setName("GPU1");
         CPUServices[0].setName("CPU1");
@@ -70,7 +65,19 @@ public class main_test {
         GPUServices[0].start();
         CPUServices[0].start();
 
+        TimeService timer = new TimeService(1 , Duration);
+        Thread clock = new Thread(timer);
+        clock.setName("TIMER_THREAD");
+        clock.start();
 
+
+        GPUServices[0].join();
+        CPUServices[0].join();
+        studentServices[0].join();
+        clock.join();
+
+        System.out.println();
+        System.out.println("Program terminated.");
 
 
     }

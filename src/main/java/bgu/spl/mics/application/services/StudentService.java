@@ -65,8 +65,18 @@ public class StudentService extends MicroService {
             }
         };
 
+        //callback instructions for TerminateBroadcast
+        Callback<TerminateBroadcast> instructionsForTerminate =
+                new Callback<TerminateBroadcast>() {
+                    @Override
+                    public void call(TerminateBroadcast c) {
+                        terminate();
+                    }
+                };
+
        subscribeBroadcast(TickBroadcast.class , instructionsForTick);
        subscribeBroadcast(PublishConferenceBroadcast.class, instructionsForConference);
+       subscribeBroadcast(TerminateBroadcast.class , instructionsForTerminate);
     }
     public void afterTimeTickAction(){
 
@@ -92,6 +102,7 @@ public class StudentService extends MicroService {
                     else if(future.get().getStatus() == "Tested"){
                         myStudent.incrementModelCounter();
                             if(future.get().getResult() == "Good"){
+                                System.out.println("PUBLISHED!!!"); /////////////////////////////////
                             PublishResultsEvent publishEvent = new PublishResultsEvent(currentModel);
                             myStudent.setFuture(sendEvent(publishEvent));
                             }
