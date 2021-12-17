@@ -10,7 +10,7 @@ public class DataBatch {
     private int start_index;
     private boolean isLast;
 
-    public DataBatch(Data data, int start_index,boolean isLast) {
+    public DataBatch(Data data, int start_index , boolean isLast) {
         this.data = data;
         this.start_index = start_index;
         this.isLast = isLast;

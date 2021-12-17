@@ -9,10 +9,6 @@ public class Statistics {
         this.cluster = cluster;
     }
 
-    public Cluster getCluster() {
-        return cluster;
-    }
-
     public String namesOfAllTrainedModels(){
         String names="";
         Vector<Model> trainedModels = cluster.getTrainedModels();
@@ -22,7 +18,7 @@ public class Statistics {
     }
 
     public int totalNumDataBatchesProcessed(){
-        return cluster.dataBatchesProcessed();
+        return CPU.getTotalBatchesProcessed();
     }
 
     public int NumberOfCPUTimeUnitsUsed(){
@@ -30,8 +26,7 @@ public class Statistics {
     }
 
     public int NumberOfGPUTimeUnitsUsed(){
-        //TODO
-        return 0;
+        return GPU.getTotalTicksCounter();
     }
 
 

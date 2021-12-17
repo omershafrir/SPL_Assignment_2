@@ -1,13 +1,12 @@
 package bgu.spl.mics.application.objects;
 
-import bgu.spl.mics.Future;
-import bgu.spl.mics.application.objects.Model;
-import bgu.spl.mics.application.objects.GPU;
-import bgu.spl.mics.application.objects.Cluster;
-import bgu.spl.mics.application.objects.Data;
-import bgu.spl.mics.application.objects.Student;
-import bgu.spl.mics.application.objects.DataBatch;
-
+//import bgu.spl.mics.Future;
+//import bgu.spl.mics.application.objects.*;
+//import bgu.spl.mics.application.objects.GPU;
+//import bgu.spl.mics.application.objects.Cluster;
+//import bgu.spl.mics.application.objects.Data;
+//import bgu.spl.mics.application.objects.Student;
+//import bgu.spl.mics.application.objects.DataBatch;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -35,15 +34,15 @@ public class GPU {
     private Vector<DataBatch> dividedUnprocessedData;
     private Vector<DataBatch> processedData;
     private int currentAvailableMemory;
-    private AtomicInteger totalTicksCounter;
-    //is needed?
-    private Future<Model> future;
+    private static AtomicInteger totalTicksCounter = new AtomicInteger(0);
+
 
 
 
     public GPU(String type){
         internalTimer = 0;
         data = null;
+        processedData = new Vector<>();
         if (type.equals("RTX3090")){
             currentAvailableMemory = 32;
             this.type = Type.RTX3090;
@@ -144,6 +143,7 @@ public class GPU {
      */
 
     public boolean continueTrainData(){
+        GPU.incrementGPUTimeUsage();        //for statistics
         if (!processedData.isEmpty()) {          //there are more batches to train
             if (currentBatchRemainingTicks > 0) {  //the current batch is not finished
                 currentBatchRemainingTicks--;
@@ -158,13 +158,22 @@ public class GPU {
                 return true;
             }
         }
-        else{           //there aren't batches to train in this tick go bring some
+        else{           //there aren't batches to train in this tick , so go bring some
             if(cluster.dataBatchesAreWaiting(this)){
                     processedData = cluster.getProcessedData(this);
             }
         }
     return false;
     }
+
+    public static void incrementGPUTimeUsage(){
+        totalTicksCounter.incrementAndGet();
+    }
+
+    public static int getTotalTicksCounter(){
+        return totalTicksCounter.intValue();
+    }
+
 
     /**
      * @INV:

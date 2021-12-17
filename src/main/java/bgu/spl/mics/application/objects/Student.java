@@ -48,6 +48,10 @@ public class Student {
         return counterTestedModels;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String getStatus() {
         if(status.equals("MSc"))
             return ("MSc");
