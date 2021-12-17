@@ -44,7 +44,7 @@ public class StudentService extends MicroService {
             @Override
             public void call(TickBroadcast c) {
                 myStudent.incrementTimer();
-                System.out.println("Recieved Tick (in student service call)");
+//                System.out.println("Recieved Tick (in student service call)");  ///////////////////////////////////////////
 
                 afterTimeTickAction();
             }
@@ -75,6 +75,9 @@ public class StudentService extends MicroService {
         if(future == null) {
             if (myStudent.getCounterTestedModels() < myModels.length) {
                 TrainModelEvent e = new TrainModelEvent(myModels[myStudent.getCounterTestedModels()], this);
+                System.out.println(Thread.currentThread().getName()+" is sending: "+ e.getClass());        ///////////////////////////////////////////////////////////////////////
+
+
                 myStudent.setFuture(sendEvent(e));
             }
         }

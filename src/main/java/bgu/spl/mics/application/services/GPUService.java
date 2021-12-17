@@ -1,9 +1,6 @@
 package bgu.spl.mics.application.services;
 
-import bgu.spl.mics.Callback;
-import bgu.spl.mics.Event;
-import bgu.spl.mics.Future;
-import bgu.spl.mics.MicroService;
+import bgu.spl.mics.*;
 import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.objects.Cluster;
 import bgu.spl.mics.application.objects.DataBatch;
@@ -54,6 +51,7 @@ public class GPUService extends MicroService {
     }
     @Override
     protected void initialize() {
+        MessageBusImpl.getInstance().register(this);
         GPUService self = this;
         //callback instructions for TrainModelEvent
         Callback<TrainModelEvent> instructionsTrain = new Callback<TrainModelEvent>() {
@@ -69,6 +67,7 @@ public class GPUService extends MicroService {
                     Model toTrain = trainModelEvent.getModel();
                     myGPU.setModel(toTrain);
                     myGPU.getModel().setStatus("Training"); // change the model status!
+                    myGPU.setData(toTrain.getData());
                     myGPU.divideDataIntoBatches();
                     myGPU.sendUnprocessedData();
                     //start getting processed data
@@ -132,13 +131,14 @@ public class GPUService extends MicroService {
             }
         };
 
-
+        this.subscribeBroadcast(TickBroadcast.class , instructionTimeTick);
         this.subscribeEvent(TrainModelEvent.class , instructionsTrain);
         this.subscribeEvent(TestModelEvent.class , instructionTest);
-        this.subscribeBroadcast(TickBroadcast.class , instructionTimeTick);
+
 
     }
     public void afterTimeTickAction(Callback instructionsTrain ,Callback instructionTest){
+        System.out.println(Thread.currentThread().getName()+" is doing: "+state);
         if(state == State.Training){
             boolean finished = myGPU.continueTrainData();
             if(finished){
