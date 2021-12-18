@@ -9,6 +9,7 @@ import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.objects.Model;
 import bgu.spl.mics.application.objects.Student;
 
+import java.util.NoSuchElementException;
 import java.util.Vector;
 
 /**
@@ -57,7 +58,8 @@ public class StudentService extends MicroService {
             public void call(PublishConferenceBroadcast c) {
                     Vector<Model> vecOfModels = c.getModels();
                     for (Model model : vecOfModels){
-                        if (model.getStudent().equals(myStudent))
+                        System.out.println("MODEL: "+model.toString());  //////////////////////////////////
+                        if (model.getStudent() .equals(myStudent))
                             myStudent.incrementPublished();
                         else
                             myStudent.readPaper();
@@ -104,7 +106,12 @@ public class StudentService extends MicroService {
                             if(future.get().getResult() == "Good"){
                                 System.out.println("PUBLISHED!!!"); /////////////////////////////////
                             PublishResultsEvent publishEvent = new PublishResultsEvent(currentModel);
-                            myStudent.setFuture(sendEvent(publishEvent));
+                            try {
+                                myStudent.setFuture(sendEvent(publishEvent));
+                            }catch (NoSuchElementException ex){
+                                System.out.println("The student sent the model to publish after the last conference ended. ");
+                                future.resolve(currentModel);
+                            }
                             }
                         myStudent.setFuture(null);
                         }

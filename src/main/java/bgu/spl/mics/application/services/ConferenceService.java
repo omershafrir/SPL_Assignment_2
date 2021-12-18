@@ -10,6 +10,8 @@ import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.objects.ConfrenceInformation;
 import bgu.spl.mics.application.objects.Model;
 
+import java.sql.SQLOutput;
+
 /**
  * Conference service is in charge of
  * aggregating good results and publishing them via the {@link PublishConfrenceBroadcast},
@@ -29,7 +31,9 @@ public class ConferenceService extends MicroService {
 
     @Override
     protected void initialize() {
+//        System.out.println("CONFERENCE REGISTERED BEFOER");    ////////////////////////////////
         MessageBusImpl.getInstance().register(this);
+//        System.out.println("CONFERENCE REGISTERED AFTER");    ////////////////////////////////
         MicroService self = this;
 
         //callback instructions for PublishResultsEvent
@@ -40,6 +44,10 @@ public class ConferenceService extends MicroService {
                 Model model = c.getModel();
                 myConfrence.addModel(model);
                 myConfrence.addEvent(c);
+                System.out.println("---------------------------------------------------------------------");////////////////////////////////
+                System.out.println("THE AGGREGATED MODELS ARE: ");  /////////////////////////////////////////////////////////
+                for (Model modelx : c.getModel().getStudent().getModels())
+                System.out.println("EREZ MODELS:                 " + modelx.toString());   /////////////////////////////////////////////////////////
             }
         };
 
@@ -48,8 +56,12 @@ public class ConferenceService extends MicroService {
             @Override
             public void call(TickBroadcast c) {
                 myConfrence.incrementTimer();
+//                System.out.println("CONFERENCE RECIEVED TICK");  ////////////////////////////////////
                 if(myConfrence.getInternalTimer() == myConfrence.getDate()){
                     sendBroadcast(new PublishConferenceBroadcast(myConfrence.getModels()));
+                    System.out.println("SENDINDG CONFERENCE! " + myConfrence.getName());    //////////////////////
+                    System.out.println("THE MODELS ARE: "+ myConfrence.getModels());        ////////////////////
+                    System.out.println("THE RESULT PUBLIILSH EVENTS: ");
                     MessageBus msgbus = MessageBusImpl.getInstance();
                     for (PublishResultsEvent resultPublish : myConfrence.getEvents()) {
                         complete(resultPublish, resultPublish.getModel());

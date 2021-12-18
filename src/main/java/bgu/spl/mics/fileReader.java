@@ -73,13 +73,12 @@ public class fileReader {
                 }
                 counterOfModel = 0;
 
-
-
                 //appending the model array into the list
                 //each model array will be in the same index as the student who came with it
                 ListOfArraysOfModels.add(models);
                 //assigning the values after we read them
                 students[counterOfStudents]= (new Student(name,department, status,ListOfArraysOfModels.get(counterOfStudents)));
+
                 counterOfStudents++;
                 //////////////////////////////////////////done getting students//////////////////////////
             }
@@ -116,6 +115,12 @@ public class fileReader {
             Duration = Integer.parseInt(fileObject.get("Duration").getAsString());
         }catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+
+        for (int i=0; i < students.length ; i++){   //setting the student of eace model
+            for (int j = 0; j < students[i].getModels().length ; j++){
+                students[i].getModels()[j].setStudent(students[i]);
+            }
         }
     }
 

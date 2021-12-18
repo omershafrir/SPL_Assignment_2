@@ -64,6 +64,7 @@ public class CPU {
 
     public void afterTickAction() {
         if (isProcessing) {     //in the middle of processing
+            System.out.println(Thread.currentThread().getName() + "IS PROCESSING DATA");
             incrementCounter();
             if (internalTimer ==    //current batch processing finished
                     currentProcessRequiredTime + processStartTick) {
@@ -76,28 +77,30 @@ public class CPU {
                     startProcessNextBatch();
                 }
             } else ;       // current batch is not finished
-        } else {       //isnt is the middle of processing
-            if (cluster.isThereDataToProcess()) {   //there is data waiting in the cluster
-                startProcessNextBlock();
-                startProcessNextBatch();
+        }
+        else {       //isnt is the middle of processing
+            synchronized (cluster) {
+                if (cluster.isThereDataToProcess()) {   //there is data waiting in the cluster
+                    startProcessNextBlock();
+                    startProcessNextBatch();
+                } else ;                                //there isnt data waiting in the cluster
             }
-            else ;                                //there isnt data waiting in the cluster
         }
     }
-
-    public void startProcessNextBatch() {
+    //////////////////////////////////////////////////////SYNC///////////////////////////////////////////////////////////////////////////
+    public synchronized void startProcessNextBatch() {
         processStartTick = internalTimer;
         currentProcessRequiredTime =
                 processingBatchRequiredTicks(unProcessedData.elementAt(0));
         isProcessing = true;
     }
 
-    public void finishProcessCurrentBatch() {
+    public synchronized void finishProcessCurrentBatch() {
         processedData.add(unProcessedData.remove(0));
         isProcessing = false;
     }
 
-    public void startProcessNextBlock() {
+    public synchronized void startProcessNextBlock() {
         processedData.removeAllElements();
         unProcessedData = cluster.getUnprocessedData();
         currentGPU = cluster.getUnprocessedDataGPU();
@@ -107,7 +110,7 @@ public class CPU {
 
     }
 
-    public void finishProcessCurrentBlock() {
+    public synchronized void finishProcessCurrentBlock() {
 //        System.out.println("PROCESSSSSSSED: "+ processedData.size());   /////////////////////////////
         cluster.addProcessedData(currentGPU, processedData);
         if (cluster.isThereDataToProcess()) {

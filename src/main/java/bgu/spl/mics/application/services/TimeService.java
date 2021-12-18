@@ -1,6 +1,7 @@
 package bgu.spl.mics.application.services;
 
 import bgu.spl.mics.Callback;
+import bgu.spl.mics.MessageBus;
 import bgu.spl.mics.MessageBusImpl;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.*;
@@ -37,7 +38,8 @@ public class TimeService extends MicroService{
 
 	@Override
 	protected void initialize() {
-		MessageBusImpl.getInstance().register(this);
+		MessageBus msgbus = MessageBusImpl.getInstance();
+		msgbus.register(this);
 
 		//callback instructions for TerminateBroadcast
 		Callback<TerminateBroadcast> instructionsForTerminate =
@@ -54,7 +56,9 @@ public class TimeService extends MicroService{
 			public void run() {
 				currentTime++;
 				System.out.println("Current Time: "+currentTime);
-				sendBroadcast(new TickBroadcast());
+				synchronized (msgbus) {
+					sendBroadcast(new TickBroadcast());
+				}
 			}
 		};
 

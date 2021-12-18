@@ -1,7 +1,6 @@
 package bgu.spl.mics.application;
 
 import bgu.spl.mics.MicroService;
-import bgu.spl.mics.application.messages.PublishConferenceBroadcast;
 import bgu.spl.mics.application.objects.*;
 import bgu.spl.mics.application.services.*;
 import bgu.spl.mics.fileReader;
@@ -84,5 +83,10 @@ public class CRMSRunner {
             confrencesServices[i].start();
         }
 
+
+//        clock.join();
+
+        System.out.println();
+        System.out.println("Program terminated.");
     }
 }
