@@ -157,7 +157,7 @@ public class MessageBusImpl implements MessageBus {
 	 * 		 messages in queue) -1
 	 */
 	@Override
-	public void sendBroadcast(Broadcast b) {
+	public synchronized void sendBroadcast(Broadcast b) {
 //		System.out.println(Thread.currentThread().getName() + " is sending: " + b.getClass());	/////////////////////////////////////////
 //		System.out.println(b.getClass() +" is in : "+ broadcastSubscriptions.containsKey(b.getClass()) + this);	/////////////////////////							/////////////////////////////////////////
 		if( b!= null && broadcastSubscriptions.containsKey(b.getClass())) {
@@ -167,6 +167,8 @@ public class MessageBusImpl implements MessageBus {
 //			System.out.println("relvec is : "+ relevent_vec.toString());								/////////////////////////////////////////
 			for (MicroService ms : relevent_vec) {
 //				System.out.println("sending broadcast of type : " +b.getClass() +" to "+ms.getName());	/////////////
+//				System.out.println("THREAD: "+ ms.getName()); 	//////////////////////
+//				System.out.println("IS REGISDTERED: " + isRegistered(ms));	//////////////////////
 				msToQueueMap.get(ms).add(b);
 			}
 		}
@@ -184,13 +186,14 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	@Override
 	public synchronized <T> Future<T> sendEvent(Event<T> e) {
-		if( e instanceof  TrainModelEvent)
-				System.out.println("SENDING A NEW TRAIN_MODEL EVENT, THE MODEL IS :"+ ((TrainModelEvent) e).getModel().getName());	///////////////////////////////////////
+//		if( e instanceof  TrainModelEvent)
+//				System.out.println("SENDING A NEW TRAIN_MODEL EVENT, THE MODEL IS :"+ ((TrainModelEvent) e).getModel().getName());	///////////////////////////////////////
 		Future<T> future = new Future<>();
 		//check if e!=null and if there's an ms subscribed to events of type e
 		if (e != null && eventSubscriptions.containsKey(e.getClass())){
 			Queue<MicroService> relevent_queue = eventSubscriptions.get(e.getClass());
 			MicroService runner =  relevent_queue.remove();
+			System.out.println("I AM RUNNER : "+ runner.getName()+" , THAT EXECUTES: "+e.getClass());
 			relevent_queue.add(runner);		//inserting runner immediately at the back of the queue
 			msToQueueMap.get(runner).add(e);
 //			System.out.println("sending event of type : " +e.getClass() +" to "+runner.getName());		///////////////////////////////////////////
@@ -223,6 +226,16 @@ public class MessageBusImpl implements MessageBus {
 	@Override
 	public void unregister(MicroService m) {
 		if(m!=null && isRegistered(m)){
+			for(Class<? extends Event <?>> type : eventSubscriptions.keySet()){
+				Queue<MicroService> queue = eventSubscriptions.get(type);
+				if(queue.contains(m))
+					queue.remove(m);
+			}
+			for(Class<? extends Broadcast> type : broadcastSubscriptions.keySet()){
+				Vector<MicroService> Vector = broadcastSubscriptions.get(type);
+				if(Vector.contains(m))
+					Vector.remove(m);
+			}
 			msToQueueMap.remove(m);
 		}
 	}

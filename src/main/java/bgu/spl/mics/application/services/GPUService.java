@@ -45,6 +45,7 @@ public class GPUService extends MicroService {
         state = State.NotOccupied;
     }
     private void startTrain(){
+        cluster.addToUnhandled(myGPU);
         state = State.Training;
     }
     private void startTest(){
@@ -69,7 +70,7 @@ public class GPUService extends MicroService {
                     awaitingEvents.addLast(trainModelEvent);
                 else{   //start processing TrainModelEvent
                         startTrain();
-                    System.out.println("STEP 1 : THE MODEL HAS BEGUN TRAINING:   "+trainModelEvent.getModel().getName());    /////////////////////////////////////
+//                    System.out.println("STEP 1 : THE MODEL HAS BEGUN TRAINING:   "+trainModelEvent.getModel().getName());    /////////////////////////////////////
                     Model toTrain = trainModelEvent.getModel();
                     myGPU.setModel(toTrain);
                     myGPU.getModel().setStatus("Training"); // change the model status!
@@ -97,7 +98,7 @@ public class GPUService extends MicroService {
                 }
                 else {   //start training TrainModelEvent
                     startTest();
-                    System.out.println("STEP 3: THE CURRENT MODEL IS BEING TESTED :" + myGPU.getModel().getName());       ////////////////////
+//                    System.out.println("STEP 3: THE CURRENT MODEL IS BEING TESTED :" + myGPU.getModel().getName());       ////////////////////
                     startTest();
                     String valueOfTest;
                     Random gen = new Random();
@@ -125,7 +126,7 @@ public class GPUService extends MicroService {
                     tested.setStatus("Tested");             // change the model status!
 
                     complete(testModelEvent , tested);
-                    System.out.println("STEP 4: THE CURRENT MODEL HAS FINISHED THE TEST :" + myGPU.getModel().getName());//////////////////////////////////////////
+//                    System.out.println("STEP 4: THE CURRENT MODEL HAS FINISHED THE TEST :" + myGPU.getModel().getName());//////////////////////////////////////////
                     finishTask();
                 }
             }
@@ -159,7 +160,8 @@ public class GPUService extends MicroService {
     public void afterTimeTickAction(Callback instructionsTrain ,Callback instructionTest){
 
         if(state == State.Training){
-            System.out.println("STEP 2: THE MODEL IS BEING TRAINED: "+ myGPU.getModel().getName());    ///////////////////////////////////////
+            System.out.println("THE MODEL IS BEING TRAINED: "+ myGPU.getModel().getName());    ///////////////////////////////////////
+            System.out.println("BY GPU: " + Thread.currentThread().getName());
             boolean finished = myGPU.continueTrainData();
             if(finished){
                 myGPU.getModel().setStatus("Trained");         // change the model status!

@@ -172,6 +172,7 @@ public abstract class   MicroService implements Runnable {
      */
     @Override
     public final void run() {
+        System.out.println(Thread.currentThread().getName()+" IS STARTING TO RUN!");
         initialize();
         while (!terminated) {
             try {

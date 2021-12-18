@@ -1,7 +1,6 @@
 package bgu.spl.mics.application;
 
 import bgu.spl.mics.MicroService;
-import bgu.spl.mics.application.messages.PublishConferenceBroadcast;
 import bgu.spl.mics.application.objects.*;
 import bgu.spl.mics.application.services.*;
 import bgu.spl.mics.fileReader;
@@ -33,33 +32,6 @@ public class CRMSRunner {
         cluster.setCPUArray(cpuArray);
         cluster.initializeCluster();
 
-//
-//
-//        for(GPU gpu : gpuArray ){
-//            Thread gpuService = new Thread((Runnable) gpu);
-//            gpuService.start();
-//        }
-//        for(CPU cpu : cpuArray ){
-//            Thread gpuService = new Thread((Runnable) cpu);
-//            gpuService.start();
-//        }
-//        for(Student s : studentArray){
-//            s
-//        }
-
-
-//        GPU[] g = reader.getGPUArray();
-//        CPU[] c = reader.getCPUArray();
-//
-//        for(Student z1 : s){
-//            System.out.println(z1);
-//        }
-//        for(GPU x : g){
-//            System.out.println(x.getCluster());
-//        }
-//        for(CPU y : c){
-//            System.out.println(y);
-//        }
 
 
         /**
@@ -96,21 +68,31 @@ public class CRMSRunner {
          * running the micro-services one after another
          */
         Thread clock = new Thread(timer);
-        clock.start();
 
         for (int i=0 ;i< studentServices.length ; i++){
+            studentServices[i].setName(studentArray[i].getName());
             studentServices[i].start();
         }
         for (int i=0 ; i < CPUServices.length; i++){
+            CPUServices[i].setName("CPU" + i);
             CPUServices[i].start();
         }
         for (int i=0 ; i < GPUServices.length ; i++){
+            GPUServices[i].setName("GPU" + i);
             GPUServices[i].start();
         }
         for(int i=0 ; i < confrencesServices.length ; i++){
+            confrencesServices[i].setName(conferenceArray[i].getName());
             confrencesServices[i].start();
         }
-
-
+        try{
+        Thread.currentThread().sleep(300);}
+        catch(Exception ex){}
+        clock.start();
+        try {
+            clock.join();
+        }catch (Exception exz){}
+        System.out.println();
+        System.out.println("Program terminated.");
     }
 }

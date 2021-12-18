@@ -29,19 +29,19 @@ public class GPU {
     private int internalTimer;
     private int currentBatchRemainingTicks;
     private final int timeToProcesse;
-    //finished training the hole model
     private boolean isFinished;
     private Vector<DataBatch> dividedUnprocessedData;
     private Vector<DataBatch> processedData;
     private int currentAvailableMemory;
     private static AtomicInteger totalTicksCounter = new AtomicInteger(0);
-
+    private int currentModelSize;
 
 
 
     public GPU(String type){
         internalTimer = 0;
         data = null;
+        currentModelSize=0;
         processedData = new Vector<>();
         if (type.equals("RTX3090")){
             currentAvailableMemory = 32;
@@ -80,12 +80,13 @@ public class GPU {
         setData(model.getData());            ///////////////////////@@@@@@@@@/////////////////////////
     }
 
-    public Cluster getCluster() {
-        return cluster;
+    public int getCurrentModelSize() {
+        return currentModelSize;
     }
 
     public void setData(Data data) {
         this.data = data;
+        currentModelSize = data.getSize();
     }
 
     /**
@@ -151,20 +152,22 @@ public class GPU {
 
     public boolean continueTrainData(){
         System.out.println("TRAINIG BATCH OF : "+model.getName());  ///////////////////////////
-        System.out.println("PROCESSED DATA SIZE IS : "+processedData.size());  ///////////////////////////
-        GPU.incrementGPUTimeUsage();        //for statistics
+//        System.out.println("PROCESSED DATA SIZE IS : "+processedData.size());  ///////////////////////////
         if (!processedData.isEmpty()) {          //there are more batches to train
             if (currentBatchRemainingTicks > 0) {  //the current batch is not finished
+                GPU.incrementGPUTimeUsage();        //for statistics
                 currentBatchRemainingTicks--;
             }
             else {                          //current batch is finished
-                if(processedData.get(0).isLast())
+                if(processedData.get(0).isLast()) {     //last dataBatch from the whole data
                     isFinished = true;
+                }
                 processedData.remove(0);
                 currentBatchRemainingTicks = timeToProcesse;
             }
             if(isFinished){
                 isFinished = false;
+                cluster.removeFromHandled(this);
                 return true;
             }
         }

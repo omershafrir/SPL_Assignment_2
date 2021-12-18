@@ -83,4 +83,20 @@ public class Model {
 
 
     }
+
+    @Override
+    public String toString() {
+        return "Model{" +
+                "name='" + name + '\'' +
+                ", data=" + data +
+                ", student=" + student +
+                ", status=" + status +
+                ", result=" + result +
+                ", isPublished=" + isPublished +
+                '}';
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 }

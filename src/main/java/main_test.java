@@ -17,7 +17,6 @@ public class main_test {
     public static void main(String []args) throws InterruptedException {
 
         fileReader reader = new fileReader();
-
         reader.readInputFile("example_input.json");  //the input path is starting from the folder of the project!
 
         /**
@@ -36,56 +35,98 @@ public class main_test {
          */
         outputFileCreator output = outputFileCreator.getInstance();
 
-
-
-
         /**
          * running the micro-services one after another
          */
 
-        GPU[] GPUArrayDemo = new GPU[1];
+        GPU[] GPUArrayDemo = new GPU[2];
         GPUArrayDemo[0] = gpuArray[0];
+        GPUArrayDemo[1] = gpuArray[1];
 
-        CPU[] CPUArrayDemo = new CPU[1];
+        CPU[] CPUArrayDemo = new CPU[5];
         CPUArrayDemo[0] = cpuArray[0];
+        CPUArrayDemo[1] = cpuArray[1];
+        CPUArrayDemo[2] = cpuArray[2];
+        CPUArrayDemo[3] = cpuArray[3];
+        CPUArrayDemo[4] = cpuArray[4];
 
         Cluster cluster = Cluster.getInstance();
         cluster.setGPUArray(GPUArrayDemo);
         cluster.setCPUArray(CPUArrayDemo);
         cluster.initializeCluster();
 
-        Thread[] studentServices = new Thread[1];
+        Thread[] studentServices = new Thread[2];
         MicroService tmpservice1 = new StudentService(studentArray[0].getName() , studentArray[0]);
         studentServices[0] = new Thread(tmpservice1);
+        MicroService tmpservice11 = new StudentService(studentArray[1].getName() , studentArray[1]);
+        studentServices[1] = new Thread(tmpservice11);
 
-        Thread[] CPUServices = new Thread[1];
+        Thread[] CPUServices = new Thread[5];
         MicroService tmpservice2 = new CPUService("CPU1", CPUArrayDemo[0]);
         CPUServices[0] = new Thread(tmpservice2);
+        MicroService tmpservice22 = new CPUService("CPU2", CPUArrayDemo[1]);
+        CPUServices[1] = new Thread(tmpservice22);
+        MicroService tmpservice222 = new CPUService("CPU3", CPUArrayDemo[2]);
+        CPUServices[2] = new Thread(tmpservice222);
+        MicroService tmpservice2222 = new CPUService("CPU3", CPUArrayDemo[3]);
+        CPUServices[3] = new Thread(tmpservice2222);
+        MicroService tmpservice22222 = new CPUService("CPU3", CPUArrayDemo[4]);
+        CPUServices[4] = new Thread(tmpservice22222);
 
-        Thread[] GPUServices = new Thread[1];
+        Thread[] GPUServices = new Thread[2];
         MicroService tmpservice3 = new GPUService("GPU1", GPUArrayDemo[0]);
         GPUServices[0] = new Thread(tmpservice3);
+        MicroService tmpservice32 = new GPUService("GPU2", GPUArrayDemo[1]);
+        GPUServices[1] = new Thread(tmpservice32);
 
+        Thread[] ConferenceServices = new Thread[1];
+        MicroService tmpservice4 = new ConferenceService("CONFERENCE1", conferenceArray[0]);
+        ConferenceServices[0] = new Thread(tmpservice4);
 
-
-        TimeService timer = new TimeService(20 , 50000);
+        TimeService timer = new TimeService(1 , 2000);
         Thread clock = new Thread(timer);
+
+        studentServices[0].setName("SIMBA");
+        studentServices[1].setName("Zazu");
+
+        GPUServices[0].setName("GPU1");
+        GPUServices[1].setName("GPU2");
+
+        CPUServices[0].setName("CPU1");
+        CPUServices[1].setName("CPU2");
+        CPUServices[2].setName("CPU3");
+        CPUServices[3].setName("CPU4");
+        CPUServices[4].setName("CPU5");
+
+        ConferenceServices[0].setName("CONFERENCE1");
+
+        GPUServices[0].start();
+        GPUServices[1].start();
+
+        CPUServices[0].start();
+        CPUServices[1].start();
+        CPUServices[2].start();
+        CPUServices[3].start();
+        CPUServices[4].start();
+
         clock.setName("TIMER_THREAD");
+
+        ConferenceServices[0].start();
+
+        Thread.currentThread().sleep(300);
+        studentServices[0].start();
+        studentServices[1].start();
+
+        Thread.currentThread().sleep(300);
         clock.start();
 
-        studentServices[0].setName(studentServices[0].getName());
-        GPUServices[0].setName("GPU1");
-        CPUServices[0].setName("CPU1");
-
-        studentServices[0].start();
-        GPUServices[0].start();
-        CPUServices[0].start();
-
-
-        GPUServices[0].join();
-        CPUServices[0].join();
 
         clock.join();
-        output.PrintModel();
+
+        output.Print();
+        System.out.println();
+        System.out.println("Program terminated.");
+
+
     }
 }
