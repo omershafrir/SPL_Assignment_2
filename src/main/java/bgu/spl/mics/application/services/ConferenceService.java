@@ -9,6 +9,7 @@ import bgu.spl.mics.MessageBusImpl;
 import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.objects.ConfrenceInformation;
 import bgu.spl.mics.application.objects.Model;
+import bgu.spl.mics.application.outputFileCreator;
 
 /**
  * Conference service is in charge of
@@ -27,10 +28,14 @@ public class ConferenceService extends MicroService {
         myConfrence = _myConfrence;
     }
 
+    public ConfrenceInformation getMyConfrence() {
+        return myConfrence;
+    }
+
     @Override
     protected void initialize() {
         MessageBusImpl.getInstance().register(this);
-        MicroService self = this;
+        ConferenceService self = this;
 
         //callback instructions for PublishResultsEvent
         Callback<PublishResultsEvent> instructionsForPublish
@@ -54,6 +59,11 @@ public class ConferenceService extends MicroService {
                     for (PublishResultsEvent resultPublish : myConfrence.getEvents()) {
                         complete(resultPublish, resultPublish.getModel());
                         resultPublish.getModel().publishModel();
+
+                        //sending data for the output file
+                        outputFileCreator output = outputFileCreator.getInstance();
+                        output.getDataFromConference(self.getMyConfrence());
+
                         // to decide : number of publications of a student will increase when:
                         //    1. the conference goes out. 2. the student reads the conference broadcast
                         // basically same thing

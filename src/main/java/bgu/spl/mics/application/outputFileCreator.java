@@ -16,12 +16,12 @@ public class outputFileCreator {
 
     private static outputFileCreator instance = new outputFileCreator();
     private ConcurrentLinkedQueue<Student> students;
-    private ConcurrentLinkedQueue<ConcurrentLinkedQueue<Model>> ListOfVectorsOfModels;
+    private ConcurrentLinkedQueue<Model[]> ListOfArraysOfModels;
     private ConcurrentLinkedQueue<ConfrenceInformation> confrenceInformations;
 
     private outputFileCreator(){
         students = new ConcurrentLinkedQueue<Student>();
-        ListOfVectorsOfModels = new ConcurrentLinkedQueue<ConcurrentLinkedQueue<Model>>();
+        ListOfArraysOfModels = new ConcurrentLinkedQueue<Model[]>();
         confrenceInformations = new ConcurrentLinkedQueue<ConfrenceInformation>();
     }
 
@@ -30,9 +30,26 @@ public class outputFileCreator {
     }
 
 
+    public void getDataFromStudentMS(Student student ,Model[] models){
+        students.add(student);
+        ListOfArraysOfModels.add(models);
+    }
+
+    public void getDataFromConference(ConfrenceInformation myConfrence){
+        confrenceInformations.add(myConfrence);
+    }
+
+    public void getTimeFromGPU(){
+
+    }
+
+    public void getTimeFromCPU(){
+
+    }
+
     public void PrintModel() {
-        for(ConcurrentLinkedQueue<Model> modelVector : ListOfVectorsOfModels){
-            for(Model model : modelVector){
+        for(Model[] modelArray : ListOfArraysOfModels){
+            for(Model model : modelArray){
                 System.out.println("Model Name is : " + model.getName()
                 + "The status of this model is" + model.getStatus() + "He as been published :"
                         + model.getResult().equals("Good"));

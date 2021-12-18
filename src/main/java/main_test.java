@@ -30,7 +30,15 @@ public class main_test {
         int TickTime = reader.getTickTime();
         int Duration = reader.getDuration();
 
+
+        /**
+           output file initialization
+         */
         outputFileCreator output = outputFileCreator.getInstance();
+
+
+
+
         /**
          * running the micro-services one after another
          */

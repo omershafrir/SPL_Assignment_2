@@ -8,6 +8,7 @@ import bgu.spl.mics.MessageBusImpl;
 import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.objects.Model;
 import bgu.spl.mics.application.objects.Student;
+import bgu.spl.mics.application.outputFileCreator;
 
 import java.util.Vector;
 
@@ -36,9 +37,19 @@ public class StudentService extends MicroService {
     public String getStatus(){
         return myStudent.getStatus();
     }
+
+    public Model[] getMyModels() {
+        return myModels;
+    }
+
+    public Student getMyStudent() {
+        return myStudent;
+    }
+
     @Override
     protected void initialize() {
         MessageBusImpl.getInstance().register(this);
+        StudentService self = this;
         //callback instructions for TickBroadcast
         Callback<TickBroadcast> instructionsForTick = new Callback<TickBroadcast>() {
             @Override
@@ -70,6 +81,9 @@ public class StudentService extends MicroService {
                 new Callback<TerminateBroadcast>() {
                     @Override
                     public void call(TerminateBroadcast c) {
+                        outputFileCreator output = outputFileCreator.getInstance();
+                        //sending the data and storing it in a Thread Safe DS
+                        output.getDataFromStudentMS(self.getMyStudent(), self.getMyModels());
                         terminate();
                     }
                 };
