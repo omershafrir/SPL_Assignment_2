@@ -1,6 +1,8 @@
 package bgu.spl.mics.application.services;
 
 //import bgu.spl.mics.*;
+import java.util.Random;
+import java.lang.Math;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.Callback;
 import bgu.spl.mics.Future;
@@ -28,6 +30,7 @@ public class StudentService extends MicroService {
     private Model[] myModels;
     private Student myStudent;
     private Future<Model> future;
+
 
     public StudentService(String name , Student _myStudent) {
         super(name);
