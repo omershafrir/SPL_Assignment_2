@@ -13,7 +13,7 @@ public class CRMSRunner {
     public static void main(String[] args) {
         fileReader reader = new fileReader();
         reader.readInputFile("example_input.json");  //the input path is starting from the folder of the project!
-
+        outputFileCreator output = outputFileCreator.getInstance();
         /**
          * reading the input file
          */
@@ -42,6 +42,9 @@ public class CRMSRunner {
         Thread[] GPUServices = new Thread[gpuArray.length];
         Thread[] confrencesServices = new Thread[conferenceArray.length];
 
+
+
+
         /**
          * instantiating the micro - services
          */
@@ -69,29 +72,43 @@ public class CRMSRunner {
          */
         Thread clock = new Thread(timer);
 
-        for (int i=0 ;i< studentServices.length ; i++){
-            studentServices[i].setName(studentArray[i].getName());
-            studentServices[i].start();
-        }
+
         for (int i=0 ; i < CPUServices.length; i++){
             CPUServices[i].setName("CPU" + i);
             CPUServices[i].start();
         }
+
         for (int i=0 ; i < GPUServices.length ; i++){
             GPUServices[i].setName("GPU" + i);
             GPUServices[i].start();
         }
+
         for(int i=0 ; i < confrencesServices.length ; i++){
             confrencesServices[i].setName(conferenceArray[i].getName());
             confrencesServices[i].start();
         }
+
+        try{
+        Thread.currentThread().sleep(300);}
+        catch (Exception ex){}
+
+        for (int i=0 ;i< studentServices.length ; i++){
+            studentServices[i].setName(studentArray[i].getName());
+            studentServices[i].start();
+        }
+
         try{
         Thread.currentThread().sleep(300);}
         catch(Exception ex){}
+
         clock.start();
+
         try {
             clock.join();
         }catch (Exception exz){}
+
+        System.out.println();
+        output.Print();
         System.out.println();
         System.out.println("Program terminated.");
     }

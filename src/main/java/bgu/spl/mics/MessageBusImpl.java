@@ -165,11 +165,13 @@ public class MessageBusImpl implements MessageBus {
 //			System.out.println(broadcastSubscriptions.toString());							///////////////////////////////////////////////
 			Vector<MicroService> relevent_vec = broadcastSubscriptions.get(b.getClass());
 //			System.out.println("relvec is : "+ relevent_vec.toString());								/////////////////////////////////////////
-			for (MicroService ms : relevent_vec) {
+			synchronized (relevent_vec) {
+				for (MicroService ms : relevent_vec) {
 //				System.out.println("sending broadcast of type : " +b.getClass() +" to "+ms.getName());	/////////////
 //				System.out.println("THREAD: "+ ms.getName()); 	//////////////////////
 //				System.out.println("IS REGISDTERED: " + isRegistered(ms));	//////////////////////
-				msToQueueMap.get(ms).add(b);
+					msToQueueMap.get(ms).add(b);
+				}
 			}
 		}
 //		System.out.println( broadcastSubscriptions.containsKey(b));		//////////////////////////////////////////////////////////////

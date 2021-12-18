@@ -167,7 +167,7 @@ public class GPU {
             }
             if(isFinished){
                 isFinished = false;
-                cluster.removeFromHandled(this);
+//                cluster.removeFromHandled(this);
                 return true;
             }
         }

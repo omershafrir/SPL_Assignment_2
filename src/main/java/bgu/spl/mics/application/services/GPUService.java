@@ -45,7 +45,7 @@ public class GPUService extends MicroService {
         state = State.NotOccupied;
     }
     private void startTrain(){
-        cluster.addToUnhandled(myGPU);
+//        cluster.addToUnhandled(myGPU);
         state = State.Training;
     }
     private void startTest(){
@@ -158,7 +158,6 @@ public class GPUService extends MicroService {
 
     }
     public void afterTimeTickAction(Callback instructionsTrain ,Callback instructionTest){
-
         if(state == State.Training){
             System.out.println("THE MODEL IS BEING TRAINED: "+ myGPU.getModel().getName());    ///////////////////////////////////////
             System.out.println("BY GPU: " + Thread.currentThread().getName());

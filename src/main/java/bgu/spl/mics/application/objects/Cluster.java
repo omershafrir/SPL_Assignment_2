@@ -89,7 +89,7 @@ public class Cluster {
 	 * @nextTreatedGPU is the GPU of which the data was taken from.
 	 * before function ends , @nextTreatedGPU is updated.
 	 */
-	public synchronized Vector<DataBatch> getUnprocessedData(){
+	public Vector<DataBatch> getUnprocessedData(){
 		Vector<DataBatch> toProcesse = new Vector<>();
 		Vector<DataBatch> toUpdate = new Vector<>();
 		for (Vector<DataBatch> vec : GPUToUnProcessed.values()){
@@ -126,45 +126,30 @@ public class Cluster {
 	 * @return TRUE if there is unprocessed data in the cluster
 	 * 		   FALSE otherwise
 	 */
-	public synchronized boolean isThereDataToProcess(){
-		for (Vector<DataBatch> vec : GPUToUnProcessed.values()){
-
-			if (!vec.isEmpty()) {
-//				System.out.println("THERE ARE BATCHES WAITINGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"); 	///////////////////////////
-//				System.out.println("THE VECTOR : "+vec);                /////////////////////////////////////////////////////////
-				return true;
+	public boolean isThereDataToProcess(){
+		synchronized (GPUToUnProcessed) {
+			for (Vector<DataBatch> vec : GPUToUnProcessed.values()) {
+				if (!vec.isEmpty()) {
+					return true;
+				}
 			}
 		}
 		return false;
 	}
 
-	public synchronized Vector<DataBatch> getProcessedData(GPU gpu){
-		Vector<DataBatch> data = GPUToProcessed.get(gpu);
-		Vector<DataBatch> processedData = new Vector<>();
-		for (int i = 0; i < gpu.getCurrentAvailableMemory() && !data.isEmpty(); i++) {
-			processedData.add(data.remove(0));
+	public Vector<DataBatch> getProcessedData(GPU gpu){
+		synchronized (gpu) {
+			Vector<DataBatch> data = GPUToProcessed.get(gpu);
+			Vector<DataBatch> processedData = new Vector<>();
+			for (int i = 0; i < gpu.getCurrentAvailableMemory() && !data.isEmpty(); i++) {
+				processedData.add(data.remove(0));
+			}
+			return processedData;
 		}
-		return processedData;
 	}
 
-	public synchronized boolean dataBatchesAreWaiting(GPU gpu){
+	public boolean dataBatchesAreWaiting(GPU gpu){
 		return !GPUToProcessed.get(gpu).isEmpty();
-	}
-	/**
-	 * updates the next GPU that it's data is going to be processed
-	 * 		if there is one such that no CPU is processing, then he will be chosen
-	 * 		else , the first GPU of the treated ones will be chosen
-	 */
-	public synchronized void updateNextTreatedGPU(){
-		if (!boolToGPU.get(Boolean.FALSE).isEmpty()){
-			nextTreatedGPU = boolToGPU.get(Boolean.FALSE).firstElement();
-			addToHandled(nextTreatedGPU);
-			removeFromUnhandled(nextTreatedGPU);
-		}
-		else{
-//			System.out.println("NEXT TRUE GPU , IN TRUE: " + nextTreatedGPU.hashCode());/////////////////////////////////////////////////////////////////////////////////////////
-			nextTreatedGPU = boolToGPU.get(Boolean.TRUE).firstElement();
-		}
 	}
 
 	/**
@@ -172,7 +157,7 @@ public class Cluster {
 	 * @param gpu the GPU of which data will be processed
 	 * @param unprocessedData the unprocessed data
 	 */
-	public synchronized void addUnProcessedData(GPU gpu,Vector<DataBatch> unprocessedData){
+	public void addUnProcessedData(GPU gpu,Vector<DataBatch> unprocessedData){
 		GPUToUnProcessed.put(gpu , unprocessedData);
 	}
 
@@ -181,29 +166,45 @@ public class Cluster {
 	 * @param gpu the GPU of which data has been processed
 	 * @param processedDataBlock the completed processed data
 	 */
-	public synchronized void addProcessedData(GPU gpu,Vector<DataBatch> processedDataBlock){
-		System.out.println(	);													///////////////////////////////////////////////
+	public void addProcessedData(GPU gpu,Vector<DataBatch> processedDataBlock){
 		System.out.println("PROCESSED DATA VECTOR SIZE IS: "+processedDataBlock.size()); ///////////////////////////////////////////////
 		Vector<DataBatch> thisGPUWaitingProcessed = GPUToProcessed.get(gpu);
 		thisGPUWaitingProcessed.addAll(processedDataBlock);
 
 	}
 
-	public synchronized void removeFromHandled(GPU gpu){
-		boolToGPU.get(Boolean.TRUE).remove(gpu);
-	}
+//	/**
+//	 * updates the next GPU that it's data is going to be processed
+//	 * 		if there is one such that no CPU is processing, then he will be chosen
+//	 * 		else , the first GPU of the treated ones will be chosen
+//	 */
+//	public synchronized void updateNextTreatedGPU(){
+//		if (!boolToGPU.get(Boolean.FALSE).isEmpty()){
+//			nextTreatedGPU = boolToGPU.get(Boolean.FALSE).firstElement();
+//			addToHandled(nextTreatedGPU);
+//			removeFromUnhandled(nextTreatedGPU);
+//		}
+//		else{
+////			System.out.println("NEXT TRUE GPU , IN TRUE: " + nextTreatedGPU.hashCode());/////////////////////////////////////////////////////////////////////////////////////////
+//			nextTreatedGPU = boolToGPU.get(Boolean.TRUE).firstElement();
+//		}
+//	}
 
-	public synchronized void addToHandled(GPU gpu){
-		boolToGPU.get(Boolean.TRUE).add(gpu);
-	}
-
-	public synchronized void removeFromUnhandled(GPU gpu){
-		boolToGPU.get(Boolean.FALSE).remove(gpu);
-	}
-
-	public synchronized void addToUnhandled(GPU gpu){
-		boolToGPU.get(Boolean.FALSE).add(gpu);
-	}
+//	public synchronized void removeFromHandled(GPU gpu){
+//		boolToGPU.get(Boolean.TRUE).remove(gpu);
+//	}
+//
+//	public synchronized void addToHandled(GPU gpu){
+//		boolToGPU.get(Boolean.TRUE).add(gpu);
+//	}
+//
+//	public synchronized void removeFromUnhandled(GPU gpu){
+//		boolToGPU.get(Boolean.FALSE).remove(gpu);
+//	}
+//
+//	public synchronized void addToUnhandled(GPU gpu){
+//		boolToGPU.get(Boolean.FALSE).add(gpu);
+//	}
 
 	public Vector<Model> getTrainedModels(){
 		return trainedModels;

@@ -74,6 +74,14 @@ public class main_test {
         MicroService tmpservice22222 = new CPUService("CPU3", CPUArrayDemo[4]);
         CPUServices[4] = new Thread(tmpservice22222);
 
+//        Thread[] GPUServices = new Thread[3];
+//        MicroService tmpservice3 = new GPUService("GPU1", GPUArrayDemo[0]);
+//        GPUServices[0] = new Thread(tmpservice3);
+//        MicroService tmpservice32 = new GPUService("GPU2", GPUArrayDemo[1]);
+//        GPUServices[1] = new Thread(tmpservice32);
+//        MicroService tmpservice34 = new GPUService("GPU3", GPUArrayDemo[2]);
+//        GPUServices[2] = new Thread(tmpservice34);
+
         Thread[] GPUServices = new Thread[3];
         MicroService tmpservice3 = new GPUService("GPU1", GPUArrayDemo[0]);
         GPUServices[0] = new Thread(tmpservice3);
@@ -81,6 +89,8 @@ public class main_test {
         GPUServices[1] = new Thread(tmpservice32);
         MicroService tmpservice34 = new GPUService("GPU3", GPUArrayDemo[2]);
         GPUServices[2] = new Thread(tmpservice34);
+
+
 
         Thread[] ConferenceServices = new Thread[3];
         MicroService tmpservice4 = new ConferenceService("CONFERENCE1", conferenceArray[0]);
@@ -114,6 +124,7 @@ public class main_test {
 
         GPUServices[0].start();
         GPUServices[1].start();
+        GPUServices[2].start();
 
         CPUServices[0].start();
         CPUServices[1].start();
