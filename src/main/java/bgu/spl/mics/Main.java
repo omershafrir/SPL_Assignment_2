@@ -19,7 +19,9 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-
-
+        Thread t = new Thread(() -> System.out.println("JI") );
+        t.start();
+        System.out.println("HI");
+        System.out.println(t.isAlive());
     }
 }

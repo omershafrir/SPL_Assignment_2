@@ -1,6 +1,7 @@
 package bgu.spl.mics.application.objects;
 
 
+import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -92,14 +93,13 @@ public class Cluster {
 	 * before function ends , @nextTreatedGPU is updated.
 	 */
 	public synchronized Vector<DataBatch> getUnprocessedData(){
-
 			Vector<DataBatch> unprocessedData = new Vector<>();
 			Vector<DataBatch> releventCPUVec = GPUToUnProcessed.get(nextTreatedGPU);
-//			System.out.println("THE VECTOR ASHKARA: "+releventCPUVec);			///////////////////////////////////////////////////////////////////////////
 			int initialSize = releventCPUVec.size();
-			for (int i=0 ; i < initialSize/numOfCPUS &&  !releventCPUVec.isEmpty(); i++){
+			for (int i=0 ; i < 2 &&  !releventCPUVec.isEmpty(); i++){
 				unprocessedData.add(releventCPUVec.remove(0));
 			}
+		System.out.println();
 		gpuToSend = nextTreatedGPU;
 		updateNextTreatedGPU();
 		return unprocessedData;
@@ -125,10 +125,11 @@ public class Cluster {
 
 	public synchronized Vector<DataBatch> getProcessedData(GPU gpu){
 		Vector<DataBatch> data = GPUToProcessed.get(gpu);
-		for (int i = 0; i < gpu.getCurrentAvailableMemory(); i++) {
-			data.add(data.remove(0));
+		Vector<DataBatch> processedData = new Vector<>();
+		for (int i = 0; i < gpu.getCurrentAvailableMemory() && !data.isEmpty(); i++) {
+			processedData.add(data.remove(0));
 		}
-		return data;
+		return processedData;
 	}
 
 	public synchronized boolean dataBatchesAreWaiting(GPU gpu){
@@ -166,7 +167,6 @@ public class Cluster {
 	 * @param unprocessedData the unprocessed data
 	 */
 	public synchronized void addUnProcessedData(GPU gpu,Vector<DataBatch> unprocessedData){
-//		boolToGPU.get(Boolean.TRUE).add(gpu);
 		GPUToUnProcessed.put(gpu , unprocessedData);
 	}
 
@@ -176,22 +176,11 @@ public class Cluster {
 	 * @param processedDataBlock the completed processed data
 	 */
 	public synchronized void addProcessedData(GPU gpu,Vector<DataBatch> processedDataBlock){
+		System.out.println(	);													///////////////////////////////////////////////
+		System.out.println("PROCESSED DATA VECTOR SIZE IS: "+processedDataBlock.size()); ///////////////////////////////////////////////
 		Vector<DataBatch> thisGPUWaitingProcessed = GPUToProcessed.get(gpu);
 		thisGPUWaitingProcessed.addAll(processedDataBlock);
 
-//		Vector<DataBatch> vector = GPUToProcessed.get(gpu).getLast();
-//			while (vector.size() < gpu.getCurrentAvailableMemory()
-//						&& !processedData.isEmpty()){
-//			vector.add(processedData.remove(0));
-//		}
-//			while (!processedData.isEmpty()){
-//				Vector<DataBatch> x = new Vector<>();
-//				for(int i = 0;!processedData.isEmpty()
-//						&& i < gpu.getCurrentAvailableMemory(); i++){
-//					x.add(processedData.remove(0));
-//				}
-//				GPUToProcessed.get(gpu).add(x);
-//			}
 	}
 
 	public Vector<Model> getTrainedModels(){

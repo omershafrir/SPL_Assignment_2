@@ -1,5 +1,6 @@
 package bgu.spl.mics.application.services;
 
+import bgu.spl.mics.Callback;
 import bgu.spl.mics.MessageBusImpl;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.messages.*;
@@ -38,6 +39,16 @@ public class TimeService extends MicroService{
 	protected void initialize() {
 		MessageBusImpl.getInstance().register(this);
 
+		//callback instructions for TerminateBroadcast
+		Callback<TerminateBroadcast> instructionsForTerminate =
+				new Callback<TerminateBroadcast>() {
+					@Override
+					public void call(TerminateBroadcast c) {
+						terminate();
+					}
+				};
+		subscribeBroadcast(TerminateBroadcast.class , instructionsForTerminate);
+
 		task = new TimerTask() {
 			@Override
 			public void run() {
@@ -50,12 +61,12 @@ public class TimeService extends MicroService{
 		globalTimer.scheduleAtFixedRate(task , 0 , speed);
 
 		try{
-		Thread.currentThread().sleep(duration-50);}
+		Thread.currentThread().sleep(speed*duration-50);}
 		catch(Exception e){}
 
-		globalTimer.cancel();
 		sendBroadcast(new TerminateBroadcast());
-		
+		System.out.println("Timer sent termination.");		//////////////////////////////////////
+		globalTimer.cancel();
 	}
 
 }

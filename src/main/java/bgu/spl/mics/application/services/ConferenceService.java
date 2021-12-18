@@ -64,8 +64,17 @@ public class ConferenceService extends MicroService {
             }
         };
 
+        //callback instructions for TerminateBroadcast
+        Callback<TerminateBroadcast> instructionsForTerminate =
+                        new Callback<TerminateBroadcast>() {
+            @Override
+            public void call(TerminateBroadcast c) {
+                    terminate();
+            }
+        };
+
         subscribeBroadcast(TickBroadcast.class , instructionsForTick);
         subscribeEvent(PublishResultsEvent.class , instructionsForPublish);
-
+        subscribeBroadcast(TerminateBroadcast.class , instructionsForTerminate);
     }
 }

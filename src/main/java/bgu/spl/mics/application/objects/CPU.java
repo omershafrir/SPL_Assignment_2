@@ -98,15 +98,17 @@ public class CPU {
     }
 
     public void startProcessNextBlock() {
-        System.out.println(); ////////////////////////////////////////////////////////////////
-        System.out.println("STARTING NEXT BLOCK"); ///////////////////////////////////////////////////////////////////////
-        System.out.println();   ////////////////////////////////////////////////////////////////
+        processedData.removeAllElements();
         unProcessedData = cluster.getUnprocessedData();
         currentGPU = cluster.getUnprocessedDataGPU();
+        System.out.println(); ////////////////////////////////////////////////////////////////
+        System.out.println("UNPROCESSED DATA VECTOR SIZE IS: "+unProcessedData.size()); ///////////////////////////////////////////////////////////////////////
+        System.out.println();   ////////////////////////////////////////////////////////////////
+
     }
 
     public void finishProcessCurrentBlock() {
-
+//        System.out.println("PROCESSSSSSSED: "+ processedData.size());   /////////////////////////////
         cluster.addProcessedData(currentGPU, processedData);
         if (cluster.isThereDataToProcess()) {
             startProcessNextBlock();
