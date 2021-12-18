@@ -90,19 +90,26 @@ public class Cluster {
 	 * before function ends , @nextTreatedGPU is updated.
 	 */
 	public synchronized Vector<DataBatch> getUnprocessedData(){
-			updateNextTreatedGPU();
-			Vector<DataBatch> unprocessedData = new Vector<>();
-			Vector<DataBatch> releventCPUVec = GPUToUnProcessed.get(nextTreatedGPU);
-			int initialSize = releventCPUVec.size();
-			System.out.println("RELEVENCTCPUVEC SIZE: "+ releventCPUVec.size());
-			System.out.println("THE GPU IS: "+ nextTreatedGPU.getModel().getName());
-			int size = nextTreatedGPU.getCurrentModelSize()/(numOfCPUS*1000);
-			for (int i=0 ; i < 40 &&  !releventCPUVec.isEmpty(); i++){
-				unprocessedData.add(releventCPUVec.remove(0));
+		Vector<DataBatch> toProcesse = new Vector<>();
+		Vector<DataBatch> toUpdate = new Vector<>();
+		for (Vector<DataBatch> vec : GPUToUnProcessed.values()){
+			if(!vec.isEmpty()){
+				toUpdate = vec;
+				break;
 			}
-		System.out.println("THE SIZE OF THE BLOCK IS:" + unprocessedData.size());	//////////////////////////////////
-		gpuToSend = nextTreatedGPU;
-		return unprocessedData;
+		}
+		//40 was chosen as a relevant size - can be changed
+		if(toUpdate.size() > 40){
+			for(int i = 0; i < 40; i++){
+				toProcesse.add(toUpdate.remove(i));
+			}
+		}
+		else{
+			for(int i = 0; i < toUpdate.size(); i++){
+				toProcesse.add(toUpdate.remove(i));
+			}
+		}
+		return toProcesse;
 	}
 	public synchronized GPU getUnprocessedDataGPU(){
 		return gpuToSend;

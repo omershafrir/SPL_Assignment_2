@@ -101,7 +101,7 @@ public class main_test {
         ConferenceServices[0].setName("CONFERENCE1");
 
         GPUServices[0].start();
-        GPUServices[1].start();
+//        GPUServices[1].start();
 
         CPUServices[0].start();
         CPUServices[1].start();
