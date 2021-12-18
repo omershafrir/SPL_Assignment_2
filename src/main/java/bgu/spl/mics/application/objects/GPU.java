@@ -29,7 +29,6 @@ public class GPU {
     private int internalTimer;
     private int currentBatchRemainingTicks;
     private final int timeToProcesse;
-    //finished training the hole model
     private boolean isFinished;
     private Vector<DataBatch> dividedUnprocessedData;
     private Vector<DataBatch> processedData;
@@ -154,9 +153,9 @@ public class GPU {
     public boolean continueTrainData(){
         System.out.println("TRAINIG BATCH OF : "+model.getName());  ///////////////////////////
 //        System.out.println("PROCESSED DATA SIZE IS : "+processedData.size());  ///////////////////////////
-        GPU.incrementGPUTimeUsage();        //for statistics
         if (!processedData.isEmpty()) {          //there are more batches to train
             if (currentBatchRemainingTicks > 0) {  //the current batch is not finished
+                GPU.incrementGPUTimeUsage();        //for statistics
                 currentBatchRemainingTicks--;
             }
             else {                          //current batch is finished

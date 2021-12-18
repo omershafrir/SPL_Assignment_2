@@ -113,10 +113,11 @@ public class CPU {
     public synchronized void finishProcessCurrentBlock() {
 //        System.out.println("PROCESSSSSSSED: "+ processedData.size());   /////////////////////////////
         cluster.addProcessedData(currentGPU, processedData);
-        if (cluster.isThereDataToProcess()) {
-            startProcessNextBlock();
-//            System.out.println(unProcessedData);                  ///////////////////////////////////////////////////////////////
-            startProcessNextBatch();
+        synchronized (cluster) {
+            if (cluster.isThereDataToProcess()) {
+                startProcessNextBlock();
+                startProcessNextBatch();
+            }
         }
     }
 

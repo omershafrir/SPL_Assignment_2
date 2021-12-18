@@ -1,9 +1,7 @@
 package bgu.spl.mics.application;
 
 
-import bgu.spl.mics.application.objects.ConfrenceInformation;
-import bgu.spl.mics.application.objects.Model;
-import bgu.spl.mics.application.objects.Student;
+import bgu.spl.mics.application.objects.*;
 import bgu.spl.mics.fileReader;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -18,11 +16,15 @@ public class outputFileCreator {
     private ConcurrentLinkedQueue<Student> students;
     private ConcurrentLinkedQueue<Model[]> ListOfArraysOfModels;
     private ConcurrentLinkedQueue<ConfrenceInformation> confrenceInformations;
+    private Statistics stats;
+    private int timeOfGPU;
+    private int timeOfCPU;
 
     private outputFileCreator(){
         students = new ConcurrentLinkedQueue<Student>();
         ListOfArraysOfModels = new ConcurrentLinkedQueue<Model[]>();
         confrenceInformations = new ConcurrentLinkedQueue<ConfrenceInformation>();
+        stats = new Statistics(Cluster.getInstance());
     }
 
     public static outputFileCreator getInstance(){
@@ -39,23 +41,29 @@ public class outputFileCreator {
         confrenceInformations.add(myConfrence);
     }
 
-    public void getTimeFromGPU(){
+//    public void setTimeFromGPU(){
+//        Statistics stats = new Statistics(Cluster.getInstance());
+//        timeOfGPU = stats.NumberOfGPUTimeUnitsUsed();
+//    }
+//
+//    public void setTimeFromCPU(){
+//        Statistics stats = new Statistics(Cluster.getInstance());
+//        timeOfCPU = stats.NumberOfCPUTimeUnitsUsed();
+//    }
 
-    }
-
-    public void getTimeFromCPU(){
-
-    }
-
-    public void PrintModel() {
+    public void Print() {
         for(Model[] modelArray : ListOfArraysOfModels){
             for(Model model : modelArray){
-                System.out.println("Model Name is : " + model.getName()
-                + "The status of this model is" + model.getStatus() + "He as been published :"
-                        + model.getResult().equals("Good"));
+                System.out.println(model.toString());
+//                System.out.println("Model Name is : " + model.getName()
+//                + " The status of this model is: " + model.getStatus() + ", his status is: "+ model.getStatus() + " He as been published :"
+//                        + model.getResult().equals("Good"));
 
             }
         }
+        System.out.println("Time of GPU is :  " + stats.NumberOfGPUTimeUnitsUsed());
+        System.out.println("Time of CPU is :  " + stats.NumberOfCPUTimeUnitsUsed());
+        System.out.println("Total amount of data batches that were processed: "+ stats.totalNumDataBatchesProcessed());
     }
 
     //    Gson gson = new Gson();

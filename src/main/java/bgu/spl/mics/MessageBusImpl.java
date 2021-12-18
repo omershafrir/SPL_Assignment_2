@@ -193,6 +193,7 @@ public class MessageBusImpl implements MessageBus {
 		if (e != null && eventSubscriptions.containsKey(e.getClass())){
 			Queue<MicroService> relevent_queue = eventSubscriptions.get(e.getClass());
 			MicroService runner =  relevent_queue.remove();
+			System.out.println("I AM RUNNER : "+ runner.getName()+" , THAT EXECUTES: "+e.getClass());
 			relevent_queue.add(runner);		//inserting runner immediately at the back of the queue
 			msToQueueMap.get(runner).add(e);
 //			System.out.println("sending event of type : " +e.getClass() +" to "+runner.getName());		///////////////////////////////////////////

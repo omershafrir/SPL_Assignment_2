@@ -94,7 +94,10 @@ public class Cluster {
 			Vector<DataBatch> unprocessedData = new Vector<>();
 			Vector<DataBatch> releventCPUVec = GPUToUnProcessed.get(nextTreatedGPU);
 			int initialSize = releventCPUVec.size();
-			for (int i=0 ; i < nextTreatedGPU.getCurrentModelSize()/(numOfCPUS*1000) &&  !releventCPUVec.isEmpty(); i++){
+			System.out.println("RELEVENCTCPUVEC SIZE: "+ releventCPUVec.size());
+			System.out.println("THE GPU IS: "+ nextTreatedGPU.getModel().getName());
+			int size = nextTreatedGPU.getCurrentModelSize()/(numOfCPUS*1000);
+			for (int i=0 ; i < 40 &&  !releventCPUVec.isEmpty(); i++){
 				unprocessedData.add(releventCPUVec.remove(0));
 			}
 		System.out.println("THE SIZE OF THE BLOCK IS:" + unprocessedData.size());	//////////////////////////////////
