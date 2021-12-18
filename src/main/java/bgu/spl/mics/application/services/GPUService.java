@@ -67,13 +67,13 @@ public class GPUService extends MicroService {
                 if(state == State.Testing)
                     awaitingEvents.addLast(trainModelEvent);
                 else{   //start processing TrainModelEvent
-                    if(state == State.NotOccupied)
                         startTrain();
                     System.out.println("STEP 1 : THE MODEL HAS BEGUN TRAINING:   "+trainModelEvent.getModel().getName());    /////////////////////////////////////
                     Model toTrain = trainModelEvent.getModel();
                     myGPU.setModel(toTrain);
                     myGPU.getModel().setStatus("Training"); // change the model status!
                     myGPU.setData(toTrain.getData());
+                    System.out.println("THE MODEL THAT "+ getName() + " START TRAINING IS " + toTrain + " , HIS DATA IS: "+ toTrain.getData());
                     myGPU.divideDataIntoBatches();
                     myGPU.sendUnprocessedData();
                     //start getting processed data
@@ -96,7 +96,7 @@ public class GPUService extends MicroService {
                 }
                 else {   //start training TrainModelEvent
                     startTest();
-                    System.out.println("STEP 3: THE CURRENT MODEL IS BEING TESTED" + myGPU.getModel().getName());       ////////////////////
+                    System.out.println("STEP 3: THE CURRENT MODEL IS BEING TESTED :" + myGPU.getModel().getName());       ////////////////////
                     startTest();
                     String valueOfTest;
                     Random gen = new Random();
@@ -124,7 +124,7 @@ public class GPUService extends MicroService {
                     tested.setStatus("Tested");             // change the model status!
 
                     complete(testModelEvent , tested);
-                    System.out.println("STEP 4: THE CURRENT MODEL HAS FINISHED THE TEST" + myGPU.getModel().getName());//////////////////////////////////////////
+                    System.out.println("STEP 4: THE CURRENT MODEL HAS FINISHED THE TEST :" + myGPU.getModel().getName());//////////////////////////////////////////
                     finishTask();
                 }
             }
@@ -139,9 +139,19 @@ public class GPUService extends MicroService {
             }
         };
 
-        this.subscribeBroadcast(TickBroadcast.class , instructionTimeTick);
-        this.subscribeEvent(TrainModelEvent.class , instructionsTrain);
-        this.subscribeEvent(TestModelEvent.class , instructionTest);
+        //callback instructions for TerminateBroadcast
+        Callback<TerminateBroadcast> instructionsForTerminate =
+                new Callback<TerminateBroadcast>() {
+                    @Override
+                    public void call(TerminateBroadcast c) {
+                        terminate();
+                    }
+                };
+
+        subscribeBroadcast(TickBroadcast.class , instructionTimeTick);
+        subscribeEvent(TrainModelEvent.class , instructionsTrain);
+        subscribeEvent(TestModelEvent.class , instructionTest);
+        subscribeBroadcast(TerminateBroadcast.class , instructionsForTerminate);
 
 
     }
@@ -153,14 +163,16 @@ public class GPUService extends MicroService {
             if(finished){
                 myGPU.getModel().setStatus("Trained");         // change the model status!
 //                System.out.println("STATUS IS: "+myGPU.getModel().getStatus());    /////////////////////////////////////
-                complete(currentEvent,myGPU.getModel());
                 finishTask();
+                complete(currentEvent,myGPU.getModel());
             }
         }
 
         // WE WILL NEVER GET A TICK WHILE TESTING BECAUSE TESTING IS INSTANT
+//        if(state == State.Training) ///////////////////////
+//            finishTask();           ////////////////////
 
-        else{
+        else{   // current state is NotOccupied
             if (!awaitingEvents.isEmpty()){
                 Event<Model> toExecute = awaitingEvents.pop();
                 if(toExecute instanceof TrainModelEvent){
