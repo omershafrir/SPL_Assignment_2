@@ -35,9 +35,6 @@ public class main_test {
          */
         outputFileCreator output = outputFileCreator.getInstance();
 
-
-
-
         /**
          * running the micro-services one after another
          */
@@ -61,7 +58,7 @@ public class main_test {
         MicroService tmpservice1 = new StudentService(studentArray[0].getName() , studentArray[0]);
         studentServices[0] = new Thread(tmpservice1);
 
-        Thread[] CPUServices = new Thread[1];
+        Thread[] CPUServices = new Thread[5];
         MicroService tmpservice2 = new CPUService("CPU1", CPUArrayDemo[0]);
         CPUServices[0] = new Thread(tmpservice2);
         MicroService tmpservice22 = new CPUService("CPU2", CPUArrayDemo[1]);
@@ -113,6 +110,7 @@ public class main_test {
         studentServices[0].join();
         clock.join();
 
+        output.PrintModel();
         System.out.println();
         System.out.println("Program terminated.");
 
