@@ -9,8 +9,7 @@ import bgu.spl.mics.MessageBusImpl;
 import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.objects.ConfrenceInformation;
 import bgu.spl.mics.application.objects.Model;
-
-import java.sql.SQLOutput;
+import bgu.spl.mics.application.outputFileCreator;
 
 /**
  * Conference service is in charge of
@@ -29,12 +28,14 @@ public class ConferenceService extends MicroService {
         myConfrence = _myConfrence;
     }
 
+    public ConfrenceInformation getMyConfrence() {
+        return myConfrence;
+    }
+
     @Override
     protected void initialize() {
-//        System.out.println("CONFERENCE REGISTERED BEFOER");    ////////////////////////////////
         MessageBusImpl.getInstance().register(this);
-//        System.out.println("CONFERENCE REGISTERED AFTER");    ////////////////////////////////
-        MicroService self = this;
+        ConferenceService self = this;
 
         //callback instructions for PublishResultsEvent
         Callback<PublishResultsEvent> instructionsForPublish
@@ -44,10 +45,6 @@ public class ConferenceService extends MicroService {
                 Model model = c.getModel();
                 myConfrence.addModel(model);
                 myConfrence.addEvent(c);
-                System.out.println("---------------------------------------------------------------------");////////////////////////////////
-                System.out.println("THE AGGREGATED MODELS ARE: ");  /////////////////////////////////////////////////////////
-                for (Model modelx : c.getModel().getStudent().getModels())
-                System.out.println("EREZ MODELS:                 " + modelx.toString());   /////////////////////////////////////////////////////////
             }
         };
 
@@ -56,16 +53,17 @@ public class ConferenceService extends MicroService {
             @Override
             public void call(TickBroadcast c) {
                 myConfrence.incrementTimer();
-//                System.out.println("CONFERENCE RECIEVED TICK");  ////////////////////////////////////
                 if(myConfrence.getInternalTimer() == myConfrence.getDate()){
                     sendBroadcast(new PublishConferenceBroadcast(myConfrence.getModels()));
-                    System.out.println("SENDINDG CONFERENCE! " + myConfrence.getName());    //////////////////////
-                    System.out.println("THE MODELS ARE: "+ myConfrence.getModels());        ////////////////////
-                    System.out.println("THE RESULT PUBLIILSH EVENTS: ");
                     MessageBus msgbus = MessageBusImpl.getInstance();
                     for (PublishResultsEvent resultPublish : myConfrence.getEvents()) {
                         complete(resultPublish, resultPublish.getModel());
                         resultPublish.getModel().publishModel();
+
+                        //sending data for the output file
+                        outputFileCreator output = outputFileCreator.getInstance();
+                        output.getDataFromConference(self.getMyConfrence());
+
                         // to decide : number of publications of a student will increase when:
                         //    1. the conference goes out. 2. the student reads the conference broadcast
                         // basically same thing

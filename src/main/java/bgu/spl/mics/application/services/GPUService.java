@@ -6,6 +6,7 @@ import bgu.spl.mics.application.objects.Cluster;
 import bgu.spl.mics.application.objects.DataBatch;
 import bgu.spl.mics.application.objects.GPU;
 import bgu.spl.mics.application.objects.Model;
+import bgu.spl.mics.application.outputFileCreator;
 
 import java.util.*;
 import java.util.concurrent.BlockingDeque;

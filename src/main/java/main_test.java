@@ -3,6 +3,7 @@ import bgu.spl.mics.Callback;
 import bgu.spl.mics.Future;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.objects.*;
+import bgu.spl.mics.application.outputFileCreator;
 import bgu.spl.mics.application.services.*;
 import bgu.spl.mics.fileReader;
 import com.google.gson.internal.bind.util.ISO8601Utils;
@@ -28,6 +29,15 @@ public class main_test {
         int TickTime = reader.getTickTime();
         int Duration = reader.getDuration();
 
+
+        /**
+           output file initialization
+         */
+        outputFileCreator output = outputFileCreator.getInstance();
+
+
+
+
         /**
          * running the micro-services one after another
          */
@@ -51,7 +61,7 @@ public class main_test {
         MicroService tmpservice1 = new StudentService(studentArray[0].getName() , studentArray[0]);
         studentServices[0] = new Thread(tmpservice1);
 
-        Thread[] CPUServices = new Thread[5];
+        Thread[] CPUServices = new Thread[1];
         MicroService tmpservice2 = new CPUService("CPU1", CPUArrayDemo[0]);
         CPUServices[0] = new Thread(tmpservice2);
         MicroService tmpservice22 = new CPUService("CPU2", CPUArrayDemo[1]);

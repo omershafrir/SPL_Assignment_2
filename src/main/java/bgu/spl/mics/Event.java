@@ -13,6 +13,8 @@ public interface Event<T> extends Message {
 
     public Future<T> getFuture();
 
+    public void setFuture(Future<T> future);
+
 
 
 }
