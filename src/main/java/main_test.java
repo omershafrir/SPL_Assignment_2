@@ -39,9 +39,10 @@ public class main_test {
          * running the micro-services one after another
          */
 
-        GPU[] GPUArrayDemo = new GPU[2];
+        GPU[] GPUArrayDemo = new GPU[3];
         GPUArrayDemo[0] = gpuArray[0];
         GPUArrayDemo[1] = gpuArray[1];
+        GPUArrayDemo[2] = gpuArray[2];
 
         CPU[] CPUArrayDemo = new CPU[5];
         CPUArrayDemo[0] = cpuArray[0];
@@ -73,17 +74,19 @@ public class main_test {
         MicroService tmpservice22222 = new CPUService("CPU3", CPUArrayDemo[4]);
         CPUServices[4] = new Thread(tmpservice22222);
 
-        Thread[] GPUServices = new Thread[2];
+        Thread[] GPUServices = new Thread[3];
         MicroService tmpservice3 = new GPUService("GPU1", GPUArrayDemo[0]);
         GPUServices[0] = new Thread(tmpservice3);
         MicroService tmpservice32 = new GPUService("GPU2", GPUArrayDemo[1]);
         GPUServices[1] = new Thread(tmpservice32);
+        MicroService tmpservice34 = new GPUService("GPU3", GPUArrayDemo[2]);
+        GPUServices[2] = new Thread(tmpservice34);
 
         Thread[] ConferenceServices = new Thread[1];
         MicroService tmpservice4 = new ConferenceService("CONFERENCE1", conferenceArray[0]);
         ConferenceServices[0] = new Thread(tmpservice4);
 
-        TimeService timer = new TimeService(1 , 2000);
+        TimeService timer = new TimeService(1 , 5500);
         Thread clock = new Thread(timer);
 
         studentServices[0].setName("SIMBA");
@@ -91,6 +94,7 @@ public class main_test {
 
         GPUServices[0].setName("GPU1");
         GPUServices[1].setName("GPU2");
+        GPUServices[2].setName("GPU3");
 
         CPUServices[0].setName("CPU1");
         CPUServices[1].setName("CPU2");
@@ -101,7 +105,7 @@ public class main_test {
         ConferenceServices[0].setName("CONFERENCE1");
 
         GPUServices[0].start();
-//        GPUServices[1].start();
+        GPUServices[1].start();
 
         CPUServices[0].start();
         CPUServices[1].start();

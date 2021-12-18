@@ -94,19 +94,26 @@ public class Cluster {
 		Vector<DataBatch> toUpdate = new Vector<>();
 		for (Vector<DataBatch> vec : GPUToUnProcessed.values()){
 			if(!vec.isEmpty()){
+				for(GPU gpu : GPUArray){
+					if(GPUToUnProcessed.get(gpu).equals(vec)){
+						gpuToSend = gpu;
+						break;
+					}
+				}
 				toUpdate = vec;
 				break;
 			}
 		}
-		//40 was chosen as a relevant size - can be changed
-		if(toUpdate.size() > 40){
-			for(int i = 0; i < 40; i++){
-				toProcesse.add(toUpdate.remove(i));
-			}
-		}
-		else{
-			for(int i = 0; i < toUpdate.size(); i++){
-				toProcesse.add(toUpdate.remove(i));
+		synchronized (Cluster.getInstance()) {
+			//40 was chosen as a relevant size - can be changed
+			if (toUpdate.size() > 100) {
+				for (int i = 0; i < 100; i++) {
+					toProcesse.add(toUpdate.remove(i));
+				}
+			} else {
+				for (int i = 0; i < toUpdate.size(); i++) {
+					toProcesse.add(toUpdate.remove(i));
+				}
 			}
 		}
 		return toProcesse;
