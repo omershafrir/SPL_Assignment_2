@@ -3,6 +3,7 @@ import bgu.spl.mics.Callback;
 import bgu.spl.mics.Future;
 import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.objects.*;
+import bgu.spl.mics.application.outputFileCreator;
 import bgu.spl.mics.application.services.*;
 import bgu.spl.mics.fileReader;
 import com.google.gson.internal.bind.util.ISO8601Utils;
@@ -16,6 +17,7 @@ public class main_test {
     public static void main(String []args) throws InterruptedException {
 
         fileReader reader = new fileReader();
+
         reader.readInputFile("example_input.json");  //the input path is starting from the folder of the project!
 
         /**
@@ -28,6 +30,7 @@ public class main_test {
         int TickTime = reader.getTickTime();
         int Duration = reader.getDuration();
 
+        outputFileCreator output = outputFileCreator.getInstance();
         /**
          * running the micro-services one after another
          */
@@ -57,12 +60,12 @@ public class main_test {
 
 
 
-        TimeService timer = new TimeService(20 , 100000);
+        TimeService timer = new TimeService(20 , 50000);
         Thread clock = new Thread(timer);
         clock.setName("TIMER_THREAD");
         clock.start();
 
-        studentServices[0].setName("SIMBA");
+        studentServices[0].setName(studentServices[0].getName());
         GPUServices[0].setName("GPU1");
         CPUServices[0].setName("CPU1");
 
@@ -71,7 +74,10 @@ public class main_test {
         CPUServices[0].start();
 
 
+        GPUServices[0].join();
+        CPUServices[0].join();
 
-
+        clock.join();
+        output.PrintModel();
     }
 }
