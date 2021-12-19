@@ -79,8 +79,8 @@ public class Cluster {
 		//////////////////test
 //		synchronized (this){
 				//50 was chosen as a relevant size - can be changed
-				if (toUpdate.size() > 10) {
-					for (int i = 0; i < 10; i++) {
+				if (toUpdate.size() > 2) {
+					for (int i = 0; i < 2; i++) {
 						toProcesse.add(toUpdate.remove(i));
 					}
 				} else {
