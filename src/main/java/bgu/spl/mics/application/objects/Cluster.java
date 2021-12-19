@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import bgu.spl.mics.MessageBusImpl;
+import jdk.internal.util.xml.impl.Pair;
 import org.omg.CORBA.CharSeqHelper;
 
 import java.util.Vector;
@@ -27,8 +28,6 @@ public class Cluster {
 	private Vector<Model> trainedModels;
 	private ConcurrentHashMap<GPU , Vector<DataBatch>> GPUToUnProcessed;
 	private ConcurrentHashMap<GPU , Vector<DataBatch>> GPUToProcessed;
-	private ConcurrentHashMap<Boolean , Vector<GPU>> boolToGPU;
-	private GPU nextTreatedGPU;
 	private GPU gpuToSend;
 	private int numOfCPUS;
 
@@ -36,7 +35,6 @@ public class Cluster {
 	private Cluster(){
 		statistics = null;
 		trainedModels = new Vector<Model>();
-		nextTreatedGPU = null;
 		gpuToSend = null;
 	}
 
@@ -55,69 +53,70 @@ public class Cluster {
 		this.CPUArray = CPUArray;
 		numOfCPUS = CPUArray.length;
 	}
-	public synchronized ConcurrentHashMap<GPU, Vector<DataBatch>> getGPUToUnProcessed() {
-		return GPUToUnProcessed;
-	}
-
-	public synchronized ConcurrentHashMap<GPU, Vector<DataBatch>> getGPUToProcessed() {
-		return GPUToProcessed;
-	}
-
-
 	public void initializeCluster(){
 		GPUToUnProcessed = new ConcurrentHashMap<>();
 		GPUToProcessed = new ConcurrentHashMap<>();
-		boolToGPU = new ConcurrentHashMap<>();
-		boolToGPU.put(Boolean.FALSE , new Vector<GPU>());
-		boolToGPU.put(Boolean.TRUE , new Vector<GPU>());
 		for (GPU gpu: GPUArray){	//TODO : check if necessary
 			GPUToUnProcessed.put(gpu ,new Vector<DataBatch>());
 			GPUToProcessed.put(gpu ,new Vector<>());
 		}
 	}
 
-	public GPU[] getGPUArray() {
-		return GPUArray;
-	}
-	public CPU[] getCPUArray() {
-		return CPUArray;
-	}
-
 	/**
 	 * sends the unprocessed data to the relevent CPU.
 	 * @return vector of dataBatches that a CPU is going to process.
 	 * @nextTreatedGPU is the GPU of which the data was taken from.
-	 * before function ends , @nextTreatedGPU is updated.
+	 * before function ends
+	 * , @nextTreatedGPU is updated.
 	 */
-	public synchronized Vector<DataBatch> getUnprocessedData(){
+	public Object[] getUnprocessedData(){
+		synchronized (this) {
 		Vector<DataBatch> toProcesse = new Vector<>();
-		Vector<DataBatch> toUpdate = new Vector<>();
-		for (Vector<DataBatch> vec : GPUToUnProcessed.values()){
-			if(!vec.isEmpty()){
-				for(GPU gpu : GPUArray){
-					if(GPUToUnProcessed.get(gpu).equals(vec)){
-						gpuToSend = gpu;
-						break;
+		Object[] random_output= getRandomGPU();
+		Vector<DataBatch> toUpdate = (Vector<DataBatch>) random_output[1];
+		gpuToSend = (GPU) random_output[0];
+
+		//////////////////test
+//		synchronized (this){
+				//50 was chosen as a relevant size - can be changed
+				if (toUpdate.size() > 10) {
+					for (int i = 0; i < 10; i++) {
+						toProcesse.add(toUpdate.remove(i));
+					}
+				} else {
+					for (int i = 0; i < toUpdate.size(); i++) {
+						toProcesse.add(toUpdate.remove(i));
 					}
 				}
-				toUpdate = vec;
-				break;
-			}
+//			}
+			random_output[1] = toProcesse;    ////////added line
+			return random_output;
 		}
-		synchronized (Cluster.getInstance()) {
-			//40 was chosen as a relevant size - can be changed
-			if (toUpdate.size() > 100) {
-				for (int i = 0; i < 100; i++) {
-					toProcesse.add(toUpdate.remove(i));
-				}
-			} else {
-				for (int i = 0; i < toUpdate.size(); i++) {
-					toProcesse.add(toUpdate.remove(i));
-				}
-			}
-		}
-		return toProcesse;
 	}
+
+	private Object[] getRandomGPU(){
+		Object[] output = new Object[2];
+		HashMap<GPU,Vector<DataBatch>> x = new HashMap<>();
+
+		for(GPU gpu : GPUToUnProcessed.keySet()){
+			Vector<DataBatch> vec = GPUToUnProcessed.get(gpu);
+			if(!vec.isEmpty()) {
+				x.put(gpu, vec);
+			}
+		}
+		int index = (int) ((Math.random())*(x.size()));
+		int i=0;
+		for (GPU gpu : x.keySet()){
+			if(i == index){
+				output[0] = gpu;
+				output[1] = x.get(gpu);
+			}
+			i++;
+		}
+		return output;
+ 	}
+
+	 ////////////////////////deleted Sync
 	public synchronized GPU getUnprocessedDataGPU(){
 		return gpuToSend;
 	}
@@ -148,25 +147,18 @@ public class Cluster {
 		}
 	}
 
-	public synchronized boolean dataBatchesAreWaiting(GPU gpu){
-		return !GPUToProcessed.get(gpu).isEmpty();
+
+	////////////////////////deleted Sync
+	public boolean dataBatchesAreWaiting(GPU gpu){
+		synchronized (GPUToProcessed.get(gpu)) {
+			return !GPUToProcessed.get(gpu).isEmpty();
+		}
 	}
 	/**
 	 * updates the next GPU that it's data is going to be processed
 	 * 		if there is one such that no CPU is processing, then he will be chosen
 	 * 		else , the first GPU of the treated ones will be chosen
 	 */
-	public synchronized void updateNextTreatedGPU(){
-		if (!boolToGPU.get(Boolean.FALSE).isEmpty()){
-			nextTreatedGPU = boolToGPU.get(Boolean.FALSE).firstElement();
-			addToHandled(nextTreatedGPU);
-			removeFromUnhandled(nextTreatedGPU);
-		}
-		else{
-//			System.out.println("NEXT TRUE GPU , IN TRUE: " + nextTreatedGPU.hashCode());/////////////////////////////////////////////////////////////////////////////////////////
-			nextTreatedGPU = boolToGPU.get(Boolean.TRUE).firstElement();
-		}
-	}
 
 	/**
 	 * adding the unprocessed data to the relevent GPU unprocessed data vector
@@ -186,22 +178,6 @@ public class Cluster {
 		Vector<DataBatch> thisGPUWaitingProcessed = GPUToProcessed.get(gpu);
 		thisGPUWaitingProcessed.addAll(processedDataBlock);
 
-	}
-
-	public synchronized void removeFromHandled(GPU gpu){
-		boolToGPU.get(Boolean.TRUE).remove(gpu);
-	}
-
-	public synchronized void addToHandled(GPU gpu){
-		boolToGPU.get(Boolean.TRUE).add(gpu);
-	}
-
-	public synchronized void removeFromUnhandled(GPU gpu){
-		boolToGPU.get(Boolean.FALSE).remove(gpu);
-	}
-
-	public synchronized void addToUnhandled(GPU gpu){
-		boolToGPU.get(Boolean.FALSE).add(gpu);
 	}
 
 	public Vector<Model> getTrainedModels(){

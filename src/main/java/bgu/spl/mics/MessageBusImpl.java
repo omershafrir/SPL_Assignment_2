@@ -153,7 +153,8 @@ public class MessageBusImpl implements MessageBus {
 	 * 		 messages in queue) -1
 	 */
 	@Override
-	public synchronized void sendBroadcast(Broadcast b) {
+	public void sendBroadcast(Broadcast b) {
+		synchronized (broadcastSubscriptions.get(b.getClass())){
 		if( b!= null && broadcastSubscriptions.containsKey(b.getClass())) {
 			Vector<MicroService> relevent_vec = broadcastSubscriptions.get(b.getClass());
 			synchronized (relevent_vec) {
@@ -161,6 +162,7 @@ public class MessageBusImpl implements MessageBus {
 					msToQueueMap.get(ms).add(b);
 				}
 			}
+		}
 		}
 	}
 
@@ -174,17 +176,21 @@ public class MessageBusImpl implements MessageBus {
 	 * @post Future<T>.get() = null
 	 */
 	@Override
-	public synchronized <T> Future<T> sendEvent(Event<T> e) {
+	public <T> Future<T> sendEvent(Event<T> e) {
 		Future<T> future = new Future<>();
-		//check if e!=null and if there's an ms subscribed to events of type e
-		if (e != null && eventSubscriptions.containsKey(e.getClass())){
-			Queue<MicroService> relevent_queue = eventSubscriptions.get(e.getClass());
-			MicroService runner =  relevent_queue.remove();
-			System.out.println("I AM RUNNER : "+ runner.getName()+" , THAT EXECUTES: "+e.getClass());
-			relevent_queue.add(runner);		//inserting runner immediately at the back of the queue
-			msToQueueMap.get(runner).add(e);
-			eventToFutureMap.put(e , future);
-		}
+		synchronized (eventSubscriptions.get(e.getClass())) {
+			//check if e!=null and if there's an ms subscribed to events of type e
+			if (e != null && eventSubscriptions.containsKey(e.getClass())) {
+//				synchronized (eventSubscriptions.get(e.getClass())) {
+					Queue<MicroService> relevent_queue = eventSubscriptions.get(e.getClass());
+					MicroService runner = relevent_queue.remove();
+					System.out.println("I AM RUNNER : " + runner.getName() + " , THAT EXECUTES: " + e.getClass());
+					relevent_queue.add(runner);        //inserting runner immediately at the back of the queue
+					msToQueueMap.get(runner).add(e);
+					eventToFutureMap.put(e, future);
+				}
+			}
+//		}
 		return future;
 	}
 

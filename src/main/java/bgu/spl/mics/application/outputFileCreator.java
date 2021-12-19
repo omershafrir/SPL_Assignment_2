@@ -53,24 +53,13 @@ public class outputFileCreator {
     }
 
 
-    public Student[] StudentToArray(){
-        Student[] output = new Student[students.size()];
-        for(int i = 0; i < students.size(); i++){
-            output[i] = students.remove();
-        }
-        return output;
-
-    }
     public void generateTheFile(){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 //        Gson gson = new Gson();
         try {
-//            Writer writer = Files.newBufferedWriter(Paths.get("WITHthePaths.json"));
-            FileWriter writer = new FileWriter("WithoutthePaths.json");
-//            HashMap<String,Object> general = new HashMap<>();
+
+            FileWriter writer = new FileWriter("output.json");
             JsonObject general = new JsonObject();
-//            HashMap<String,Object> students_hash = new HashMap<>();
-//            HashMap<String,Object> conferences_hash = new HashMap<>();
             JsonArray studentArray = new JsonArray();
 
 
@@ -166,19 +155,20 @@ public class outputFileCreator {
 
     public void Print() {
 
-        for (Student s :
-             students) {
-            System.out.println(s.getName());
-        }
-//        for(Model[] modelArray : ListOfArraysOfModels){
-//            for(Model model : modelArray){
-//                System.out.println(model.toString());
-////                System.out.println("Model Name is : " + model.getName()
-////                + " The status of this model is: " + model.getStatus() + ", his status is: "+ model.getStatus() + " He as been published :"
-////                        + model.getResult().equals("Good"));
-//
-//            }
+//        for (Student s :
+//             students) {
+//            System.out.println(s.getName());
 //        }
+        System.out.println("THE SIZE OF THE MOTHER FUCKERRRRR"+ListOfArraysOfModels.size());
+        for(Model[] modelArray : ListOfArraysOfModels){
+            for(Model model : modelArray){
+                System.out.println(model.toString());
+                System.out.println("Model Name is : " + model.getName()
+                + " The status of this model is: " + model.getStatus() + ", his status is: "+ model.getStatus() + " He as been published :"
+                        + model.getResult().equals("Good"));
+
+            }
+        }
 //        System.out.println("Time of GPU is :  " + stats.NumberOfGPUTimeUnitsUsed());
 //        System.out.println("Time of CPU is :  " + stats.NumberOfCPUTimeUnitsUsed());
 //        System.out.println("Total amount of data batches that were processed: "+ stats.totalNumDataBatchesProcessed());
