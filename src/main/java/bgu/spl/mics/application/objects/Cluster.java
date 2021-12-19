@@ -138,7 +138,7 @@ public class Cluster {
 	}
 
 	public Vector<DataBatch> getProcessedData(GPU gpu){
-		synchronized (gpu) {
+		synchronized (GPUToProcessed) {
 			Vector<DataBatch> data = GPUToProcessed.get(gpu);
 			Vector<DataBatch> processedData = new Vector<>();
 			for (int i = 0; i < gpu.getCurrentAvailableMemory() && !data.isEmpty(); i++) {

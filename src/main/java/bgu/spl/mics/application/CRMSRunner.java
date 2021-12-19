@@ -70,8 +70,9 @@ public class CRMSRunner {
         /**
          * running the micro-services one after another
          */
-        Thread clock = new Thread(timer);
 
+        Thread clock = new Thread(timer);
+        clock.setName("Timer");
 
         for (int i=0 ; i < CPUServices.length; i++){
             CPUServices[i].setName("CPU" + i);
@@ -109,7 +110,12 @@ public class CRMSRunner {
 
         System.out.println();
         output.Print();
+        for (ConfrenceInformation con : conferenceArray)
+            System.out.println(con.getName() +" : " + con.toString());
         System.out.println();
+        System.out.println("NUM OF TESTED: "+ Statistics.counterOfTested.intValue());
+        System.out.println("NUM OF DEAD MS: "+ Statistics.counterOfDead.intValue());
         System.out.println("Program terminated.");
+
     }
 }

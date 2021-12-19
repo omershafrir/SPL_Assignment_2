@@ -31,7 +31,7 @@ public class GPU {
     private final int timeToProcesse;
     private boolean isFinished;
     private Vector<DataBatch> dividedUnprocessedData;
-    private Vector<DataBatch> processedData;
+    public Vector<DataBatch> processedData;                     //////////////////////////////@@@@@@@@@//////////////////////
     private int currentAvailableMemory;
     private static AtomicInteger totalTicksCounter = new AtomicInteger(0);
     private int currentModelSize;
@@ -151,30 +151,37 @@ public class GPU {
      */
 
     public boolean continueTrainData(){
-        System.out.println("TRAINIG BATCH OF : "+model.getName());  ///////////////////////////
+//        System.out.println("TRAINIG BATCH OF : "+model.getName());  ///////////////////////////
 //        System.out.println("PROCESSED DATA SIZE IS : "+processedData.size());  ///////////////////////////
         if (!processedData.isEmpty()) {          //there are more batches to train
+            if(model.getName().equals("VIT")){          //////////////////////////////////////@@@@@@@@@/////////////////////
+                System.out.println("VIT PROCESSED DATA IS ::: " + processedData.size()+"\n"+
+                        " REMAINING TICKS: "+ currentBatchRemainingTicks);        ////////////////////////////////
+            }
             if (currentBatchRemainingTicks > 0) {  //the current batch is not finished
                 GPU.incrementGPUTimeUsage();        //for statistics
                 currentBatchRemainingTicks--;
             }
             else {                          //current batch is finished
                 if(processedData.get(0).isLast()) {     //last dataBatch from the whole data
+                    if(model.getName().equals("VIT")) {          //////////////////////////////////////@@@@@@@@@/////////////////////
+                        System.out.println("ISLAST: " + processedData.get(0).isLast());  ////////////////////////////////////////////////////
+                    }
                     isFinished = true;
                 }
                 processedData.remove(0);
                 currentBatchRemainingTicks = timeToProcesse;
+
             }
             if(isFinished){
                 isFinished = false;
-//                cluster.removeFromHandled(this);
                 return true;
             }
         }
         else{           //there aren't batches to train in this tick , so go bring some
             if(cluster.dataBatchesAreWaiting(this)){
                   processedData = cluster.getProcessedData(this);
-                System.out.println("WHEN GETTING MORE PROCESSED DATA, THE SIZE IS: "+ processedData.size());    ///////////////////////
+//                System.out.println("WHEN GETTING MORE PROCESSED DATA, THE SIZE IS: "+ processedData.size());    ///////////////////////
             }
         }
     return false;

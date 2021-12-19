@@ -2,10 +2,7 @@ package bgu.spl.mics.application.services;
 
 import bgu.spl.mics.*;
 import bgu.spl.mics.application.messages.*;
-import bgu.spl.mics.application.objects.Cluster;
-import bgu.spl.mics.application.objects.DataBatch;
-import bgu.spl.mics.application.objects.GPU;
-import bgu.spl.mics.application.objects.Model;
+import bgu.spl.mics.application.objects.*;
 import bgu.spl.mics.application.outputFileCreator;
 
 import java.util.*;
@@ -63,19 +60,20 @@ public class GPUService extends MicroService {
         Callback<TrainModelEvent> instructionsTrain = new Callback<TrainModelEvent>() {
             @Override
             public void call(TrainModelEvent trainModelEvent) {
-                self.currentEvent = trainModelEvent;
+//                self.currentEvent = trainModelEvent;            ///////////////////////////////////////////@@@///////////////////////////
                 if(state == State.Training)
                     awaitingEvents.addLast(trainModelEvent);
-                if(state == State.Testing)
+                else if(state == State.Testing)
                     awaitingEvents.addLast(trainModelEvent);
                 else{   //start processing TrainModelEvent
+                    self.currentEvent = trainModelEvent;        ///////////////////////////////////////////@@@///////////////////////////
                         startTrain();
 //                    System.out.println("STEP 1 : THE MODEL HAS BEGUN TRAINING:   "+trainModelEvent.getModel().getName());    /////////////////////////////////////
                     Model toTrain = trainModelEvent.getModel();
                     myGPU.setModel(toTrain);
                     myGPU.getModel().setStatus("Training"); // change the model status!
                     myGPU.setData(toTrain.getData());
-                    System.out.println("THE MODEL THAT "+ getName() + " START TRAINING IS " + toTrain + " , HIS DATA IS: "+ toTrain.getData());
+                    System.out.println("THE MODEL THAT "+ getName() + " START TRAINING IS " + toTrain.getName());
                     myGPU.divideDataIntoBatches();
                     myGPU.sendUnprocessedData();
                     //start getting processed data
@@ -89,17 +87,17 @@ public class GPUService extends MicroService {
         Callback<TestModelEvent> instructionTest = new Callback<TestModelEvent>() {
             @Override
             public void call(TestModelEvent testModelEvent) {
-                self.currentEvent = testModelEvent;
+//                self.currentEvent = testModelEvent;             ///////////////////////////////////////////@@@///////////////////////////
                 if(state == State.Training){
                     awaitingEvents.addFirst(testModelEvent);
                 }
-                if(state == State.Testing) {
+                else if(state == State.Testing) {
                     awaitingEvents.addFirst(testModelEvent);
                 }
                 else {   //start training TrainModelEvent
+                    self.currentEvent = testModelEvent;             ///////////////////////////////////////////@@@///////////////////////////
                     startTest();
-//                    System.out.println("STEP 3: THE CURRENT MODEL IS BEING TESTED :" + myGPU.getModel().getName());       ////////////////////
-                    startTest();
+                    System.out.println("THE MODEL THAT "+ getName() + " START TESTING IS " + testModelEvent.getModel().getName());     /////////////////////////               startTest();
                     String valueOfTest;
                     Random gen = new Random();
                     int prob = gen.nextInt(100);
@@ -124,6 +122,7 @@ public class GPUService extends MicroService {
                     Model tested = testModelEvent.getModel();
                     tested.setResult(valueOfTest);
                     tested.setStatus("Tested");             // change the model status!
+                    Statistics.counterOfTested.incrementAndGet();       /////////////////////////////////////////@@@?///////////////////////
 
                     complete(testModelEvent , tested);
 //                    System.out.println("STEP 4: THE CURRENT MODEL HAS FINISHED THE TEST :" + myGPU.getModel().getName());//////////////////////////////////////////
@@ -158,10 +157,19 @@ public class GPUService extends MicroService {
 
     }
     public void afterTimeTickAction(Callback instructionsTrain ,Callback instructionTest){
+        if(myGPU.getModel()!=null && myGPU.getModel().getName().equals("VIT")){
+            System.out.println( " THE GPU THAT RUNS VIT STATUS IS: "+ state);               ////////////////////////////////
+        }
         if(state == State.Training){
-            System.out.println("THE MODEL IS BEING TRAINED: "+ myGPU.getModel().getName());    ///////////////////////////////////////
-            System.out.println("BY GPU: " + Thread.currentThread().getName());
+            if(myGPU.getModel().getName().equals("VIT")){
+                System.out.println("THE MODEL IS BEING TRAINED: "+ myGPU.getModel().getName()+" BY GPU: " + Thread.currentThread().getName()+"\n"+
+                        " THE GPU STATUS IS: "+ state +"\n"+
+                        " THE PROCESSED DATA VECTOR SIZE OF VIT IS: "+ myGPU.processedData.size());    ///////////////////////////////////////
+            }
             boolean finished = myGPU.continueTrainData();
+            if(myGPU.getModel().getName().equals("VIT")){               /////////////////////////
+                System.out.println("VIT IS FINISHED? : "+finished);         ////////////////////////////
+            }
             if(finished){
                 myGPU.getModel().setStatus("Trained");         // change the model status!
 //                System.out.println("STATUS IS: "+myGPU.getModel().getStatus());    /////////////////////////////////////
@@ -175,6 +183,10 @@ public class GPUService extends MicroService {
 //            finishTask();           ////////////////////
 
         else{   // current state is NotOccupied
+            if(myGPU.getModel()!=null && myGPU.getModel().getName().equals("VIT")){
+                System.out.println(Thread.currentThread().getName() + " is the gpu"+"\n"
+                +" RUNNING VIT ");
+            }
             if (!awaitingEvents.isEmpty()){
                 Event<Model> toExecute = awaitingEvents.pop();
                 if(toExecute instanceof TrainModelEvent){

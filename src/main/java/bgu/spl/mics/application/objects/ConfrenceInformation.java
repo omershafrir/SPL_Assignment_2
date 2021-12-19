@@ -48,7 +48,12 @@ public class ConfrenceInformation {
     public int getDate() {
         return date;
     }
-
+    public String toString(){
+        String output ="";
+        for(int i=1 ; i< models.size() ; i++)
+            output +="Model number " + i + " : " + models.elementAt(i).getName() + " , ";
+        return output;
+    }
     public void incrementTimer(){
         internalTimer++;
     }

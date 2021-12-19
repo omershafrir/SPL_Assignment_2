@@ -100,7 +100,7 @@ public class main_test {
         MicroService tmpservice444 = new ConferenceService("CONFERENCE3", conferenceArray[2]);
         ConferenceServices[2] = new Thread(tmpservice444);
 
-        TimeService timer = new TimeService(1 , 5500);
+        TimeService timer = new TimeService(1 , 5000);
         Thread clock = new Thread(timer);
 
         studentServices[0].setName("SIMBA");
@@ -139,7 +139,7 @@ public class main_test {
 
         Thread.currentThread().sleep(300);
         studentServices[0].start();
-//        studentServices[1].start();
+        studentServices[1].start();
 
         Thread.currentThread().sleep(300);
         clock.start();
@@ -148,6 +148,8 @@ public class main_test {
         clock.join();
 
         output.Print();
+        for (ConfrenceInformation con : conferenceArray)
+            System.out.println(con.getName() +" : " + con.toString());
         System.out.println();
         System.out.println("Program terminated.");
 

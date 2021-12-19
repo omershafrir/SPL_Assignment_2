@@ -10,7 +10,7 @@
                 {
                     "name": "YOLO10",
                     "type": "Images",
-                    "size": 200000
+                    "size": 20000
                 },
                 {
                     "name": "ResNet9000",
@@ -39,7 +39,7 @@
                 {
                     "name": "VIT",
                     "type": "Images",
-                    "size": 200000
+                    "size": 100000000
                 }
             ]
 

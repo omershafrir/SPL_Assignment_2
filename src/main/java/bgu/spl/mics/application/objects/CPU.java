@@ -104,21 +104,21 @@ public class CPU {
         processedData.removeAllElements();
         unProcessedData = cluster.getUnprocessedData();
         currentGPU = cluster.getUnprocessedDataGPU();
-        System.out.println(); ////////////////////////////////////////////////////////////////
-        System.out.println("UNPROCESSED DATA VECTOR SIZE IS: "+unProcessedData.size()); ///////////////////////////////////////////////////////////////////////
-        System.out.println();   ////////////////////////////////////////////////////////////////
+//        System.out.println(); ////////////////////////////////////////////////////////////////
+//        System.out.println("UNPROCESSED DATA VECTOR SIZE IS: "+unProcessedData.size()); ///////////////////////////////////////////////////////////////////////
+//        System.out.println();   ////////////////////////////////////////////////////////////////
 
     }
 
     public synchronized void finishProcessCurrentBlock() {
 //        System.out.println("PROCESSSSSSSED: "+ processedData.size());   /////////////////////////////
         cluster.addProcessedData(currentGPU, processedData);
-//        synchronized (cluster) {
+        synchronized (cluster) {
             if (cluster.isThereDataToProcess()) {
                 startProcessNextBlock();
                 startProcessNextBatch();
             }
-//        }
+        }
     }
 
     public int processingBatchRequiredTicks(DataBatch batch) {
