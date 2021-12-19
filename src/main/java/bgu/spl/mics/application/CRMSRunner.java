@@ -15,9 +15,9 @@ import java.util.Set;
 public class CRMSRunner {
     public static void main(String[] args) {
         fileReader reader = new fileReader();
-//        String filePath = args[0];//"example_input.json"
-//        reader.readInputFile(filePath);
-        reader.readInputFile("example_input.json");  ////////////////////@@@////////////////////////////////////
+        String filePath = args[0];//"example_input.json"
+        reader.readInputFile(filePath);
+//        reader.readInputFile("example_input.json");  ////////////////////@@@////////////////////////////////////
         outputFileCreator output = outputFileCreator.getInstance();
         /**
          * reading the input file
@@ -120,15 +120,10 @@ public class CRMSRunner {
                 th.interrupt();
             }catch(Exception ex){}
         }
-
-
-
 //        System.out.println(Statistics.getConferencesResults());
-        System.out.println("NUM OF TESTED: "+ Statistics.counterOfTested.intValue());
-        System.out.println("NUM OF DEAD MS: "+ Statistics.counterOfDead.intValue());
-        System.out.println("Program terminated.");
-
-
+//        System.out.println("NUM OF TESTED: "+ Statistics.counterOfTested.intValue());
+//        System.out.println("NUM OF DEAD MS: "+ Statistics.counterOfDead.intValue());
+//        System.out.println("Program terminated.");
         output.generateTheFile();
     }
 }

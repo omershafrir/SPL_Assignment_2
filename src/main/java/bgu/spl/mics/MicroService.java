@@ -191,7 +191,6 @@ public abstract class   MicroService implements Runnable {
             }
         }
         Statistics.counterOfDead.incrementAndGet();                                                       /////////////////@@@//////////////////////////
-        System.out.println(Thread.currentThread().getName()+ " Is dead");       /////////////////@@@//////////////////////////
     }
 
 }

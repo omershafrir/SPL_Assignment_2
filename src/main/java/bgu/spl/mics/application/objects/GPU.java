@@ -31,7 +31,7 @@ public class GPU {
     private final int timeToProcesse;
     private boolean isFinished;
     private Vector<DataBatch> dividedUnprocessedData;
-    public Vector<DataBatch> processedData;                     //////////////////////////////@@@@@@@@@//////////////////////
+    private Vector<DataBatch> processedData;                     //////////////////////////////@@@@@@@@@//////////////////////
     private int currentAvailableMemory;
     private static AtomicInteger totalTicksCounter = new AtomicInteger(0);
     private int currentModelSize;
@@ -109,7 +109,7 @@ public class GPU {
             }
         }
         dividedUnprocessedData = dataBatchVector;
-//        System.out.println(); /////////////////////////////
+
     }
 
     /**
@@ -151,9 +151,6 @@ public class GPU {
             }
             else {                          //current batch is finished
                 if(processedData.get(0).isLast()) {     //last dataBatch from the whole data
-                    if(model.getName().equals("VIT")) {          //////////////////////////////////////@@@@@@@@@/////////////////////
-                        System.out.println("ISLAST: " + processedData.get(0).isLast());  ////////////////////////////////////////////////////
-                    }
                     isFinished = true;
                 }
                 processedData.remove(0);

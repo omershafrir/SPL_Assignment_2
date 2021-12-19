@@ -1,11 +1,19 @@
 {
   "students": [
     {
+      "name": "Timon",
+      "department": "SE",
+      "status": "PhD",
+      "publications": 0,
+      "papersRead": 4,
+      "trainedModels": []
+    },
+    {
       "name": "Nala",
       "department": "Computer Science",
       "status": "PhD",
-      "publications": 0,
-      "papersRead": 1,
+      "publications": 1,
+      "papersRead": 3,
       "trainedModels": [
         {
           "name": "YOLO9000",
@@ -14,30 +22,49 @@
             "size": 100000
           },
           "status": "Tested",
-          "result": "Bad"
+          "result": "Good"
         }
       ]
-    },
-    {
-      "name": "Timon",
-      "department": "SE",
-      "status": "PhD",
-      "publications": 0,
-      "papersRead": 1,
-      "trainedModels": []
     },
     {
       "name": "Simba",
       "department": "Computer Science",
       "status": "PhD",
-      "publications": 1,
-      "papersRead": 0,
+      "publications": 2,
+      "papersRead": 2,
       "trainedModels": [
         {
           "name": "YOLO10",
           "data": {
             "type": "Images",
             "size": 20000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "ResNet9000",
+          "data": {
+            "type": "Images",
+            "size": 200000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "Zazu",
+      "department": "EE",
+      "status": "PhD",
+      "publications": 1,
+      "papersRead": 3,
+      "trainedModels": [
+        {
+          "name": "VIT",
+          "data": {
+            "type": "Images",
+            "size": 100000000
           },
           "status": "Tested",
           "result": "Good"
@@ -49,22 +76,14 @@
       "department": "Computer Science",
       "status": "PhD",
       "publications": 0,
-      "papersRead": 1,
-      "trainedModels": []
-    },
-    {
-      "name": "Zazu",
-      "department": "EE",
-      "status": "PhD",
-      "publications": 0,
-      "papersRead": 1,
+      "papersRead": 4,
       "trainedModels": []
     }
   ],
   "conferences": [
     {
-      "name": "NeurIPS",
-      "date": 53600,
+      "name": "AISTATS",
+      "date": 53000,
       "publications": [
         {
           "name": "YOLO10",
@@ -74,11 +93,92 @@
           },
           "status": "Tested",
           "result": "Good"
+        },
+        {
+          "name": "VIT",
+          "data": {
+            "type": "Images",
+            "size": 100000000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "AISTATS",
+      "date": 53000,
+      "publications": [
+        {
+          "name": "YOLO10",
+          "data": {
+            "type": "Images",
+            "size": 20000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "VIT",
+          "data": {
+            "type": "Images",
+            "size": 100000000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "ECCV",
+      "date": 53800,
+      "publications": [
+        {
+          "name": "YOLO9000",
+          "data": {
+            "type": "Images",
+            "size": 100000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "ResNet9000",
+          "data": {
+            "type": "Images",
+            "size": 200000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "ECCV",
+      "date": 53800,
+      "publications": [
+        {
+          "name": "YOLO9000",
+          "data": {
+            "type": "Images",
+            "size": 100000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "ResNet9000",
+          "data": {
+            "type": "Images",
+            "size": 200000
+          },
+          "status": "Tested",
+          "result": "Good"
         }
       ]
     }
   ],
-  "gpuTimeUsed": 44847,
-  "cpuTimeUsed": 144378,
-  "batchesProcessed": 102120
+  "gpuTimeUsed": 45369,
+  "cpuTimeUsed": 37205,
+  "batchesProcessed": 25570
 }

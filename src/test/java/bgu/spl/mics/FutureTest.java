@@ -24,8 +24,8 @@ public class FutureTest {
 
     @Test
     public void get() throws InterruptedException {
-        //was commented because future return the future value - this method NEVER returns null
-//        assertNull(future.get());
+//        was commented because future return the future value - this method NEVER returns null
+        assertNull(future.get());
         Integer result = 2;
         future.resolve(result);
         assertEquals("Expected: future.get() == result.",future.get(),result);
@@ -33,7 +33,7 @@ public class FutureTest {
 
     @Test
     public void resolve() throws InterruptedException {
-//        assertNull("future is initialized with null",future.get());
+        assertNull("future is initialized with null",future.get());
         Integer result = 2;
         future.resolve(result);
         assertNotNull("future result member should not be null after",future.get());

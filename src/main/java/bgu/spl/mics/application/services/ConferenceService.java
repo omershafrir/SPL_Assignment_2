@@ -57,9 +57,9 @@ public class ConferenceService extends MicroService {
                 if(myConfrence.getInternalTimer() == myConfrence.getDate()){
                     sendBroadcast(new PublishConferenceBroadcast(myConfrence.getModels()));
                     MessageBus msgbus = MessageBusImpl.getInstance();
-                    System.out.println("SENDINDG CONFERENCE! " + myConfrence.getName());    //////////////////////
-                    System.out.println("THE MODELS ARE: "+ myConfrence.getModels());        ////////////////////
-                    System.out.println("THE RESULT PUBLIILSH EVENTS: ");
+//                    System.out.println("SENDINDG CONFERENCE! " + myConfrence.getName());    //////////////////////
+//                    System.out.println("THE MODELS ARE: "+ myConfrence.getModels());        ////////////////////
+//                    System.out.println("THE RESULT PUBLIILSH EVENTS: ");
                     for (PublishResultsEvent resultPublish : myConfrence.getEvents()) {
                         complete(resultPublish, resultPublish.getModel());
                         resultPublish.getModel().publishModel();

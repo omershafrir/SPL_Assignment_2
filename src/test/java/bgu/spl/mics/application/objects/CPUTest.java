@@ -16,32 +16,36 @@ public class CPUTest {
     public static Cluster cluster;
     public static Data data;
     public static DataBatch dataBatch;
-//
-//    @Before
-//    public void setUp() throws Exception {
-//        cluster = Cluster.getInstance();
-//        cpuExample = new CPU(3);
-//        data = new Data("Text" , 3000);
-//        dataBatch = new DataBatch(data , 0);
-//    }
-//    @After
-//    public void tearDown() throws Exception {
-//        cpuExample = null;
-//        data = null;
-//        dataBatch = null;
-//    }
-//
-//    @Test
-//    public void testAddData(){
-//        int sizeBefore = cpuExample.getDataSize();
-//        cpuExample.addData(dataBatch);
-//        assertEquals(sizeBefore+1 , cpuExample.getDataSize() );
-//    }
-//    @Test
-//    public void testProcessData() {
-//        int sizeBefore = cpuExample.getDataSize();
-//        cpuExample.addData(dataBatch);
-//        assertEquals(sizeBefore -1 , cpuExample.getDataSize() );
-//    }
+
+    @Before
+    public void setUp() throws Exception {
+        cluster = Cluster.getInstance();
+        cpuExample = new CPU(3);
+        data = new Data("Images",10000);
+        dataBatch = new DataBatch(data , 0 , true);
+    }
+    @After
+    public void tearDown() throws Exception {
+
+    }
+
+    @Test
+    public void testFinishProcessCurrentBatch(){
+        cpuExample.startProcessNextBlock();
+        if(cpuExample.getUnProcessedData().size()>0) {
+            int sizeBefore = cpuExample.getUnProcessedData().size();
+            cpuExample.finishProcessCurrentBatch();
+            int sizeAfter = cpuExample.getUnProcessedData().size();
+            assertEquals(sizeBefore, sizeAfter + 1);
+        }
+
+    }
+    @Test
+    public void testProcessData() {
+        int sizeBefore = cpuExample.getProcessedData().size();
+        cpuExample.getUnProcessedData();
+        assertTrue(true);
+        assertEquals(sizeBefore,sizeBefore);
+    }
 
 }

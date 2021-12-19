@@ -43,12 +43,6 @@ public class CPU {
         counterOfCPU++;
     }
 
-    /**
-     * @return num of cores
-     */
-    public int getCores() {
-        return cores;
-    }
 
     /**
      * @return cluster
@@ -88,7 +82,6 @@ public class CPU {
         }
     }
 
-    /////////////////////////////////////////////////////////
     public void startProcessNextBatch() {
         processStartTick = internalTimer;
         currentProcessRequiredTime =
@@ -120,7 +113,16 @@ public class CPU {
             }
 //        }
     }
-////////////////////////////////////////////////////////
+
+    public Vector<DataBatch> getUnProcessedData() {
+        return unProcessedData;
+    }
+
+    public Vector<DataBatch> getProcessedData() {
+        return processedData;
+    }
+
+    ////////////////////////////////////////////////////////
     public int processingBatchRequiredTicks(DataBatch batch) {
         int processingTime;
         if (batch.getData().getType().equals(Data.Type.Images))
