@@ -5,6 +5,8 @@ import bgu.spl.mics.application.objects.*;
 import bgu.spl.mics.application.services.*;
 import bgu.spl.mics.fileReader;
 
+import java.util.Scanner;
+
 /** This is the Main class of Compute Resources Management System application. You should parse the input file,
  * create the different instances of the objects, and run the system.
  * In the end, you should output a text file.
@@ -12,7 +14,9 @@ import bgu.spl.mics.fileReader;
 public class CRMSRunner {
     public static void main(String[] args) {
         fileReader reader = new fileReader();
-        reader.readInputFile("example_input.json");  //the input path is starting from the folder of the project!
+//        String filePath = args[0];//"example_input.json"
+//        reader.readInputFile(filePath);
+        reader.readInputFile("example_input.json");  ////////////////////@@@////////////////////////////////////
         outputFileCreator output = outputFileCreator.getInstance();
         /**
          * reading the input file
