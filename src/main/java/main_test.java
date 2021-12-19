@@ -106,6 +106,7 @@ public class main_test {
 
         GPUServices[0].start();
         GPUServices[1].start();
+        GPUServices[2].start();
 
         CPUServices[0].start();
         CPUServices[1].start();
@@ -132,5 +133,7 @@ public class main_test {
         System.out.println("Program terminated.");
 
 
+        System.out.println("_____________________STATS_________________________________");
+        output.generateTheFile();
     }
 }

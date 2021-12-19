@@ -7,10 +7,24 @@
     <list default="true" id="524f37b0-4fdb-4ac4-85a6-472c20232649" name="Changes" comment="?">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example_input.json" beforeDir="false" afterPath="$PROJECT_DIR$/example_input.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/MessageBusImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/CRMSRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/CRMSRunner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Cluster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Cluster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/ConfrenceInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/ConfrenceInformation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/outputFileCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/outputFileCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/TimeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/services/TimeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main_test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main_test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/MessageBusImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/MessageBusImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/CRMSRunner.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/CPU.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/CPU.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Cluster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Cluster.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/ConfrenceInformation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/ConfrenceInformation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/objects/Student.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/outputFileCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/outputFileCreator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/TimeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bgu/spl/mics/application/services/TimeService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/main_test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/main_test.class" afterDir="false" />
     </list>
     <list id="29298c47-51f8-4f9b-8655-7ec60c1a4086" name="Changes by Erez" comment="" />
@@ -20,10 +34,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="omer" />
+    <option name="BRANCH" value="erez" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar!/com/google/gson/JsonElement.class" root0="SKIP_INSPECTION" />
@@ -48,8 +70,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="project.scopes" />
   </component>
-  <component name="RunManager" selected="Application.main_test">
+  <component name="RunManager" selected="Application.CRMSRunner">
     <configuration name="CRMSRunner" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="bgu.spl.mics.application.CRMSRunner" />
       <module name="SPL_Assignment_2" />
@@ -90,8 +113,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.main_test" />
         <item itemvalue="Application.CRMSRunner" />
+        <item itemvalue="Application.main_test" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -108,6 +131,10 @@
       <workItem from="1639683256228" duration="23443000" />
       <workItem from="1639818508839" duration="17310000" />
       <workItem from="1639855585293" duration="4276000" />
+      <workItem from="1639895712547" duration="7864000" />
+      <workItem from="1639926864361" duration="38000" />
+      <workItem from="1639927043475" duration="129000" />
+      <workItem from="1639927250814" duration="5185000" />
     </task>
     <servers />
   </component>
@@ -130,23 +157,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java</url>
-          <line>71</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/CPU.java</url>
           <line>114</line>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/bgu/spl/mics/application/objects/Cluster.java</url>
-          <line>186</line>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1,0 +1,136 @@
+{
+  "students": [
+    {
+      "name": "Timon",
+      "department": "SE",
+      "status": "PhD",
+      "publications": 1,
+      "papersRead": 1,
+      "trainedModels": [
+        {
+          "name": "Percepetron",
+          "data": {
+            "type": "Tabular",
+            "size": 1000000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "Simba",
+      "department": "Computer Science",
+      "status": "PhD",
+      "publications": 1,
+      "papersRead": 1,
+      "trainedModels": [
+        {
+          "name": "YOLO10",
+          "data": {
+            "type": "Images",
+            "size": 200000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "ResNet9000",
+          "data": {
+            "type": "Images",
+            "size": 200000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "LessEfficientNet",
+          "data": {
+            "type": "Images",
+            "size": 20000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "DensestNet",
+          "data": {
+            "type": "Images",
+            "size": 200000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "Zazu",
+      "department": "EE",
+      "status": "PhD",
+      "publications": 0,
+      "papersRead": 2,
+      "trainedModels": [
+        {
+          "name": "VIT",
+          "data": {
+            "type": "Images",
+            "size": 200000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "Nala",
+      "department": "Computer Science",
+      "status": "PhD",
+      "publications": 0,
+      "papersRead": 2,
+      "trainedModels": []
+    },
+    {
+      "name": "Pumba",
+      "department": "Computer Science",
+      "status": "PhD",
+      "publications": 0,
+      "papersRead": 2,
+      "trainedModels": []
+    }
+  ],
+  "conferences": [
+    {
+      "name": "NeurIPS",
+      "date": 25000,
+      "publications": [
+        {
+          "name": "ResNet9000",
+          "data": {
+            "type": "Images",
+            "size": 200000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "CVPR",
+      "date": 30000,
+      "publications": [
+        {
+          "name": "Percepetron",
+          "data": {
+            "type": "Tabular",
+            "size": 1000000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    }
+  ],
+  "gpuTimeUsed": 6143,
+  "cpuTimeUsed": 7719,
+  "batchesProcessed": 4460
+}

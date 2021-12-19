@@ -79,12 +79,12 @@ public class CPU {
             } else ;       // current batch is not finished
         }
         else {       //isnt is the middle of processing
-//            synchronized (cluster) {
+            synchronized (cluster) {
                 if (cluster.isThereDataToProcess()) {   //there is data waiting in the cluster
                     startProcessNextBlock();
                     startProcessNextBatch();
                 } else ;                                //there isnt data waiting in the cluster
-//            }
+            }
         }
     }
     //////////////////////////////////////////////////////SYNC///////////////////////////////////////////////////////////////////////////

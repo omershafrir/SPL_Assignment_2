@@ -209,7 +209,7 @@ public class MessageBusImpl implements MessageBus {
 	 * @post this.isRegistered(m) = true
 	 */
 	@Override
-	public synchronized void register(MicroService m) {
+	public void register(MicroService m) {
 		if(m!=null && !isRegistered(m)){
 //			System.out.println("Register: "+ Thread.currentThread().getName());
 			BlockingQueue<Message> queue = new LinkedBlockingQueue<>();

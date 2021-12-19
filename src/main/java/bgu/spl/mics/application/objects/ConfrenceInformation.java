@@ -33,6 +33,20 @@ public class ConfrenceInformation {
         models.add(model);
     }
 
+    @Override
+    public String toString() {
+        String modelsThatWerePublished = "";
+        for (Model m:
+             models) {
+            modelsThatWerePublished += " "+m.getName();
+        }
+
+
+        return "ConfrenceInformation :" +
+                "the name " + name +
+                ", models that were published are: " + modelsThatWerePublished;
+    }
+
     public Vector<Model> getModels() {
         return models;
     }
