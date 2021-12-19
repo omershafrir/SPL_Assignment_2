@@ -50,6 +50,10 @@ public class ConfrenceInformation {
     }
     public String toString(){
         String output ="";
+
+        for(int i=1 ; i< events.size() ; i++)
+            output +="Model number " + i + " : " + events.elementAt(i).getModel().getName() + " , ";
+
         for(int i=1 ; i< models.size() ; i++)
             output +="Model number " + i + " : " + models.elementAt(i).getName() + " , ";
         return output;

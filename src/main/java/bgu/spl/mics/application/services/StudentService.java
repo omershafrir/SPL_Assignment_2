@@ -72,7 +72,6 @@ public class StudentService extends MicroService {
             public void call(PublishConferenceBroadcast c) {
                     Vector<Model> vecOfModels = c.getModels();
                     for (Model model : vecOfModels){
-                        System.out.println("MODEL: "+model.toString());  //////////////////////////////////
                         if (model.getStudent() .equals(myStudent))
                             myStudent.incrementPublished();
                         else

@@ -181,7 +181,6 @@ public abstract class   MicroService implements Runnable {
             try {
                 Message task = msgbus.awaitMessage(this);
                 Callback instructions;
-//                System.out.println(Thread.currentThread().getName() + " is catching " + task.getClass()); ///////////////////////////////////////
                 if (task instanceof Event<?>){
                     instructions = typeEventToCallback.get(task.getClass());
                 }

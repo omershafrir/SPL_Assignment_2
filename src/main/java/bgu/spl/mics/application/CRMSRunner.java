@@ -6,6 +6,7 @@ import bgu.spl.mics.application.services.*;
 import bgu.spl.mics.fileReader;
 
 import java.util.Scanner;
+import java.util.Set;
 
 /** This is the Main class of Compute Resources Management System application. You should parse the input file,
  * create the different instances of the objects, and run the system.
@@ -112,11 +113,18 @@ public class CRMSRunner {
             clock.join();
         }catch (Exception exz){}
 
+        Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+        for(Thread th : threadSet){
+//            if(th.isAlive())
+            try {
+                th.interrupt();
+            }catch(Exception ex){}
+        }
+
         System.out.println();
         output.Print();
-        for (ConfrenceInformation con : conferenceArray)
-            System.out.println(con.getName() +" : " + con.toString());
-        System.out.println();
+
+        System.out.println(Statistics.getConferencesResults());
         System.out.println("NUM OF TESTED: "+ Statistics.counterOfTested.intValue());
         System.out.println("NUM OF DEAD MS: "+ Statistics.counterOfDead.intValue());
         System.out.println("Program terminated.");

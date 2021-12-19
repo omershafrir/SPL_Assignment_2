@@ -167,7 +167,6 @@ public class Cluster {
 	 * @param processedDataBlock the completed processed data
 	 */
 	public void addProcessedData(GPU gpu,Vector<DataBatch> processedDataBlock){
-		System.out.println("PROCESSED DATA VECTOR SIZE IS: "+processedDataBlock.size()); ///////////////////////////////////////////////
 		Vector<DataBatch> thisGPUWaitingProcessed = GPUToProcessed.get(gpu);
 		thisGPUWaitingProcessed.addAll(processedDataBlock);
 
