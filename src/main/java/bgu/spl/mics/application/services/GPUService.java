@@ -157,8 +157,6 @@ public class GPUService extends MicroService {
 
     }
     public void afterTimeTickAction(Callback instructionsTrain ,Callback instructionTest){
-        if(myGPU.getModel()!=null && myGPU.getModel().getName().equals("VIT")){
-        }
         if(state == State.Training){
             if(myGPU.getModel().getName().equals("VIT")){
             }
@@ -173,14 +171,8 @@ public class GPUService extends MicroService {
         }
 
         // WE WILL NEVER GET A TICK WHILE TESTING BECAUSE TESTING IS INSTANT
-//        if(state == State.Training) ///////////////////////
-//            finishTask();           ////////////////////
 
         else{   // current state is NotOccupied
-            if(myGPU.getModel()!=null && myGPU.getModel().getName().equals("VIT")){
-                System.out.println(Thread.currentThread().getName() + " is the gpu"+"\n"
-                +" RUNNING VIT ");
-            }
             if (!awaitingEvents.isEmpty()){
                 Event<Model> toExecute = awaitingEvents.pop();
                 if(toExecute instanceof TrainModelEvent){

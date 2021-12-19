@@ -184,7 +184,6 @@ public class MessageBusImpl implements MessageBus {
 //				synchronized (eventSubscriptions.get(e.getClass())) {
 					Queue<MicroService> relevent_queue = eventSubscriptions.get(e.getClass());
 					MicroService runner = relevent_queue.remove();
-					System.out.println("I AM RUNNER : " + runner.getName() + " , THAT EXECUTES: " + e.getClass());
 					relevent_queue.add(runner);        //inserting runner immediately at the back of the queue
 					msToQueueMap.get(runner).add(e);
 					eventToFutureMap.put(e, future);

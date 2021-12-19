@@ -117,9 +117,7 @@ public class StudentService extends MicroService {
                     }
                     else if(future.get().getStatus() == "Tested"){
                         myStudent.incrementModelCounter();
-                            if(future.get().getResult() == "Good"){
-                                System.out.println("PUBLISHED!!!"); /////////////////////////////////
-                            PublishResultsEvent publishEvent = new PublishResultsEvent(currentModel);
+                            if(future.get().getResult() == "Good"){PublishResultsEvent publishEvent = new PublishResultsEvent(currentModel);
                             try {
                                 myStudent.setFuture(sendEvent(publishEvent));
                             }catch (NoSuchElementException ex){

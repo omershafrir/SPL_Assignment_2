@@ -55,7 +55,6 @@ public class TimeService extends MicroService{
 			@Override
 			public void run() {
 				currentTime++;
-				System.out.println("Current Time: "+currentTime);
 				synchronized (msgbus) {
 					sendBroadcast(new TickBroadcast());
 				}

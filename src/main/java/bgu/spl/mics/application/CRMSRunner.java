@@ -95,7 +95,7 @@ public class CRMSRunner {
         }
 
         try{
-        Thread.currentThread().sleep(300);}
+        Thread.currentThread().sleep(1000);}
         catch (Exception ex){}
 
         for (int i=0 ;i< studentServices.length ; i++){
@@ -104,7 +104,7 @@ public class CRMSRunner {
         }
 
         try{
-        Thread.currentThread().sleep(300);}
+        Thread.currentThread().sleep(1000);}
         catch(Exception ex){}
 
         clock.start();
@@ -123,17 +123,12 @@ public class CRMSRunner {
 
 
 
-        System.out.println(Statistics.getConferencesResults());
+//        System.out.println(Statistics.getConferencesResults());
         System.out.println("NUM OF TESTED: "+ Statistics.counterOfTested.intValue());
         System.out.println("NUM OF DEAD MS: "+ Statistics.counterOfDead.intValue());
         System.out.println("Program terminated.");
 
 
-        System.out.println("___________________________________");
-
         output.generateTheFile();
-
-        System.out.println();
-        output.Print();
     }
 }

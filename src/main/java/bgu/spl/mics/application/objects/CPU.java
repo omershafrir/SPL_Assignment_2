@@ -103,11 +103,11 @@ public class CPU {
 
     public void startProcessNextBlock() {
         processedData.removeAllElements();
-        /////////////////////////////////////////// unProcessedData = cluster.getUnprocessedData()
-        //////////////////////////////////////////// currentGPU = cluster.getUnprocessedDataGPU();
-        Object[] x= cluster.getUnprocessedData();
-        currentGPU = (GPU) x[0];
-        unProcessedData = (Vector<DataBatch>) x[1];
+        unProcessedData = cluster.getUnprocessedData();
+        currentGPU = cluster.getUnprocessedDataGPU();
+//        Object[] x= cluster.getUnprocessedData();
+//        currentGPU = (GPU) x[0];
+//        unProcessedData = (Vector<DataBatch>) x[1];
 
     }
 

@@ -69,18 +69,16 @@ public class Cluster {
 	 * before function ends
 	 * , @nextTreatedGPU is updated.
 	 */
-	public Object[] getUnprocessedData(){
-		synchronized (this) {
+	public synchronized Vector<DataBatch> getUnprocessedData(){
+//		synchronized (GPUToUnProcessed) {
 		Vector<DataBatch> toProcesse = new Vector<>();
 		Object[] random_output= getRandomGPU();
 		Vector<DataBatch> toUpdate = (Vector<DataBatch>) random_output[1];
 		gpuToSend = (GPU) random_output[0];
-
-		//////////////////test
 //		synchronized (this){
 				//50 was chosen as a relevant size - can be changed
-				if (toUpdate.size() > 2) {
-					for (int i = 0; i < 2; i++) {
+				if (toUpdate.size() > 10) {
+					for (int i = 0; i < 10; i++) {
 						toProcesse.add(toUpdate.remove(i));
 					}
 				} else {
@@ -89,9 +87,10 @@ public class Cluster {
 					}
 				}
 //			}
-			random_output[1] = toProcesse;    ////////added line
-			return random_output;
-		}
+//			random_output[1] = toProcesse;
+//			return random_output;
+			return toProcesse;
+//		}
 	}
 
 	private Object[] getRandomGPU(){
