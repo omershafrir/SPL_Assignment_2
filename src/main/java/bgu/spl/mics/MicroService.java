@@ -1,8 +1,10 @@
 package bgu.spl.mics;
 
+import bgu.spl.mics.application.objects.Statistics;
 import jdk.nashorn.internal.codegen.CompilerConstants;
 
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * The MicroService is an abstract class that any micro-service in the system
@@ -29,6 +31,7 @@ public abstract class   MicroService implements Runnable {
     private MessageBus msgbus;
     private HashMap<Class<? extends Event <?>> , Callback<?>> typeEventToCallback;
     private HashMap<Class<? extends Broadcast> , Callback<?>> typeBroadcastToCallback;
+
 
     /**
      * @param name the micro-service name (used mainly for debugging purposes -
@@ -178,7 +181,6 @@ public abstract class   MicroService implements Runnable {
             try {
                 Message task = msgbus.awaitMessage(this);
                 Callback instructions;
-//                System.out.println(Thread.currentThread().getName() + " is catching " + task.getClass()); ///////////////////////////////////////
                 if (task instanceof Event<?>){
                     instructions = typeEventToCallback.get(task.getClass());
                 }
@@ -191,7 +193,8 @@ public abstract class   MicroService implements Runnable {
                 this.terminated=true;
             }
         }
-
+        Statistics.counterOfDead.incrementAndGet();                                                       /////////////////@@@//////////////////////////
+        System.out.println(Thread.currentThread().getName()+ " Is dead");       /////////////////@@@//////////////////////////
     }
 
 }

@@ -74,6 +74,14 @@ public class main_test {
         MicroService tmpservice22222 = new CPUService("CPU3", CPUArrayDemo[4]);
         CPUServices[4] = new Thread(tmpservice22222);
 
+//        Thread[] GPUServices = new Thread[3];
+//        MicroService tmpservice3 = new GPUService("GPU1", GPUArrayDemo[0]);
+//        GPUServices[0] = new Thread(tmpservice3);
+//        MicroService tmpservice32 = new GPUService("GPU2", GPUArrayDemo[1]);
+//        GPUServices[1] = new Thread(tmpservice32);
+//        MicroService tmpservice34 = new GPUService("GPU3", GPUArrayDemo[2]);
+//        GPUServices[2] = new Thread(tmpservice34);
+
         Thread[] GPUServices = new Thread[3];
         MicroService tmpservice3 = new GPUService("GPU1", GPUArrayDemo[0]);
         GPUServices[0] = new Thread(tmpservice3);
@@ -82,11 +90,17 @@ public class main_test {
         MicroService tmpservice34 = new GPUService("GPU3", GPUArrayDemo[2]);
         GPUServices[2] = new Thread(tmpservice34);
 
-        Thread[] ConferenceServices = new Thread[1];
+
+
+        Thread[] ConferenceServices = new Thread[3];
         MicroService tmpservice4 = new ConferenceService("CONFERENCE1", conferenceArray[0]);
         ConferenceServices[0] = new Thread(tmpservice4);
+        MicroService tmpservice44 = new ConferenceService("CONFERENCE2", conferenceArray[1]);
+        ConferenceServices[1] = new Thread(tmpservice44);
+        MicroService tmpservice444 = new ConferenceService("CONFERENCE3", conferenceArray[2]);
+        ConferenceServices[2] = new Thread(tmpservice444);
 
-        TimeService timer = new TimeService(1 , 5500);
+        TimeService timer = new TimeService(1 , 5000);
         Thread clock = new Thread(timer);
 
         studentServices[0].setName("SIMBA");
@@ -103,6 +117,10 @@ public class main_test {
         CPUServices[4].setName("CPU5");
 
         ConferenceServices[0].setName("CONFERENCE1");
+        ConferenceServices[1].setName("CONFERENCE2");
+        ConferenceServices[2].setName("CONFERENCE3");
+
+        clock.setName("TIMER_THREAD");
 
         GPUServices[0].start();
         GPUServices[1].start();
@@ -114,9 +132,10 @@ public class main_test {
         CPUServices[3].start();
         CPUServices[4].start();
 
-        clock.setName("TIMER_THREAD");
 
         ConferenceServices[0].start();
+        ConferenceServices[1].start();
+        ConferenceServices[2].start();
 
         Thread.currentThread().sleep(300);
         studentServices[0].start();
@@ -129,6 +148,8 @@ public class main_test {
         clock.join();
 
         output.Print();
+        for (ConfrenceInformation con : conferenceArray)
+            System.out.println(con.getName() +" : " + con.toString());
         System.out.println();
         System.out.println("Program terminated.");
 

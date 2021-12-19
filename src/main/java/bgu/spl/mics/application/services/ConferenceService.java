@@ -9,6 +9,7 @@ import bgu.spl.mics.MessageBusImpl;
 import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.objects.ConfrenceInformation;
 import bgu.spl.mics.application.objects.Model;
+import bgu.spl.mics.application.objects.Statistics;
 import bgu.spl.mics.application.outputFileCreator;
 
 /**
@@ -72,7 +73,9 @@ public class ConferenceService extends MicroService {
                         // basically same thing
 //                        resultPublish.getModel().getStudent().incrementPublished();
                     }
+                    Statistics.addConferenceStatistics(myConfrence);
                     msgbus.unregister(self);
+
                 }
             }
         };

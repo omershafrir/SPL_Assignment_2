@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class Future<T> {
 	private boolean isResolved = false;
 	private T value;
-
+	private Object lock;
 
 	/**
 	 * This should be the only public constructor in this class.
@@ -20,6 +20,7 @@ public class Future<T> {
 	public Future() {
 		this.isResolved = false;
 		value = null;
+		lock= new Object();
 	}
 	
 	/**
@@ -35,17 +36,17 @@ public class Future<T> {
 	 * value != null
      */
 	public T get() {
-		if(isResolved){
+		if(isDone()){
 			return value;
 		}
-
-		while(!isResolved) {
-			try{
-				Thread.currentThread().sleep(1000);
-			}catch(Exception exception){}
-
+		synchronized (lock){
+			while(!isDone()){
+				try{
+					lock.wait();
+				}catch(InterruptedException ex){}
+			}
+			return value;
 		}
-		return value;
 	}
 	
 	/**
@@ -60,6 +61,10 @@ public class Future<T> {
 	public void resolve (T result) {
 		isResolved = true;
 		value = result;
+		try{
+			lock.notifyAll();
+		}
+		catch(Exception ex ){}
 	}
 	
 	/**

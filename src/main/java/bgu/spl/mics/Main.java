@@ -16,12 +16,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 public class Main {
 
     public static void main(String[] args) {
-        Thread t = new Thread(() -> System.out.println("JI") );
-        t.start();
-        System.out.println("HI");
-        System.out.println(t.isAlive());
+        Thread t = new Thread(() -> {
+            System.out.println("JI");
+            Thread.currentThread().wait();
+        } );
+        Thread t2 = new Thread(() -> System.out.println("JI") );
+
+        t.
+
     }
 }

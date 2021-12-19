@@ -72,7 +72,6 @@ public class StudentService extends MicroService {
             public void call(PublishConferenceBroadcast c) {
                     Vector<Model> vecOfModels = c.getModels();
                     for (Model model : vecOfModels){
-                        System.out.println("MODEL: "+model.toString());  //////////////////////////////////
                         if (model.getStudent() .equals(myStudent))
                             myStudent.incrementPublished();
                         else
@@ -104,7 +103,7 @@ public class StudentService extends MicroService {
         if(future == null) {
             if (myStudent.getCounterTestedModels() < myModels.length) {
                 TrainModelEvent e = new TrainModelEvent(myModels[myStudent.getCounterTestedModels()], this);
-                System.out.println(Thread.currentThread().getName()+" is sending: "+ e.getClass());        ///////////////////////////////////////////////////////////////////////
+//                System.out.println(Thread.currentThread().getName()+" is sending: "+ e.getClass());        ///////////////////////////////////////////////////////////////////////
                 myStudent.setFuture(sendEvent(e));
             }
         }

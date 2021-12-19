@@ -5,8 +5,8 @@ import bgu.spl.mics.application.objects.*;
 import bgu.spl.mics.application.services.*;
 import bgu.spl.mics.fileReader;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.Scanner;
+import java.util.Set;
 
 /** This is the Main class of Compute Resources Management System application. You should parse the input file,
  * create the different instances of the objects, and run the system.
@@ -15,13 +15,10 @@ import java.util.concurrent.Executors;
 public class CRMSRunner {
     public static void main(String[] args) {
         fileReader reader = new fileReader();
-        reader.readInputFile("example_input.json");  //the input path is starting from the folder of the project!
-
-        /**
-         output file initialization
-         */
+//        String filePath = args[0];//"example_input.json"
+//        reader.readInputFile(filePath);
+        reader.readInputFile("example_input.json");  ////////////////////@@@////////////////////////////////////
         outputFileCreator output = outputFileCreator.getInstance();
-
         /**
          * reading the input file
          */
@@ -50,6 +47,9 @@ public class CRMSRunner {
         Thread[] GPUServices = new Thread[gpuArray.length];
         Thread[] confrencesServices = new Thread[conferenceArray.length];
 
+
+
+
         /**
          * instantiating the micro - services
          */
@@ -75,52 +75,59 @@ public class CRMSRunner {
         /**
          * running the micro-services one after another
          */
+
         Thread clock = new Thread(timer);
-
-
+        clock.setName("Timer");
 
         for (int i=0 ; i < CPUServices.length; i++){
             CPUServices[i].setName("CPU" + i);
             CPUServices[i].start();
         }
+
         for (int i=0 ; i < GPUServices.length ; i++){
             GPUServices[i].setName("GPU" + i);
             GPUServices[i].start();
         }
+
         for(int i=0 ; i < confrencesServices.length ; i++){
             confrencesServices[i].setName(conferenceArray[i].getName());
             confrencesServices[i].start();
         }
 
-        try {
-            Thread.currentThread().sleep(300);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        ExecutorService eStudents = Executors.newFixedThreadPool(studentServices.length);
+        try{
+        Thread.currentThread().sleep(300);}
+        catch (Exception ex){}
+
         for (int i=0 ;i< studentServices.length ; i++){
             studentServices[i].setName(studentArray[i].getName());
-            eStudents.execute(studentServices[i]);
+            studentServices[i].start();
         }
-
-
 
         try{
         Thread.currentThread().sleep(300);}
         catch(Exception ex){}
+
         clock.start();
+
         try {
             clock.join();
         }catch (Exception exz){}
-        output.Print();
+
+        Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+        for(Thread th : threadSet){
+//            if(th.isAlive())
+            try {
+                th.interrupt();
+            }catch(Exception ex){}
+        }
+
         System.out.println();
+        output.Print();
+
+        System.out.println(Statistics.getConferencesResults());
+        System.out.println("NUM OF TESTED: "+ Statistics.counterOfTested.intValue());
+        System.out.println("NUM OF DEAD MS: "+ Statistics.counterOfDead.intValue());
         System.out.println("Program terminated.");
 
-        System.out.println("_____________________PRINT_________________________________");
-        output.Print();
-
-
-        System.out.println("_____________________STATS_________________________________");
-        output.generateTheFile();
     }
 }
