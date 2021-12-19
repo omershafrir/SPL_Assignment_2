@@ -14,12 +14,26 @@ public class Student {
         MSc, PhD
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
     private String name;
     private String department;
     private Degree status;
+
+    public int getPublications() {
+        return publications;
+    }
+
     private int publications;
     private int papersRead;
     private Model[] myModels;
+
+    public int getPapersRead() {
+        return papersRead;
+    }
+
     private int counterTestedModels = 0;
     private Future<Model> future = null;
     private int interalTimer;
@@ -77,6 +91,15 @@ public class Student {
     public void incrementTimer(){
         interalTimer++;
     }
+
+    public Model[] getMyModels() {
+        return myModels;
+    }
+
+    public void setMyModels(Model[] myModels) {
+        this.myModels = myModels;
+    }
+
     @Override
     public String toString() {
         return "Student{" +

@@ -121,13 +121,19 @@ public class CRMSRunner {
             }catch(Exception ex){}
         }
 
-        System.out.println();
-        output.Print();
+
 
         System.out.println(Statistics.getConferencesResults());
         System.out.println("NUM OF TESTED: "+ Statistics.counterOfTested.intValue());
         System.out.println("NUM OF DEAD MS: "+ Statistics.counterOfDead.intValue());
         System.out.println("Program terminated.");
 
+
+        System.out.println("___________________________________");
+
+        output.generateTheFile();
+
+        System.out.println();
+        output.Print();
     }
 }

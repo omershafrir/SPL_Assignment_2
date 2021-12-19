@@ -39,7 +39,7 @@ public class TimeService extends MicroService{
 	@Override
 	protected void initialize() {
 		MessageBus msgbus = MessageBusImpl.getInstance();
-		msgbus.register(this);
+//		msgbus.register(this);
 
 		//callback instructions for TerminateBroadcast
 		Callback<TerminateBroadcast> instructionsForTerminate =
@@ -71,6 +71,7 @@ public class TimeService extends MicroService{
 		sendBroadcast(new TerminateBroadcast());
 		System.out.println("Timer sent termination.");		//////////////////////////////////////
 		globalTimer.cancel();
+		Thread.currentThread().stop();
 	}
 
 }

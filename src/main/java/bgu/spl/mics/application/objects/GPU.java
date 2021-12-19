@@ -80,9 +80,6 @@ public class GPU {
         setData(model.getData());            ///////////////////////@@@@@@@@@/////////////////////////
     }
 
-    public int getCurrentModelSize() {
-        return currentModelSize;
-    }
 
     public void setData(Data data) {
         this.data = data;

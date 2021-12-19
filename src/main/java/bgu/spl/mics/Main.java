@@ -21,13 +21,10 @@ import static java.lang.Thread.sleep;
 public class Main {
 
     public static void main(String[] args) {
-        Thread t = new Thread(() -> {
-            System.out.println("JI");
-            Thread.currentThread().wait();
-        } );
-        Thread t2 = new Thread(() -> System.out.println("JI") );
 
-        t.
+        for (int i=0 ;i<100 ; i++){
+            System.out.println((int)((Math.random())*(10+1)));
+        }
 
     }
 }

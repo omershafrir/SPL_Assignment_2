@@ -64,7 +64,7 @@ public class CPU {
 
     public void afterTickAction() {
         if (isProcessing) {     //in the middle of processing
-            System.out.println(Thread.currentThread().getName() + "IS PROCESSING DATA");
+//            System.out.println(Thread.currentThread().getName() + "IS PROCESSING DATA");
             incrementCounter();
             if (internalTimer ==    //current batch processing finished
                     currentProcessRequiredTime + processStartTick) {
@@ -87,35 +87,40 @@ public class CPU {
             }
         }
     }
-    public synchronized void startProcessNextBatch() {
+
+    /////////////////////////////////////////////////////////
+    public void startProcessNextBatch() {
         processStartTick = internalTimer;
         currentProcessRequiredTime =
                 processingBatchRequiredTicks(unProcessedData.elementAt(0));
         isProcessing = true;
     }
 
-    public synchronized void finishProcessCurrentBatch() {
+    public void finishProcessCurrentBatch() {
         processedData.add(unProcessedData.remove(0));
         isProcessing = false;
     }
 
-    public synchronized void startProcessNextBlock() {
+    public void startProcessNextBlock() {
         processedData.removeAllElements();
-        unProcessedData = cluster.getUnprocessedData();
-        currentGPU = cluster.getUnprocessedDataGPU();
+        /////////////////////////////////////////// unProcessedData = cluster.getUnprocessedData()
+        //////////////////////////////////////////// currentGPU = cluster.getUnprocessedDataGPU();
+        Object[] x= cluster.getUnprocessedData();
+        currentGPU = (GPU) x[0];
+        unProcessedData = (Vector<DataBatch>) x[1];
 
     }
 
-    public synchronized void finishProcessCurrentBlock() {
+    public void finishProcessCurrentBlock() {
         cluster.addProcessedData(currentGPU, processedData);
-        synchronized (cluster) {
+//        synchronized (cluster) {
             if (cluster.isThereDataToProcess()) {
                 startProcessNextBlock();
                 startProcessNextBatch();
             }
-        }
+//        }
     }
-
+////////////////////////////////////////////////////////
     public int processingBatchRequiredTicks(DataBatch batch) {
         int processingTime;
         if (batch.getData().getType().equals(Data.Type.Images))

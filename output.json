@@ -1,171 +1,274 @@
 {
-    "students": [
+  "students": [
+    {
+      "name": "Zazu",
+      "department": "EE",
+      "status": "PhD",
+      "publications": 0,
+      "papersRead": 7,
+      "trainedModels": []
+    },
+    {
+      "name": "Pumba",
+      "department": "Computer Science",
+      "status": "PhD",
+      "publications": 3,
+      "papersRead": 4,
+      "trainedModels": [
         {
-            "name": "Simba",
-            "department": "Computer Science",
-            "status": "MSc",
-            "publications": 0,
-            "papersRead": 3,
-            "trainedModels": [
-                {
-                    "name": "YOLO10",
-                    "data": {
-                        "type": "Images",
-                        "size": 200000
-                    },
-                    "status": "Tested",
-                    "results": "Bad"
-                }
-            ]
+          "name": "Bert",
+          "data": {
+            "type": "Text",
+            "size": 1000000
+          },
+          "status": "Tested",
+          "result": "Good"
         },
         {
-            "name": "Zazu",
-            "department": "EE",
-            "status": "PhD",
-            "publications": 0,
-            "papersRead": 3,
-            "trainedModels": []
+          "name": "GPT4",
+          "data": {
+            "type": "Text",
+            "size": 1000000
+          },
+          "status": "Tested",
+          "result": "Good"
         },
         {
-            "name": "Pumba",
-            "department": "Computer Science",
-            "status": "PhD",
-            "publications": 1,
-            "papersRead": 2,
-            "trainedModels": [
-                {
-                    "name": "Bert",
-                    "data": {
-                        "type": "Text",
-                        "size": 1000000
-                    },
-                    "status": "Tested",
-                    "results": "Good"
-                },
-                {
-                    "name": "GPT4",
-                    "data": {
-                        "type": "Text",
-                        "size": 1000000
-                    },
-                    "status": "Tested",
-                    "results": "Bad"
-                }
-            ]
-        },
-        {
-            "name": "Timon",
-            "department": "SE",
-            "status": "MSc",
-            "publications": 1,
-            "papersRead": 2,
-            "trainedModels": [
-                {
-                    "name": "Percepetron",
-                    "data": {
-                        "type": "Tabular",
-                        "size": 1000000
-                    },
-                    "status": "Tested",
-                    "results": "Good"
-                },
-                {
-                    "name": "GNN",
-                    "data": {
-                        "type": "Tabular",
-                        "size": 1000000
-                    },
-                    "status": "Tested",
-                    "results": "Good"
-                }
-            ]
-        },
-        {
-            "name": "Nala",
-            "department": "Computer Science",
-            "status": "PhD",
-            "publications": 1,
-            "papersRead": 2,
-            "trainedModels": [
-                {
-                    "name": "YOLO9000",
-                    "data": {
-                        "type": "Images",
-                        "size": 100000
-                    },
-                    "status": "Tested",
-                    "results": "Good"
-                },
-                {
-                    "name": "VIT2",
-                    "data": {
-                        "type": "Images",
-                        "size": 1000000
-                    },
-                    "status": "Tested",
-                    "results": "Good"
-                }
-            ]
+          "name": "GPT5",
+          "data": {
+            "type": "Text",
+            "size": 200000
+          },
+          "status": "Tested",
+          "result": "Good"
         }
-    ],
-    "conferences": [
+      ]
+    },
+    {
+      "name": "Timon",
+      "department": "SE",
+      "status": "PhD",
+      "publications": 1,
+      "papersRead": 6,
+      "trainedModels": [
         {
-            "name": "ICML",
-            "date": 20000,
-            "publications": [
-                {
-                    "name": "Percepetron",
-                    "data": {
-                        "type": "Tabular",
-                        "size": 1000000
-                    },
-                    "status": "Tested",
-                    "results": "Good"
-                }
-            ]
-        },
-        {
-            "name": "NeurIPS",
-            "date": 25000,
-            "publications": [
-                {
-                    "name": "YOLO9000",
-                    "data": {
-                        "type": "Images",
-                        "size": 100000
-                    },
-                    "status": "Tested",
-                    "results": "Good"
-                }
-            ]
-        },
-        {
-            "name": "CVPR",
-            "date": 30000,
-            "publications": [
-                {
-                    "name": "Bert",
-                    "data": {
-                        "type": "Text",
-                        "size": 1000000
-                    },
-                    "status": "Tested",
-                    "results": "Good"
-                }
-            ]
-        },
-        {
-            "name": "ECCV",
-            "date": 40000,
-            "publications": []
-        },
-        {
-            "name": "AISTATS",
-            "date": 50000,
-            "publications": []
+          "name": "Percepetron",
+          "data": {
+            "type": "Tabular",
+            "size": 1000000
+          },
+          "status": "Tested",
+          "result": "Good"
         }
-    ],
-    "cpuTimeUsed": 326737,
-    "gpuTimeUsed": 63883,
-    "batchesProcessed": 326737
+      ]
+    },
+    {
+      "name": "Simba",
+      "department": "Computer Science",
+      "status": "PhD",
+      "publications": 0,
+      "papersRead": 7,
+      "trainedModels": []
+    },
+    {
+      "name": "Nala",
+      "department": "Computer Science",
+      "status": "PhD",
+      "publications": 3,
+      "papersRead": 4,
+      "trainedModels": [
+        {
+          "name": "YOLO9000",
+          "data": {
+            "type": "Images",
+            "size": 100000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "VIT2",
+          "data": {
+            "type": "Images",
+            "size": 1000000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "MuchMoreEfficientNet",
+          "data": {
+            "type": "Images",
+            "size": 20000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    }
+  ],
+  "conferences": [
+    {
+      "name": "AISTATS",
+      "date": 53000,
+      "publications": [
+        {
+          "name": "VIT2",
+          "data": {
+            "type": "Images",
+            "size": 1000000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "ICML",
+      "date": 53500,
+      "publications": [
+        {
+          "name": "YOLO9000",
+          "data": {
+            "type": "Images",
+            "size": 100000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "MuchMoreEfficientNet",
+          "data": {
+            "type": "Images",
+            "size": 20000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "ICML",
+      "date": 53500,
+      "publications": [
+        {
+          "name": "YOLO9000",
+          "data": {
+            "type": "Images",
+            "size": 100000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "MuchMoreEfficientNet",
+          "data": {
+            "type": "Images",
+            "size": 20000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "NeurIPS",
+      "date": 53600,
+      "publications": [
+        {
+          "name": "Bert",
+          "data": {
+            "type": "Text",
+            "size": 1000000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "GPT4",
+          "data": {
+            "type": "Text",
+            "size": 1000000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "NeurIPS",
+      "date": 53600,
+      "publications": [
+        {
+          "name": "Bert",
+          "data": {
+            "type": "Text",
+            "size": 1000000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "GPT4",
+          "data": {
+            "type": "Text",
+            "size": 1000000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "CVPR",
+      "date": 53700,
+      "publications": [
+        {
+          "name": "Percepetron",
+          "data": {
+            "type": "Tabular",
+            "size": 1000000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "GPT5",
+          "data": {
+            "type": "Text",
+            "size": 200000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    },
+    {
+      "name": "CVPR",
+      "date": 53700,
+      "publications": [
+        {
+          "name": "Percepetron",
+          "data": {
+            "type": "Tabular",
+            "size": 1000000
+          },
+          "status": "Tested",
+          "result": "Good"
+        },
+        {
+          "name": "GPT5",
+          "data": {
+            "type": "Text",
+            "size": 200000
+          },
+          "status": "Tested",
+          "result": "Good"
+        }
+      ]
+    }
+  ],
+  "gpuTimeUsed": 48421,
+  "cpuTimeUsed": 149296,
+  "batchesProcessed": 104440
 }
